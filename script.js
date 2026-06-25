@@ -1,40 +1,149 @@
 (function () {
 
-  /* ══════════════════════════════════════════
-     1. REVEAL ON SCROLL (original, mantido)
-  ══════════════════════════════════════════ */
+  // =========================
+  // ELEMENTOS IMPORTANTES
+  // =========================
+  const chapters = document.querySelectorAll('.chapter-title, h2[id]');
+  const progressBar = document.getElementById('read-progress');
+  const thread = document.getElementById('thread');
+
+  let lastChapter = null;
+
+  // =========================
+  // 1. REVEAL ON SCROLL
+  // =========================
   const reveals = document.querySelectorAll('[data-reveal]');
-  const thread  = document.getElementById('thread');
-  const ruptures = document.querySelectorAll('.rupture');
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
     });
-  }, { threshold: 0.25, rootMargin: '0px 0px -6% 0px' });
+  }, {
+    threshold: 0.25,
+    rootMargin: '0px 0px -6% 0px'
+  });
 
   reveals.forEach(el => obs.observe(el));
+
+
+  // =========================
+  // 2. SALVAR CAPÍTULO ATUAL
+  // =========================
+  const chapterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id || e.target.textContent.trim();
+        lastChapter = id;
+        localStorage.setItem('lastChapter', id);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  chapters.forEach(c => chapterObserver.observe(c));
+
+
+  // =========================
+  // 3. CONTINUAR LEITURA
+  // =========================
+  function goToLastChapter() {
+    const last = localStorage.getItem('lastChapter');
+    if (!last) return;
+
+    const el = document.getElementById(last);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  window.addEventListener('load', () => {
+    goToLastChapter();
+  });
+
+
+  // =========================
+  // 4. PROGRESSO DE LEITURA
+  // =========================
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+    if (progressBar) {
+      progressBar.style.width = pct + '%';
+    }
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+
+  // =========================
+  // 5. PARALLAX DO THREAD
+  // =========================
+  if (thread) {
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const offset = window.scrollY * 0.08;
+          thread.style.transform = `translateY(${offset}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+
+  // =========================
+  // 6. OCULTAR DICA DE SCROLL
+  // =========================
+  const scrollHint = document.querySelector('.scroll-hint');
+
+  if (scrollHint) {
+    window.addEventListener('scroll', () => {
+      const opacity = Math.max(0, 1 - window.scrollY / 120);
+      scrollHint.style.opacity = opacity;
+      scrollHint.style.pointerEvents = opacity < 0.05 ? 'none' : '';
+    }, { passive: true });
+  }
+
+
+  // =========================
+  // 7. RESTAURAR POSIÇÃO EXATA (opcional)
+  // =========================
+  window.addEventListener('load', () => {
+    const y = localStorage.getItem('scrollY');
+    if (y) window.scrollTo(0, parseInt(y));
+  });
+
+  window.addEventListener('scroll', () => {
+    localStorage.setItem('scrollY', window.scrollY);
+  });
+
+
+  // =========================
+  // 8. THREAD CORES (NIGHT/WARM)
+  // =========================
+  const ruptures = document.querySelectorAll('.rupture');
 
   const bgObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         document.body.style.background = 'var(--dusk)';
-        thread.classList.add('warm');
+        thread?.classList.add('warm');
       } else {
         document.body.style.background = 'var(--night)';
-        thread.classList.remove('warm');
+        thread?.classList.remove('warm');
       }
     });
   }, { threshold: 0.15 });
 
   ruptures.forEach(el => bgObs.observe(el));
 
-
-  /* ══════════════════════════════════════════
-     2. BARRA DE PROGRESSO DE LEITURA
-  ══════════════════════════════════════════ */
-  const progressBar = document.createElement('div');
-  progressBar.id = 'read-progress';
+})();  progressBar.id = 'read-progress';
   Object.assign(progressBar.style, {
     position:      'fixed',
     top:           '0',
