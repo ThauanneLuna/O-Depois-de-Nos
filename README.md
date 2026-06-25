@@ -28,7 +28,7 @@ O foco do projeto é:
 
 # ⚙️ Estrutura Narrativa
 
-```bash
+bash
 POV alternado (Luna / Noah)
 Primeira pessoa
 Romance psicológico
