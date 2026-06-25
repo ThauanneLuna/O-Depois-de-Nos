@@ -1,5 +1,3 @@
-# 🌙 Depois de Nós
-
 <div align="center">
 
 # 💔 Depois de Nós
