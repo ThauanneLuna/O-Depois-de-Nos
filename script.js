@@ -228,3 +228,18 @@
     document.body.style.overflow = '';
   }, 2800);
 })();
+
+let lastChapter = null;
+
+const chapters = document.querySelectorAll('h2, .chapter-title');
+
+const chapterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      lastChapter = e.target.id || e.target.innerText;
+      localStorage.setItem('lastChapter', lastChapter);
+    }
+  });
+}, { threshold: 0.6 });
+
+chapters.forEach(c => chapterObserver.observe(c));
