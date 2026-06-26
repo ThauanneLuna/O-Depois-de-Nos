@@ -303,21 +303,42 @@
   const chapters = document.querySelectorAll('.chapter-title');
   if (!chapters.length) return;
 
-  // Gera itens do menu
-  chapters.forEach((h2, index) => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.textContent = h2.textContent.trim();
-    a.href = `#cap-${index}`;
-    a.dataset.index = index;
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      closeMenu();
-    });
-    li.appendChild(a);
-    list.appendChild(li);
+// Gera itens do menu
+chapters.forEach((h2, index) => {
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  
+  // Nome do capítulo
+  let title = h2.textContent.trim();
+  
+  // Verifica se existe um badge POV nos próximos elementos
+  let pov = '';
+  let sibling = h2.nextElementSibling;
+  let found = false;
+  for (let i = 0; i < 3 && sibling && !found; i++) {
+    if (sibling.classList && sibling.classList.contains('pov-badge')) {
+      pov = sibling.textContent.trim().replace('ponto de vista — ', '');
+      found = true;
+    }
+    sibling = sibling.nextElementSibling;
+  }
+  
+  if (pov) {
+    a.textContent = `${title} (${pov})`;
+  } else {
+    a.textContent = title;
+  }
+  
+  a.href = `#cap-${index}`;
+  a.dataset.index = index;
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    closeMenu();
   });
+  li.appendChild(a);
+  list.appendChild(li);
+});
 
   // Abre/fecha menu
   function openMenu() {
