@@ -535,6 +535,37 @@
   transform: scale(1.03);
 }
 
+/* ── Sinopse ── */
+.sinopse {
+  margin: 4vh 0 6vh;
+  padding: 2rem 0;
+  border-top: 1px solid var(--dusk);
+  border-bottom: 1px solid var(--dusk);
+}
+
+.sinopse h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  color: var(--lantern);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.sinopse p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--paper);
+  margin-bottom: 1.2rem;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.sinopse p:last-child {
+  margin-bottom: 0;
+}
+
 /* ── Tema claro ── */
 .theme-light {
   --night: #f0ece1;
@@ -564,6 +595,9 @@
 .theme-light .modal-box {
   background: var(--night);
   color: var(--paper);
+}
+.theme-light .sinopse {
+  border-color: var(--dusk);
 }
 
 /* ── Responsividade ── */
@@ -610,4 +644,4 @@
   }
   #theme-toggle { top: 12px; right: 12px; }
   #chapters-toggle { top: 12px; left: 12px; }
-}
+    }
