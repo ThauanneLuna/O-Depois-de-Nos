@@ -416,9 +416,9 @@ chapters.forEach((h2, index) => {
   const chapters = document.querySelectorAll('.chapter-title');
   if (!chapters.length) return;
 
-  // Detectar volume atual
+  // Detectar volume atual usando o atributo content
   const meta = document.querySelector('meta[name="volume"]');
-  const currentVolume = meta ? parseInt(meta.dataset.volume) || 1 : 1;
+  const currentVolume = meta ? parseInt(meta.content) || 1 : 1;
 
   function getVolumePath(volumeNum) {
     if (volumeNum === 1) return 'index.html';
@@ -493,7 +493,7 @@ chapters.forEach((h2, index) => {
 
   // Detectar volume atual
   const meta = document.querySelector('meta[name="volume"]');
-  const currentVolume = meta ? parseInt(meta.dataset.volume) || 1 : 1;
+  const currentVolume = meta ? parseInt(meta.content) || 1 : 1;
 
   let isRestoring = false;
 
