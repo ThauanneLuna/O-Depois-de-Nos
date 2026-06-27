@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💔 O Depois de Nós
+# 🥀 O Depois de Nós
 
 ### _Algumas histórias nunca terminam — só esperam recomeçar_
 
