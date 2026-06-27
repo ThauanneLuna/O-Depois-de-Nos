@@ -421,7 +421,8 @@ chapters.forEach((h2, index) => {
   const currentVolume = meta ? parseInt(meta.dataset.volume) || 1 : 1;
 
   function getVolumePath(volumeNum) {
-    return volumeNum === 1 ? 'index.html' : `volume${volumeNum}.html`;
+    if (volumeNum === 1) return 'index.html';
+    return `arco${volumeNum}.html`;
   }
 
   // Para cada capítulo, injetar navegação após seu conteúdo
