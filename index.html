@@ -1950,6 +1950,42 @@
       </div>
     </div>
   </div>
+
+  <!-- ══ BOTÃO PARA O GERADOR DE CRACHÁ ══ -->
+<a href="cracha.html" id="cracha-access-btn" style="
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    background: var(--lantern);
+    color: var(--night);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s, background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+">
+    🏢 Crachá
+</a>
+
+<style>
+    #cracha-access-btn:hover {
+        transform: scale(1.05);
+        background: var(--warmth);
+    }
+    .theme-light #cracha-access-btn {
+        background: var(--lantern);
+        color: var(--night);
+    }
+    .theme-light #cracha-access-btn:hover {
+        background: var(--warmth);
+    }
+</style>
   
 </main>
   
