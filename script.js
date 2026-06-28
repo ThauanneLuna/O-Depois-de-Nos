@@ -425,7 +425,14 @@ chapters.forEach((h2, index) => {
     return `arco${volumeNum}.html`;
   }
 
-  // Para cada capítulo, injetar navegação após seu conteúdo
+  // Função para ir a um capítulo
+  function goTo(index) {
+    if (index < 0 || index >= chapters.length) return;
+    const target = chapters[index];
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Injetar navegação em cada capítulo
   chapters.forEach((h2, index) => {
     const nav = document.createElement('div');
     nav.className = 'chapter-nav';
@@ -436,7 +443,6 @@ chapters.forEach((h2, index) => {
     prevBtn.disabled = index === 0;
     prevBtn.addEventListener('click', () => {
       if (index === 0 && currentVolume > 1) {
-        // Capítulo anterior está no volume anterior (último capítulo)
         window.location.href = getVolumePath(currentVolume - 1);
       } else if (index > 0) {
         goTo(index - 1);
@@ -449,7 +455,10 @@ chapters.forEach((h2, index) => {
     nextBtn.addEventListener('click', () => {
       if (index === chapters.length - 1) {
         // Último capítulo → próximo volume
-        window.location.href = getVolumePath(currentVolume + 1);
+        // Usa setTimeout para garantir que o clique seja processado antes da navegação
+        setTimeout(() => {
+          window.location.href = getVolumePath(currentVolume + 1);
+        }, 100);
       } else {
         goTo(index + 1);
       }
@@ -472,14 +481,10 @@ chapters.forEach((h2, index) => {
       else main.appendChild(nav);
     }
 
+    // Adicionar a classe visible após um pequeno delay para animação
     setTimeout(() => nav.classList.add('visible'), 100);
   });
 
-  function goTo(index) {
-    if (index < 0 || index >= chapters.length) return;
-    const target = chapters[index];
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
 })();
 
 /* ══ SALVAR PROGRESSO DE LEITURA ══ */
