@@ -1,2017 +1,315 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="volume" content="1">
-<title>O Depois de Nós — Parte I</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥀</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Crachá — Vasconcelos Group</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Estilos exclusivos da página ── */
+        .cracha-page {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 8vh 28px 10vh;
+            text-align: center;
+        }
 
-<link rel="stylesheet" href="styles.css">
+        .cracha-page h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            color: var(--lantern);
+            margin-bottom: 0.5rem;
+        }
+
+        .cracha-page .subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--thread);
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+        }
+
+        .cracha-card {
+            background: var(--dusk);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cracha-card img {
+            max-width: 180px;
+            height: auto;
+            display: block;
+        }
+
+        .cracha-card .info {
+            width: 100%;
+            text-align: left;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--paper);
+        }
+
+        .cracha-card .info strong {
+            color: var(--lantern);
+        }
+
+        .cracha-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .cracha-form label {
+            text-align: left;
+            font-family: 'EB Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--thread);
+            letter-spacing: 0.05em;
+        }
+
+        .cracha-form input,
+        .cracha-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--dusk);
+            border-radius: 6px;
+            background: var(--night);
+            color: var(--paper);
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .cracha-form input:focus,
+        .cracha-form select:focus {
+            outline: none;
+            border-color: var(--lantern);
+            box-shadow: 0 0 0 3px rgba(217, 184, 124, 0.2);
+        }
+
+        .cracha-form .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .cracha-form .btn-primary {
+            background: var(--lantern);
+            color: var(--night);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .cracha-form .btn-primary:hover {
+            transform: scale(1.03);
+        }
+
+        .cracha-form .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--dusk);
+            color: var(--paper);
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cracha-form .btn-secondary:hover {
+            background: var(--dusk);
+            color: var(--lantern);
+            border-color: var(--lantern);
+        }
+
+        /* ── Campo de cargo personalizado ── */
+        #cargo-outro-container {
+            display: none;
+        }
+
+        /* ── Tema claro ── */
+        .theme-light .cracha-card {
+            background: var(--dusk);
+        }
+        .theme-light .cracha-form input,
+        .theme-light .cracha-form select {
+            background: var(--night);
+            color: var(--paper);
+            border-color: var(--dusk);
+        }
+    </style>
 </head>
 <body>
 
-<!-- ══ SPLASH SCREEN ══ -->
-<div id="splash">
-  <div class="splash-inner">
-    <p class="splash-sub">uma história de</p>
-    <h1 class="splash-title">O Depois<br><em>de Nós</em></h1>
-    <div class="splash-line"></div>
-    <p class="splash-names">Luna Carvalho &amp; Noah Vasconcelos</p>
-  </div>
-</div>
-
-<div class="thread" id="thread"></div>
-
-<!-- ══ CAPA ══ -->
-<section class="cover-section">
-  <div class="book-cover">
-    <img src="capa.webp" alt="Capa — O Depois de Nós">
-  </div>
-  <div class="cover-tagline">
-    <p>Luna Carvalho &amp; Noah Vasconcelos</p>
-  </div>
-  <span class="scroll-hint">role para começar</span>
-</section>
-
-<main id="book">
-
-<!-- ══ SINOPSE ══ -->
-<section class="sinopse">
-  <h2>Sinopse</h2>
-  <p>Ela passou anos acreditando que foi abandonada.</p>
-  <p>Luna Carvalho cresceu tentando entender o silêncio de Noah Vasconcelos — o melhor amigo que desapareceu da sua vida sem explicação, deixando para trás mais perguntas do que memórias claras.</p>
-  <p>Agora, ela o reencontra.</p>
-  <p>Não em lembranças. Não em histórias antigas. Mas no presente — dentro da empresa onde trabalha como fotógrafa profissional.</p>
-  <p>Noah não é mais o garoto que ela conheceu. Ele é distante, controlado, presente demais para alguém que deveria ter ficado no passado… e perto o suficiente para desestabilizar tudo o que ela acreditava ter superado.</p>
-  <p>Mas o pior não é o reencontro.</p>
-  <p>É perceber que a versão da história que ela carregou por anos pode nunca ter sido completa.</p>
-  <p>E que algumas verdades, quando começam a aparecer, não trazem respostas — trazem rachaduras.</p>
-  <p>Entre mágoas antigas, silêncios que pesam mais do que palavras e uma atração que nunca desapareceu de verdade, Luna vai precisar decidir se ainda pode confiar no que sente…</p>
-  <p>Ou se está prestes a descobrir que nunca conheceu realmente o homem que perdeu.</p>
-</section>
-
-  <!-- ══ CAP 1 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Um</small>
-    Antes de Tudo
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Nunca pensei que gostar de alguém desse tanto trabalho.</p>
-  <p data-reveal>Não falo do tipo de gostar que dá borboleta no estômago e acaba em três meses quando você descobre que a pessoa mastiga de boca aberta. Falo do outro tipo. Daquele que fica. Que se instala em algum lugar atrás das costelas e simplesmente recusa o despejo, mesmo depois de anos, mesmo depois de você ter trocado de cidade, de cabelo, de número de telefone duas vezes.</p>
-  <p data-reveal>Mas isso é assunto pra mais tarde. Antes de qualquer coisa, acho que você merece saber quem eu sou.</p>
-  <p data-reveal>Luna Carvalho, vinte e quatro anos, fotógrafa, nascida e criada em Vancouver, sob uma quantidade de chuva que deveria ser considerada crime ambiental. Sou do tipo de pessoa que jura não acreditar em final feliz e depois chora assistindo, pela décima primeira vez, ao mesmo filme em que o protagonista corre pelo aeroporto. Sou organizada com minhas câmeras e completamente desorganizada com meus sentimentos. E, se você perguntar para qualquer pessoa que me conhece, vai ouvir a mesma frase, dita sempre com um misto de carinho e exasperação:</p>
-  <p class="dialogue" data-reveal>— A Luna guarda tudo.</p>
-  <p data-reveal>Memórias, ingressos de cinema, conversas antigas que eu releio sem motivo nenhum às três da manhã. E, principalmente, pessoas. Eu guardo pessoas de um jeito que nem sempre é saudável, mas que também é a única forma que conheço de amar alguém — inteira, sem parcelar o sentimento, sem pedir desconto.</p>
-  <p data-reveal>Foi assim com o <span class="ember">Noah</span>.</p>
-  <p data-reveal>Eu tinha oito anos quando Stanley Park ainda era, na minha cabeça, território exclusivamente meu. Meu parque, meus gansos, minha trilha favorita perto do lago.</p>
-  <p data-reveal>Eu estava agachada na beira da água, tentando fotografar um grupo de gansos com a câmera descartável que minha mãe tinha acabado de me dar, quando uma voz surgiu do nada, bem atrás de mim, sem pedir licença pra existir.</p>
-  <p class="dialogue" data-reveal>— Você tá segurando errado.</p>
-  <p data-reveal>Quase derrubei a câmera no lago de susto.</p>
-  <p class="dialogue" data-reveal>— Quem te perguntou?</p>
-  <p class="dialogue" data-reveal>— Ninguém. Mas vai sair tudo tremido desse jeito.</p>
-  <p data-reveal>Virei pra encarar o dono daquela voz e dei de cara com um garoto mais alto do que eu, de uns dez anos, parado com os braços cruzados e uma expressão de quem já tinha decidido, antes mesmo de me conhecer, que sabia mais do que eu sobre absolutamente tudo. A primeira coisa que pensei foi: que garoto insuportável.</p>
-  <p class="dialogue" data-reveal>— Eu não pedi sua opinião.</p>
-  <p class="dialogue" data-reveal>— Eu também não esperei você pedir.</p>
-  <p data-reveal>Ficamos ali, nos encarando, os dois irritados, os dois irredutíveis, como se o lago e os gansos fossem testemunhas de um duelo. Então, com a mesma firmeza de quem está fechando um acordo e não fazendo um amigo, ele esticou um pouco o queixo e disse:</p>
-  <p class="dialogue" data-reveal>— Noah.</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-  <p class="dialogue" data-reveal>— Meu nome. Já que você não ia perguntar.</p>
-  <p class="dialogue" data-reveal>— Eu não ia mesmo.</p>
-  <p class="dialogue" data-reveal>— Eu sei. Por isso falei antes.</p>
-  <p data-reveal>Bufei, mas não consegui evitar revidar.</p>
-  <p class="dialogue" data-reveal>— Luna.</p>
-  <p class="dialogue" data-reveal>— Que nome estranho.</p>
-  <p class="dialogue" data-reveal>— Menos estranho do que aparecer do nada corrigindo os outros.</p>
-  <p class="dialogue" data-reveal>— Eu não apareci do nada. Eu sempre tô aqui. Você que nunca tinha reparado.</p>
-  <p data-reveal>Foi assim, com essa força toda — irritação pura dos dois lados, nenhum verniz de gentileza, nomes jogados na mesa como quem assina um contrato — que nasceu a pior e melhor amizade da minha vida.</p>
-  <p data-reveal>Porque o Noah não chegou pedindo licença. Chegou corrigindo. E continuou assim dali em diante, achando que sabia o jeito certo de segurar uma câmera, de atravessar a rua, de empilhar pedrinhas na beira do lago.</p>
-  <p class="dialogue" data-reveal>— Isso não é assim que se segura uma câmera.</p>
-  <p class="dialogue" data-reveal>— Você nem tem câmera, Noah.</p>
-  <p class="dialogue" data-reveal>— Não preciso ter pra saber que você tá segurando errado.</p>
-  <p class="dialogue" data-reveal>— Ninguém pediu sua opinião.</p>
-  <p class="dialogue" data-reveal>— Você nunca pede. Eu só dou assim mesmo.</p>
-  <p data-reveal>E foi assim, basicamente, pelos seis anos seguintes. Eu tentando ignorar a existência dele, ele aparecendo do mesmo jeito inconveniente todo fim de semana, como se Stanley Park fosse pequeno demais pros dois egos que cabiam ali dentro. Eu jurava pra mim mesma que não gostava da companhia dele. Ele jurava, com a mesma convicção irritante, que só aparecia porque "alguém precisava garantir que eu não fizesse besteira sozinha".</p>
-  <p data-reveal>Mentira deslavada, os dois sabíamos.</p>
-  <p data-reveal>Porque, na prática, eu comecei a ir pro parque mais vezes só na esperança de cruzar com ele. E ele — descobri muito depois — começou a inventar desculpa pra passar pelo mesmo caminho, no mesmo horário, fingindo coincidência toda vez.</p>
-  <p data-reveal>Eu o chamava de <span class="whisper">Professor</span>, porque ele vivia corrigindo absolutamente tudo — minha postura, minha gramática, a forma como eu pulava muro. Ele fingia odiar o apelido com tanto empenho que ficou óbvio, desde cedo, que secretamente adorava.</p>
-  <p data-reveal>Ele me chamava de <span class="whisper">Estrela</span>, porque, segundo ele, eu vivia "perdida olhando pro céu como se fosse encontrar resposta lá em cima". Eu fingia odiar também. Mentira. Eu adorava.</p>
-  <p data-reveal>A gente cresceu brigando sobre quem tinha razão em tudo — qual era o melhor caminho até a lanchonete, se gansos eram fofos ou perigosos (são as duas coisas, ponto final), se eu deveria ou não fotografar ele dormindo no gramado, o que eu sempre fazia, porque ele sempre dormia com uma expressão de quem estava extremamente ofendido com a existência da soneca.</p>
-  <p data-reveal>Não sei bem quando a implicância virou outra coisa. Não tem uma data exata. Só sei que, em algum momento entre os onze e os quinze anos, parei de fingir pra mim mesma que não procurava ele em todo lugar que entrava. E então, exatamente quando isso ficou claro demais pra negar, ele se mudou.</p>
-
-  <div class="rupture">
-    <p data-reveal>Sem aviso de verdade. Sem motivo que fizesse sentido pra uma garota de quinze anos.</p>
-    <p data-reveal>Um dia ele estava lá, insuportável e inconveniente do jeito que só ele conseguia ser.</p>
-    <p data-reveal><strong>No outro, tinha ido embora.</strong></p>
-    <p data-reveal>Eu não soube de imediato que era pra sempre. Por semanas, fiquei esperando uma mensagem, um motivo, qualquer coisa que explicasse por que ele simplesmente tinha sumido sem um adeus decente. Eu checava o celular antes de dormir. Inventava desculpas pra passar perto da casa antiga dele, como se isso fosse mudar alguma coisa. Aos poucos — e foi exatamente assim, aos poucos, não de uma vez, o que de certa forma doeu mais — fui entendendo que não viria explicação nenhuma. Que aquele silêncio não era um intervalo. Era o fim.</p>
-    <p data-reveal>Eu não vou mentir dizendo que superei isso direito. Vou só dizer que aprendi a viver ao redor do buraco.</p>
-  </div>
-
-  <p class="dialogue" data-reveal>— LUNA. Terra chamando Luna Carvalho.</p>
-  <p data-reveal>A voz da Emma me trouxe de volta. Eu estava sentada no chão da minha sala, cercada de fotos impressas espalhadas como um tabuleiro de tarô, o celular apoiado contra a perna enquanto eu tentava decidir quais imagens entrariam no meu portfólio novo.</p>
-  <p class="dialogue" data-reveal>— Desculpa. Tava... pensando.</p>
-  <p class="dialogue" data-reveal>— Você "tava pensando" tem cara de quem tava pensando NUM garoto específico que eu não vou nomear porque você fica estranha quando eu nomeio.</p>
-  <p class="dialogue" data-reveal>— Eu não fico estranha.</p>
-  <p class="dialogue" data-reveal>— Luna. Você literalmente mudou de assunto as últimas quatro vezes que eu disse o nome dele.</p>
-  <p data-reveal>Emma é minha melhor amiga desde a faculdade, e se existe uma pessoa no mundo capaz de me conhecer melhor do que eu mesma, é ela. Trabalha com marketing, tem uma overdose crônica de cafeína no sangue e zero paciência para os meus momentos de fuga emocional disfarçados de "ah, deixa pra lá".</p>
-  <p class="dialogue" data-reveal>— Eu só fiquei pensando em fotos antigas — menti, sem muita convicção. — Profissionalmente. Pra portfólio.</p>
-  <p class="dialogue" data-reveal>— Ahã. E essas "fotos antigas profissionais" têm Stanley Park nelas por acaso?</p>
-  <p data-reveal>Eu olhei pra pilha de fotos no chão. Tinha, sim, uma do parque, tirada havia poucos meses, de um casal de idosos andando de mãos dadas perto do mar. Não tinha nada a ver com Noah. Provavelmente. Quer dizer, tudo em Stanley Park tinha um pouquinho a ver com Noah, mas isso era um detalhe que eu não precisava admitir em voz alta.</p>
-  <p class="dialogue" data-reveal>— Eu te odeio um pouco agora — falei.</p>
-  <p class="dialogue" data-reveal>— Você me ama, e a prova disso é que eu vou fingir que não vi você guardando aquele <span class="ember">caderno azul</span> de novo ontem à noite.</p>
-  <p data-reveal>Aquilo me pegou de surpresa, e devo ter feito uma cara estranha, porque ela riu do outro lado da linha.</p>
-  <p class="dialogue" data-reveal>— Eu vi pelo vídeo-chamada, Luna. Relaxa. Eu não vou interrogar você sobre o caderno. De novo.</p>
-  <p data-reveal>O caderno azul. Claro que ela tinha visto.</p>
-  <p data-reveal>Ele estava ali, na minha estante, exatamente onde sempre fica — um pouco surrado, com as bordas amassadas de tanto manuseio, o tipo de objeto que parece banal pra qualquer pessoa que não conheça a história dele. Noah tinha me dado de presente quando eu fiz quinze anos, semanas antes de desaparecer da minha vida. Na época, era só um caderno bonito, com a capa numa cor de céu de fim de tarde.</p>
-  <p data-reveal>Depois que ele se mudou, virou outra coisa. Virou o lugar onde eu coloco tudo que não consigo dizer em voz alta. Frases que começam com "se você ainda estivesse aqui" ou "eu queria ter te perguntado". Memórias que eu releio quando sinto falta de alguém que talvez nem se lembre direito de mim.</p>
-  <p data-reveal>Eu sei. É dramático. Mas, olha, eu sou fotógrafa — literalmente faço carreira tentando guardar instantes que de outra forma desapareceriam. Era inevitável que eu fizesse o mesmo com sentimentos.</p>
-  <p class="dialogue" data-reveal>— Eu gosto do caderno — falei, na defensiva. — Ele não machuca ninguém.</p>
-  <p class="dialogue" data-reveal>— Eu nunca disse que machucava. Só acho engraçado que você ainda tenha esperança guardada numa caderneta surrada de quase dez anos atrás.</p>
-  <p class="dialogue" data-reveal>— Eu não tenho esperança. Tenho... organização emocional.</p>
-  <p class="dialogue" data-reveal>— Isso não existe.</p>
-  <p class="dialogue" data-reveal>— Existe, sim, eu inventei agora.</p>
-  <p data-reveal>Ela riu de novo, daquele jeito alto e sem vergonha que sempre me fazia rir junto, mesmo quando eu não queria.</p>
-  <p class="dialogue" data-reveal>— Tá bom, gênia da organização emocional. Muda de assunto: como tá o trampo? Vendeu aquela série de retratos pro estúdio?</p>
-  <p data-reveal>E ali, finalmente, em terreno seguro, eu relaxei de verdade.</p>
-  <p data-reveal>Fotografia é a única coisa no mundo que faz total sentido pra mim, sem rodeio, sem "talvez", sem caderno azul escondendo segundo significado nenhum. Eu amo o silêncio de segurar a câmera esperando o momento certo. Amo a luz da tarde batendo de um jeito que só dura sete minutos e depois nunca mais é igual. Amo quando alguém olha uma foto que eu tirei e diz "nossa, é exatamente como eu me sinto", porque pra mim não existe elogio maior do que esse.</p>
-  <p class="dialogue" data-reveal>— Vendi três das cinco fotos — respondi, sentindo o orgulho chegar antes mesmo da frase terminar. — E a galeria perguntou se eu tenho mais material pra uma exposição em janeiro.</p>
-  <p class="dialogue" data-reveal>— LUNA. Isso é gigante!</p>
-  <p class="dialogue" data-reveal>— Eu sei! Ainda não acredito.</p>
-  <p class="dialogue" data-reveal>— Você devia comemorar. Sai do apê, bebe um vinho ruim comigo, sei lá.</p>
-  <p class="dialogue" data-reveal>— Talvez. Deixa eu só...</p>
-  <p data-reveal>Foi então que o som de notificação chegou, baixinho, do laptop em cima da mesa de centro. Eu ia ignorar — sério, ia mesmo — mas alguma coisa, talvez instinto, talvez aquele tipo de pressentimento bobo que eu sempre tive desde criança, me fez esticar o braço e abrir o e-mail.</p>
-  <p class="dialogue" data-reveal>— Emma, espera.</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-  <p data-reveal>Eu li o assunto duas vezes antes de processar de verdade.</p>
-  <p data-reveal style="text-align:center; font-style:italic; color:var(--lantern);">Proposta de Colaboração — Campanha de Relançamento de Marca</p>
-  <p class="dialogue" data-reveal>— Emma, eu... acabei de receber um e-mail de uma agência me convidando pra liderar o registro fotográfico de uma campanha. Tipo, a campanha. De uma empresa grande. Eles viram meu trabalho na exposição do museu e pediram especificamente por mim.</p>
-  <p data-reveal>Houve um silêncio do outro lado, daquele tipo dramático que só a Emma sabe fazer.</p>
-  <p class="dialogue" data-reveal>— Que empresa?</p>
-  <p data-reveal>Eu desci o olho pelo texto, o coração batendo um pouco mais rápido do que deveria por causa de um simples e-mail de trabalho.</p>
-  <p class="dialogue" data-reveal>— Não diz aqui ainda. Só fala que é "uma das maiores empresas privadas da cidade" e que vão me explicar tudo numa reunião. Amanhã de manhã.</p>
-  <p class="dialogue" data-reveal>— Luna. Isso pode ser o tipo de trampo que muda carreira.</p>
-  <p class="dialogue" data-reveal>— Eu sei.</p>
-  <p class="dialogue" data-reveal>— Você vai aceitar, né? Diz que vai aceitar.</p>
-  <p data-reveal>Eu olhei pra tela, pra aquele parágrafo formal e cheio de elogios profissionais, sentindo uma mistura estranha de orgulho, nervosismo e uma curiosidade que eu não sabia bem explicar — como se alguma parte de mim já suspeitasse que aquela reunião não seria só sobre fotos.</p>
-  <p data-reveal>Bobagem, provavelmente. Eu sempre tive a tendência de dramatizar as coisas mais simples da vida.</p>
-  <p data-reveal>Mesmo assim, antes de responder o e-mail confirmando minha presença, deixei meus olhos vagarem, sem querer, até a estante onde o <span class="ember">caderno azul</span> descansava.</p>
-  <p class="dialogue" data-reveal>— Vou — falei, mais pra mim mesma do que pra Emma. — Claro que vou.</p>
-  <p data-reveal>E, enquanto digitava a confirmação, senti aquele mesmo formigamento antigo no peito — o mesmo que eu sentia quando era criança e sabia, sem saber exatamente como, que alguma coisa importante estava prestes a acontecer.</p>
-  <p data-reveal>Eu só não fazia ideia de que algumas histórias nunca terminam de verdade. Elas só ficam esperando o momento certo pra recomeçar.</p>
-
-  <!-- ══ CAP 2 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Dois</small>
-    Quase Dez Anos
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Acordei antes do despertador tocar, o que pra mim já é sinal de alarme. Eu durmo como pedra, sempre dormi — é uma das poucas coisas que herdei do meu pai, junto com a teimosia e a incapacidade genética de admitir quando estou errada. Mas naquele dia, às 6h12 da manhã, já estava de olhos abertos, encarando o teto do quarto como se ele tivesse respostas pra alguma pergunta que eu nem sabia formular direito.</p>
-  <p data-reveal><em>É só uma reunião de trabalho</em>, disse pra mim mesma, pela talvez décima vez.</p>
-  <p data-reveal>Levantei, fiz café, derramei café, limpei café, e decidi, num momento de fraqueza, que a melhor forma de lidar com a ansiedade era trocar de roupa três vezes antes das sete da manhã. Acabei ficando com a primeira opção mesmo, o que só prova que ansiedade não serve pra nada além de gastar tempo e cafeína.</p>
-  <p data-reveal>O celular vibrou em cima da pia enquanto eu mexia o café pela quarta vez, sem nenhum motivo real.</p>
-  <p class="dialogue" data-reveal>Emma: bom dia pra quem vai conhecer o futuro chefe hoje 🎉<br>Emma: não é seu chefe ainda, calma<br>Emma: mas pode virar, né<br>Emma: trabalhando lá todo dia, sei lá</p>
-  <p class="dialogue" data-reveal>Eu: Emma, eu literalmente vou tirar fotos de prédio e produto. Não vou "trabalhar lá", vou ENTREGAR um serviço.<br>Emma: ok, workaholic. Boa sorte mesmo. Avisa se a empresa for chique o suficiente pra eu te odiar de inveja<br>Eu: vou avisar</p>
-  <p data-reveal>Sorri pra tela, e por um segundo a ansiedade baixou um pouco. Esse é um dos superpoderes da Emma: ela consegue zoar comigo até a parte ruim do meu cérebro desistir de gritar tão alto.</p>
-  <p data-reveal>Não consegui, porém, ignorar completamente aquele frio esquisito no estômago a caminho do centro. Não era exatamente medo. Era mais parecido com expectativa — aquele tipo de sensação que eu sentia, quando era criança, na véspera de alguma coisa importante, tipo aniversário ou primeiro dia de aula. Como se alguma parte de mim já soubesse que aquele dia ia ser diferente dos outros, mesmo sem nenhum motivo concreto pra acreditar nisso.</p>
-  <p data-reveal>Eu devia ter prestado mais atenção nesse frio no estômago. Geralmente ele sabe de coisas que eu ainda não sei.</p>
-  <p data-reveal>O prédio da Vasconcelos Group ficava bem no coração do centro de Vancouver, um daqueles arranha-céus de vidro espelhado que refletem o céu inteiro quando tem sol e engolem a cidade quando não tem. Naquele dia o céu estava nublado, então o prédio parecia feito da mesma cor cinza de outubro — alto, imponente, e completamente intimidador.</p>
-  <p data-reveal>Fiquei parada na calçada um segundo a mais do que devia, só olhando pra cima, tentando contar quantos andares aquilo tinha. Perdi a conta em algum lugar perto do vigésimo.</p>
-  <p data-reveal><span class="ember">Vasconcelos Group</span>, dizia a placa discreta de metal escovado ao lado da porta giratória, em letras tão elegantes que pareciam desenhadas só pra intimidar gente como eu.</p>
-  <p data-reveal>Vasconcelos. Lembrei, por um segundo bobo, de um garoto chato que eu conheci há mil anos e do qual eu nunca soube de fato o sobrenome — quer dizer, acho que nunca perguntei, ou talvez tenha esquecido, porque quem guarda sobrenome de garoto de dez anos? Sacudi a cabeça. Sobrenome comum o suficiente. Eu não tinha tempo pra ficar inventando coincidência logo no dia mais importante do mês.</p>
-  <p data-reveal>Entrei.</p>
-  <p data-reveal>A recepção tinha pé-direito duplo, piso de mármore tão polido que eu via meu próprio reflexo embaixo dos pés, e um silêncio elegante do tipo que só dinheiro de verdade consegue comprar. Me senti, instantaneamente, como uma intrusa de bota de trilha numa festa de gala — o que tecnicamente não era verdade, porque eu tinha vestido a roupa mais profissional que possuía, mas convenhamos: existe profissional e existe esse nível de profissional.</p>
-  <p class="dialogue" data-reveal>— Luna Carvalho? — perguntou a recepcionista, com um sorriso treinado, do tipo que parece programado por engenheiros de eficiência. — Já estamos te esperando. Vou te dar seu crachá de visitante.</p>
-  <p data-reveal>Recebi um crachá com minha própria foto impressa nele — tirada ali mesmo, trinta segundos antes, e que já me deixou morrendo de vergonha por causa daquela cara de "acabei de acordar", mesmo tendo me arrumado por quase uma hora.</p>
-  <p class="dialogue" data-reveal>— Sala de reuniões fica no vigésimo terceiro andar — ela continuou, me entregando um cartão de acesso. — Alguém vai te receber lá em cima.</p>
-  <p data-reveal>Vigésimo terceiro. Eu tinha perdido a conta justamente nesse andar.</p>
-  <p data-reveal>Entrei no elevador sozinha, e enquanto ele subia, fui me olhando nos espelhos das paredes, multiplicada em ângulos diferentes, tentando convencer essa versão múltipla de mim mesma de que eu merecia estar ali. Que meu trabalho merecia estar ali. Funcionou, mais ou menos, até o décimo oitavo andar, quando o estômago decidiu fazer aquele frio de novo, sem motivo nenhum aparente.</p>
-  <p data-reveal>A porta do vigésimo terceiro andar se abriu pra um espaço completamente diferente da recepção lá embaixo — mais aconchegante, com plantas de verdade, mesas de madeira clara, gente andando rápido com tablets debaixo do braço, como se tivesse nascido pra correr em corredores corporativos. Uma mulher de cabelo curto e sorriso genuíno — finalmente, um sorriso de verdade — veio na minha direção.</p>
-  <p class="dialogue" data-reveal>— Luna! Sou a Priya, coordeno o time de marketing aqui. Que bom finalmente te conhecer pessoalmente, suas fotos são incríveis.</p>
-  <p class="dialogue" data-reveal>— Obrigada — falei, sentindo o nervosismo baixar um décimo de grau. — Fiquei super animada com o convite.</p>
-  <p data-reveal>Ela me apresentou pra mais duas pessoas: Felix, um designer que parecia ter bebido café suficiente pra alimentar uma cidade pequena, e Sofia, uma analista de branding que só me deu um aceno educado antes de voltar pro celular. Conversamos um pouco sobre o projeto enquanto entrávamos numa sala de reuniões enorme, com uma parede inteira de vidro que dava pra uma vista de cortar o fôlego — o centro de Vancouver inteiro e, mais além, uma mancha verde recortada contra o cinza do céu.</p>
-  <p data-reveal><span class="ember">Stanley Park.</span></p>
-  <p data-reveal>Claro que era Stanley Park. Onde mais seria.</p>
-  <p data-reveal>Forcei meu cérebro a parar de procurar significado em tudo e me concentrei em abrir meu portfólio físico, organizar as referências que tinha trazido, fingir que minhas mãos não estavam ligeiramente trêmulas. Era só nervosismo profissional, disse pra mim mesma. Era só a importância do projeto. Era só—</p>
-  <p class="dialogue" data-reveal>— O CEO já vai chegar — anunciou Priya, sentando-se na cabeceira da mesa e organizando uns papéis. — Ele gosta de estar presente nas reuniões iniciais de qualquer parceria criativa nova. Diz que prefere "sentir a energia da coisa" antes de aprovar qualquer coisa.</p>
-  <p data-reveal>Sorri, educada, sem prestar atenção real ao que ela tinha dito. Estava ocupada demais decidindo se devia mostrar primeiro a série em preto e branco ou a colorida.</p>
-  <p data-reveal>E foi exatamente nesse momento de distração — o pior momento possível, claro, porque o universo adora ironia — que a porta da sala se abriu.</p>
-  <p data-reveal>Eu nem cheguei a olhar de imediato. Estava com a cabeça baixa, ajeitando uma prancheta de fotos, ouvindo apenas os sons gerais da sala — cadeiras se ajeitando, alguém limpando a garganta, passos que entravam.</p>
-  <p data-reveal>E então ouvi a voz.</p>
-  <p class="dialogue" data-reveal>— Bom dia a todos. Desculpem o atraso.</p>
-
-  <div class="rupture">
-    <p data-reveal>Foi como se o ar da sala mudasse de densidade.</p>
-    <p data-reveal>Eu conheço aquela voz. Conheço do jeito que se conhece a própria respiração — sem precisar pensar, sem precisar confirmar, porque o corpo já sabe antes da mente alcançar.</p>
-    <p data-reveal>Levantei os olhos devagar. Muito devagar. Como se meu corpo inteiro estivesse tentando me proteger de alguma coisa, adiando o momento de confirmar o que já era óbvio.</p>
-    <p data-reveal>O mundo, por um segundo — ou talvez tenham sido cinco, dez, eu realmente não soube medir — pareceu desacelerar daquele jeito que só acontece nos momentos que a gente vai lembrar pelo resto da vida. As vozes da sala ficaram abafadas, distantes, como se eu estivesse debaixo d'água. Consegui ouvir meu próprio coração, alto demais, batendo num ritmo completamente fora de compasso com o resto daquela manhã banal.</p>
-    <p data-reveal>E ali, parado na cabeceira da mesa, com um terno cinza-escuro impecável, mangas dobradas até o antebraço, estava <span class="ember">Noah</span>.</p>
-    <p data-reveal>Mais alto do que eu lembrava — mas claro, da última vez que o vi ele ainda não tinha parado de crescer. O cabelo castanho-escuro, antes sempre bagunçado pelo vento de Stanley Park, agora cortado de um jeito alinhado, quase severo. Os ombros mais largos, a postura mais ereta, tudo nele parecendo ter sido reconstruído numa versão mais dura, mais adulta, mais distante daquele garoto chato que corrigia minha forma de segurar câmera.</p>
-    <p data-reveal>Mas os olhos eram os mesmos. Verde-avelã, atentos demais, o tipo de olhar que sempre parecia estar um passo à frente de qualquer conversa.</p>
-    <p data-reveal>Por um instante — só um, rápido o suficiente pra que ninguém mais na sala percebesse — alguma coisa atravessou aquele rosto. Não chegou a ser surpresa, exatamente. Foi mais parecido com alguém que vê, de longe, uma tempestade se formando, e sabe, com total certeza, que não tem mais como evitá-la.</p>
-    <p data-reveal>Então desapareceu. Tão rápido que eu quase duvidei de ter visto.</p>
-    <p data-reveal>Fiquei paralisada, a caneta ainda na mão, a prancheta de fotos esquecida no colo, encarando o rosto que eu jurava ter memorizado até o último detalhe e que, mesmo assim, conseguiu me pegar completamente desprevenida.</p>
-    <p data-reveal>Dez anos. Quase dez anos desde a última vez que eu tinha visto esse rosto. E em menos de cinco segundos, todos esses anos pareceram desmoronar pra dentro de mim como se nunca tivessem existido.</p>
-  </div>
-
-  <p class="dialogue" data-reveal>— Noah, essa é a Luna Carvalho, a fotógrafa que vai liderar o registro visual da campanha — disse Priya, com a voz alegre de quem não fazia a menor ideia do terremoto que tinha acabado de provocar. — Luna, esse é o Noah <span class="ember">Vasconcelos</span>, nosso CEO.</p>
-  <p data-reveal>Vasconcelos.</p>
-  <p data-reveal>Claro.</p>
-  <p data-reveal>Óbvio.</p>
-  <p data-reveal>Eu quase ri — daquele jeito de riso nervoso que vem quando a vida decide ser irônica demais pra ser séria.</p>
-  <p class="dialogue" data-reveal>— Vocês já se conhecem? — perguntou Felix, provavelmente notando algo estranho no ar, ou talvez só curioso, sem fazer ideia do que estava perguntando.</p>
-  <p data-reveal>Houve um silêncio breve. Curto demais pra ser estranho pra quem não conhecia a história. Longo demais pra mim.</p>
-  <p class="dialogue" data-reveal>— Nos conhecemos há muito tempo — falei, com a voz mais firme do que eu me sentia, encontrando algum lugar dentro de mim capaz de soar profissional mesmo com o coração tentando sair pela boca.</p>
-  <p class="dialogue" data-reveal>— Crescemos no mesmo bairro — completou Noah, no mesmo tom equilibrado, como se estivesse descrevendo um fato qualquer, sem nenhuma importância especial. — Faz alguns anos que não nos víamos.</p>
-  <p data-reveal>Alguns anos. Como se nove anos coubessem dentro de uma frase tão pequena.</p>
-  <p data-reveal>Felix assentiu, satisfeito com a resposta, e a reunião simplesmente... continuou. Como se nada tivesse acontecido. Como se o chão da sala não tivesse acabado de se abrir embaixo dos meus pés.</p>
-  <p data-reveal>Eu não sei bem como consegui apresentar meu portfólio depois disso. Lembro de falar sobre luz natural, sobre enquadramento, sobre a diferença entre fotografar produto e fotografar pessoas. Lembro de Priya fazendo perguntas, de Sofia anotando alguma coisa, de Felix elogiando uma das minhas séries antigas. Mas tudo aconteceu dentro de uma espécie de névoa distante, porque metade de mim — a metade mais teimosa, mais antiga, mais machucada — estava completamente concentrada em não olhar pra cabeceira da mesa.</p>
-  <p data-reveal>Não funcionou muito bem, devo admitir.</p>
-  <p data-reveal>A cada poucos minutos, meus olhos encontravam os dele, e toda vez ele já estava olhando antes de mim, como se nove anos não tivessem sido o suficiente pra ele aprender a desviar o olhar primeiro.</p>
-  <p data-reveal>A reunião terminou quarenta minutos depois, com promessas de cronograma, contratos a serem assinados pela agência, e um aperto de mão de Priya que durou tempo demais, de tão animada que ela estava com o projeto.</p>
-  <p class="dialogue" data-reveal>— Foi um prazer enorme, Luna. Vamos te mandar os próximos passos por e-mail ainda hoje.</p>
-  <p class="dialogue" data-reveal>— Igualmente — consegui dizer, juntando meu portfólio com uma calma que não condizia em nada com o estado real do meu peito.</p>
-  <p data-reveal>Sofia e Felix saíram primeiro, ainda discutindo algum detalhe técnico de orçamento. Priya foi atender uma ligação no corredor. E então, de repente, de um jeito que pareceu orquestrado demais pra ser coincidência, a sala ficou vazia.</p>
-  <p data-reveal>Só eu.</p>
-  <p data-reveal>E Noah, parado perto da porta, com as mãos nos bolsos, me observando com aquela calma irritante que ele sempre teve — o tipo de calma que faz a outra pessoa se sentir como se estivesse sendo lida por inteiro, página por página.</p>
-  <p class="dialogue" data-reveal>— Você continua atrasado — falei, antes mesmo de decidir falar, porque aparentemente meu cérebro tinha resolvido que aquele era o melhor jeito de lidar com a situação: fingir, com toda a força possível, que nada tinha mudado.</p>
-  <p data-reveal>Ele ergueu uma sobrancelha, e por um segundo — só um segundo — vi alguma coisa que parecia genuinamente surpresa, talvez até um pouco aliviada.</p>
-  <p class="dialogue" data-reveal>— Cheguei três minutos atrasado pra minha própria reunião. Isso é praticamente pontualidade executiva.</p>
-  <p class="dialogue" data-reveal>— Você continua respondão.</p>
-  <p class="dialogue" data-reveal>— Você continua respondendo antes de pensar.</p>
-  <p class="dialogue" data-reveal>— E você continua corrigindo coisas que ninguém pediu pra você corrigir.</p>
-  <p data-reveal>Alguma coisa no rosto dele suavizou, de leve, quase imperceptível, mas eu sempre fui boa em notar os detalhes pequenos — é literalmente meu trabalho. E ali, por um instante, debaixo de toda aquela armadura de terno e cargo executivo, consegui enxergar um pedacinho do garoto chato que eu conheci aos oito anos, comendo sanduíche sozinho num banco de parque.</p>
-  <p class="dialogue" data-reveal>— Faz tempo — ele disse, e a voz dele baixou um tom, perdendo um pouco daquela formalidade que tinha usado a reunião inteira.</p>
-  <p class="dialogue" data-reveal>— Quase dez anos.</p>
-  <p class="dialogue" data-reveal>— Eu sei contar, Luna.</p>
-  <p class="dialogue" data-reveal>— Eu sei que sabe. Você sempre soube tudo.</p>
-  <p data-reveal>Ele quase sorriu. Quase. O suficiente pra eu sentir alguma coisa apertar no peito de um jeito que eu não sentia há muito, muito tempo.</p>
-  <p class="dialogue" data-reveal>— Você ainda fotografa o céu? — perguntou de repente, mudando completamente de assunto, num tom quase baixo demais, quase só pra mim.</p>
-  <p data-reveal>A pergunta me pegou de surpresa. Eu não soube, por um segundo, se ele estava perguntando sobre fotografia ou sobre alguma outra coisa, mais antiga, mais funda.</p>
-  <p class="dialogue" data-reveal>— Sempre — respondi, baixinho.</p>
-  <p data-reveal>Ele assentiu devagar, como se aquilo confirmasse alguma coisa que ele já desconfiava. E então, antes de se virar pra sair, antes de voltar a ser o CEO impecável que tinha entrado naquela sala quarenta minutos antes, ele disse, num tom tão baixo que quase me fez duvidar de ter ouvido direito:</p>
-  <p class="dialogue" data-reveal>— Continua a mesma, <span class="whisper">Estrela</span>.</p>
-  <p data-reveal>E saiu.</p>
-  <p data-reveal>Simples assim. Sem esperar resposta. Sem olhar pra trás.</p>
-  <p data-reveal>Fiquei parada ali, no meio daquela sala enorme de vidro, com Stanley Park visível ao longe pela janela, sentindo aquele apelido reverberar dentro de mim como se ele tivesse acabado de tocar em alguma coisa que eu tinha passado nove anos tentando manter fechada com chave.</p>
-  <p data-reveal style="text-align:center;"><span class="whisper">Estrela.</span></p>
-  <p data-reveal>Ninguém tinha me chamado assim em quase uma década. Eu tinha, sinceramente, começado a achar que jamais ouviria aquela palavra de novo, vinda daquela voz, com aquele peso específico que só ele sabia colocar nela.</p>
-  <p data-reveal>E foi então, parada sozinha naquela sala impecável de vidro e mármore, com o coração batendo de um jeito completamente injusto, que entendi uma coisa que eu definitivamente não estava preparada pra entender:</p>
-  <p data-reveal>Sentir falta do Noah, esses últimos nove anos, tinha sido ruim.</p>
-  <p data-reveal>Mas reencontrá-lo — descobrir que ele continuava exatamente capaz de desestabilizar meu mundo inteiro com uma única palavra — era muito, muito pior.</p>
-
-  <!-- ══ CAP 3 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Três</small>
-    Replay
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Saí do prédio sem lembrar muito bem do caminho até a rua. Lembro do elevador descendo, do crachá de visitante sendo recolhido na recepção, de um "tenha um ótimo dia" educado da mesma recepcionista de sorriso programado de antes. Lembro de atravessar a porta giratória e sentir o ar frio de outubro bater no meu rosto como um tapa de realidade.</p>
-  <p data-reveal>Fiquei parada na calçada um tempo bom demais pra ser normal, só olhando pro prédio, como se ele fosse, de alguma forma, me dar uma explicação que fizesse sentido.</p>
-  <p data-reveal>Não deu.</p>
-  <p data-reveal>Andei seis quarteirões sem rumo nenhum, atravessando ruas sem prestar muita atenção no sinal, até parar na frente de um café qualquer perto do porto, do tipo com fila grande e mesas de madeira maltratada. Entrei, pedi alguma coisa que nem lembro o nome, sentei numa mesa de canto e só então, finalmente, liguei pra Emma.</p>
-  <p data-reveal>Ela atendeu no primeiro toque.</p>
-  <p class="dialogue" data-reveal>— E AÍ? Como foi? Empresa chique o suficiente pra eu morrer de inveja?</p>
-  <p class="dialogue" data-reveal>— Emma.</p>
-  <p data-reveal>Alguma coisa na minha voz deve ter soado estranha, porque ela parou de brincar na hora.</p>
-  <p class="dialogue" data-reveal>— Luna? Tá tudo bem? Você tá com aquela voz de "aconteceu alguma coisa".</p>
-  <p class="dialogue" data-reveal>— Você não vai acreditar.</p>
-  <p class="dialogue" data-reveal>— Te demitiram antes mesmo de começar? Cancelaram o projeto? Fala logo, você tá me deixando nervosa.</p>
-  <p class="dialogue" data-reveal>— É o Noah, Emma.</p>
-  <p data-reveal>Silêncio. Do tipo que eu não costumo associar à Emma, que normalmente já tem resposta pronta antes de eu terminar a frase.</p>
-  <p class="dialogue" data-reveal>— Noah Noah? — ela perguntou, finalmente, baixinho, como se tivesse medo de assustar a pergunta. — O Noah-do-parque-Noah?</p>
-  <p class="dialogue" data-reveal>— O Noah-CEO-da-empresa-que-eu-vou-fotografar Noah.</p>
-  <p class="dialogue" data-reveal>— PARA TUDO.</p>
-  <p class="dialogue" data-reveal>— Eu sei.</p>
-  <p class="dialogue" data-reveal>— PARA. TUDO. AGORA.</p>
-  <p class="dialogue" data-reveal>— Eu SEI, Emma.</p>
-  <p class="dialogue" data-reveal>— Ele é o dono?</p>
-  <p class="dialogue" data-reveal>— CEO. O sobrenome da empresa é o sobrenome dele. Eu literalmente li a placa na entrada e pensei "nome comum o suficiente", como se isso fosse uma desculpa razoável pro universo decidir fazer uma piada cruel comigo.</p>
-  <p data-reveal>Ela ficou quieta por mais um segundo — coisa rara o bastante pra eu sentir que precisava preencher o silêncio.</p>
-  <p class="dialogue" data-reveal>— Ele tava lá, Emma. Entrou na sala, todo terno, todo CEO, e por um segundo eu nem reconheci a voz, só senti ela bater em mim antes de eu erguer os olhos.</p>
-  <p class="dialogue" data-reveal>— Luna. Luna, eu preciso que você respire.</p>
-  <p class="dialogue" data-reveal>— Eu tô respirando.</p>
-  <p class="dialogue" data-reveal>— Você tá falando rápido demais pra alguém que tá respirando direito.</p>
-  <p data-reveal>Respirei. Ou tentei. O café que tinha acabado de chegar esfriava na minha frente, intocado, enquanto eu contava tudo — a recepção intimidadora, o crachá com a foto horrível, Stanley Park visível pela janela como se o universo não tivesse vergonha nenhuma de ser óbvio, a voz dele entrando antes do resto dele, o "Nos conhecemos há muito tempo" que eu consegui dizer com uma calma que não condizia em nada com meu peito.</p>
-  <p data-reveal>E, no final, o "Estrela".</p>
-  <p data-reveal>Quando contei essa parte, Emma soltou um som que não era bem palavra — uma mistura de suspiro e gemido baixo, tipo quem assiste ao final de um filme que sabia que ia doer.</p>
-  <p class="dialogue" data-reveal>— Ele te chamou de Estrela.</p>
-  <p class="dialogue" data-reveal>— Chamou.</p>
-  <p class="dialogue" data-reveal>— Depois de nove anos.</p>
-  <p class="dialogue" data-reveal>— Depois de nove anos, Emma.</p>
-  <p class="dialogue" data-reveal>— Eu vou chorar. Eu, pessoalmente, vou chorar agora, no meu trabalho, na frente do meu computador, porque você não consegue.</p>
-  <p class="dialogue" data-reveal>— Eu também quase chorei. Mas daí lembrei que ele é meu cliente agora e acho que chorar na cabeceira da mesa não é exatamente o tipo de primeira impressão profissional que eu quero deixar.</p>
-  <p class="dialogue" data-reveal>— Justo. Prioridades.</p>
-  <p data-reveal>Ela riu, mas era uma risada mais suave do que a habitual, daquelas que vêm com um quê de cuidado dentro.</p>
-  <p class="dialogue" data-reveal>— Como você tá? — perguntou, sem brincadeira dessa vez.</p>
-  <p data-reveal>E foi exatamente a pergunta errada, porque eu não tinha resposta pronta.</p>
-  <p data-reveal>Fiquei naquele café por quase uma hora depois que desliguei, com o café gelado completamente esquecido, só olhando pela vitrine pra rua, vendo as pessoas passarem com seus guarda-chuvas e seus problemas que provavelmente não envolviam reencontrar, sem aviso nenhum, a pessoa mais importante da própria adolescência.</p>
-  <p data-reveal>Eu devia estar feliz. Era um contrato gigante, do tipo que muda carreira de verdade, do tipo que eu ia sonhar acordada por semanas se tivesse vindo de qualquer outra empresa com qualquer outro CEO desconhecido. Eu tinha treinado a vida inteira pra um trabalho desse tamanho.</p>
-  <p data-reveal>Só que não estava feliz. Estava... tonta. Era a única palavra que conseguia descrever aquilo — uma tontura que não vinha do corpo, vinha de algum lugar mais fundo, tipo quando você sobe escada rápido demais e o mundo demora um segundo a mais pra se firmar de novo no lugar certo.</p>
-  <p data-reveal><em>No que eu fui me meter?</em></p>
-  <p data-reveal>Porque não era só rever Noah uma vez, dizer "oi", sentir o peito apertar e seguir em frente. Era meses. Era um contrato inteiro, reuniões semanais, provavelmente sessões de fotos com ele presente, supervisionando, opinando, sendo exatamente o tipo de pessoa controladora e perfeccionista que sempre foi — só que agora numa versão adulta, numa versão com poder de aprovar ou rejeitar meu trabalho, numa versão que eu não tinha a menor ideia de como lidar.</p>
-  <p data-reveal>Eu passei nove anos construindo uma vida inteira ao redor da ausência dele. Aprendi a não esperar mensagem. Aprendi a passar perto de lugares que me lembravam dele sem sentir o estômago revirar — quase sempre. Aprendi, com o tempo, a guardar tudo num caderno azul em vez de guardar dentro do peito, porque pelo menos assim eu conseguia fechar a capa e colocar na estante.</p>
-  <p data-reveal>E agora, em um único contrato de trabalho, tudo isso simplesmente... desabou. Não devagar, não aos poucos, do jeito que eu tinha aprendido a lidar com perdas. De uma vez. Como uma porta que se abre e bate o vento todo de uma estação inteira na sua cara.</p>
-  <p data-reveal>Eu não sabia se devia ligar pra agência e inventar uma desculpa qualquer pra sair do projeto. Eu não sabia se conseguiria, de verdade, passar meses inteiros perto dele sem que isso me destruísse um pouquinho a cada reunião.</p>
-  <p data-reveal>Mas também sabia — e essa parte era a mais irritante de admitir — que, se alguém me oferecesse agora a chance de cancelar tudo, de nunca mais ter que vê-lo, eu provavelmente diria não.</p>
-  <p data-reveal>Eu não tinha certeza se isso fazia de mim corajosa ou só extremamente teimosa. Conhecendo meu histórico, provavelmente as duas coisas.</p>
-  <p data-reveal>Voltei pra casa andando, porque precisava do frio, precisava do tempo, precisava de alguma coisa que me distraísse da reprise constante que minha cabeça insistia em passar — a porta se abrindo, a voz dele entrando antes do resto, aquele instante mínimo em que alguma coisa cruzou o rosto dele antes de desaparecer atrás daquela calma profissional impecável.</p>
-  <p data-reveal>Foi nisso que fiquei pensando o caminho inteiro, sem nem perceber direito as ruas que estava atravessando.</p>
-  <p data-reveal><em>O que ele sentiu, quando me viu?</em></p>
-  <p data-reveal>Porque eu sabia exatamente o que eu tinha sentido — aquilo não tinha mistério nenhum. Mas ele? Ele, que sempre foi bom demais em esconder qualquer coisa atrás de um comentário sarcástico ou de uma sobrancelha erguida? Eu tinha visto alguma coisa atravessar o rosto dele naquele primeiro segundo, antes de qualquer controle entrar em ação. Não tinha sido surpresa exatamente — surpresa é uma coisa rápida, leve, que passa fácil. Aquilo tinha sido outra coisa. Mais pesado. Mais parecido com alguém que via, de longe, uma tempestade se formando, sabendo que não tinha mais como evitar.</p>
-  <p data-reveal>Será que ele já sabia que eu vinha? Será que tinha visto meu nome na proposta e passado a noite inteira se perguntando a mesma coisa que eu tava me perguntando agora, andando sozinha pelas ruas molhadas de Vancouver?</p>
-  <p data-reveal>Ou será que tinha sido pego completamente de surpresa, igual eu, e só tinha conseguido se recompor mais rápido porque, afinal, ele sempre foi melhor do que eu nisso — em parecer controlado mesmo quando não estava?</p>
-  <p data-reveal>E o "Estrela". Por que ele tinha dito aquilo? Não precisava. Ninguém ia notar a falta, ninguém ia questionar se ele simplesmente tivesse dito "até mais" e saído, profissional, distante, do jeito que toda a reunião sugeria que aquilo devia ser entre nós dois agora.</p>
-  <p data-reveal>Mas ele disse. Baixinho, quase só pra mim, com aquele peso específico que só ele sabia colocar na palavra, como se nove anos não tivessem sido suficientes pra apagar o jeito como ele dizia meu apelido.</p>
-  <p data-reveal>Isso significava alguma coisa? Ou eu tava fazendo exatamente o que sempre fiz — pegar um gesto pequeno e construir em cima dele um castelo inteiro de esperança, do tipo que desaba na primeira brisa mais forte?</p>
-  <p data-reveal>Eu realmente não sabia. E essa incerteza, mais do que qualquer outra coisa naquele dia inteiro, era o que mais me incomodava.</p>
-  <p data-reveal>Cheguei em casa já no fim da tarde, com os pés doendo de tanto andar sem destino e a cabeça ainda girando devagar, num looping que se recusava a desligar. Larguei a bolsa na entrada, tirei os sapatos, e fui direto pra estante do quarto, sem nem pensar de verdade no que estava fazendo — só meu corpo, sabendo exatamente aonde precisava ir.</p>
-  <p data-reveal>Peguei o caderno azul.</p>
-  <p data-reveal>Sentei na cama, com as pernas cruzadas, a capa surrada entre as mãos, e fiquei um tempo só olhando pra ela antes de abrir, como sempre faço, como se o caderno precisasse de um segundo de aviso antes de eu despejar mais uma coisa dentro dele.</p>
-  <p data-reveal>Abri numa página em branco, peguei a caneta que ficava sempre presa no espiral, e escrevi a única frase que conseguia organizar dentro de tanta bagunça:</p>
-
-  <div class="rupture">
-    <p data-reveal style="text-align:center; font-family:'Caveat',cursive; font-size:1.4rem; color:var(--lantern); line-height:2;">Hoje eu vi você de novo. E ainda não sei se isso é a melhor ou a pior coisa que já me aconteceu.</p>
-  </div>
-
-  <p data-reveal>Fiquei olhando pra aquelas palavras por um tempo longo, sentindo o peso de cada uma delas de um jeito que eu não sentia há anos.</p>
-  <p data-reveal>Lá fora, a chuva tinha começado de novo, batendo de leve na janela, do jeito que só chove em Vancouver — sem pressa, sem drama, só constante, como se soubesse que ia continuar caindo por muito, muito tempo.</p>
-  <p data-reveal>Fiquei ali, com o caderno aberto no colo. A chuva continuou.</p>
-  <p data-reveal>Que aquilo — fosse lá o que fosse aquilo — só estava começando.</p>
-
-  <!-- ══ CAP 4 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Quatro</small>
-    O Erro de Cálculo
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Noah</div>
-
-  <p data-reveal>Eu gosto de surpresas.</p>
-  <p data-reveal>Normalmente.</p>
-  <p data-reveal>Surpresas costumam significar oportunidades. Contratos inesperados. Concorrentes que subestimam a velocidade com que a gente se move. Problemas que todo mundo trata como crise e eu trato como margem de manobra.</p>
-  <p data-reveal>É assim que funciona.</p>
-  <p data-reveal>Luna Carvalho não era o tipo de surpresa que entra nessa categoria. E quando entrei naquela sala e vi aqueles olhos castanhos me encarando do outro lado da mesa, a única coisa que consegui pensar foi:</p>
-  <p data-reveal style="text-align:center; font-style:italic; color:var(--dusk);">ótimo. Perfeito. Excelente administração de risco, Noah.</p>
-  <p data-reveal>Vi o nome dela na proposta da agência três dias antes.</p>
-  <p data-reveal><em>Luna Carvalho. Fotógrafa. Portfólio anexo.</em></p>
-  <p data-reveal>Abri o portfólio porque sempre abro, porque não aprovo nada sem conhecer, porque delegar sem verificar é o tipo de coisa que afunda empresa em seis meses e eu não passei os últimos quatro anos construindo esse negócio pra ver isso acontecer por descuido.</p>
-  <p data-reveal>O trabalho era bom. Parei numa foto do porto de Vancouver, voltei, olhei de novo. Tinha aquela coisa específica de luz que não se aprende em curso — ou você enxerga ou não enxerga. Aprovei o nome na lista antes de ligar o sobrenome ao resto.</p>
-  <p data-reveal>Carvalho.</p>
-  <p data-reveal>Levei talvez dois segundos. Dois segundos pra o cérebro completar a conexão e me deixar parado na frente do computador como um idiota.</p>
-  <p data-reveal>Podia ter trocado. Falar que o perfil não encaixava mais na direção criativa, dar qualquer motivo vago, Priya não questionaria. Teria sido a decisão mais limpa.</p>
-  <p data-reveal>Não troquei.</p>
-  <p data-reveal>Vou deixar isso aqui sem análise por enquanto, porque toda vez que começo a analisar chego numa conclusão que não me agrada.</p>
-
-  <div class="rupture">
-    <p data-reveal>Durante anos eu ensaiei como seria reencontrá-la.</p>
-    <p data-reveal>Diferentes versões. Diferentes contextos. Eu na posição de controle, ela aparecendo de surpresa, eu reagindo com a exata quantidade de distância necessária pra deixar claro que nove anos são nove anos e a vida seguiu em frente pras duas partes envolvidas.</p>
-    <p data-reveal>Era um bom plano.</p>
-    <p data-reveal>A realidade foi, como de costume, completamente indiferente ao meu planejamento.</p>
-    <p data-reveal>Entrei na sala já falando, já lendo o ambiente — Priya com a postura de quem está animada com o projeto, Felix com a caneta na mão, Sofia no celular. Normal. Conhecido. Gerenciável.</p>
-    <p data-reveal>E então o meu olhar chegou até ela.</p>
-    <p data-reveal>Cabelo um pouco mais comprido do que eu lembrava. A câmera na bolsa ao lado da cadeira, do tipo que ela sempre carregava como se fosse extensão do próprio braço. E quando ergueu os olhos — porque ela nunca foi do tipo de desviar primeiro, nunca na vida, é uma teimosia específica que eu suspeitava ser genética — eram os mesmos de sempre.</p>
-    <p data-reveal>Castanho-escuro. Diretos. Sem cerimônia.</p>
-    <p data-reveal>Por dentro, algo que eu mantinha organizado há nove anos titubeou.</p>
-    <p data-reveal>Só titubeou. Registrei. Arquivei. Continuei.</p>
-  </div>
-
-  <p class="dialogue" data-reveal>— Bom dia a todos. Desculpem o atraso.</p>
-  <p data-reveal>Minha voz saiu exatamente como devia. Neutro, presente, profissional. Nenhuma fissura. Nenhuma evidência.</p>
-  <p data-reveal>Sentei na cabeceira e avaliei a situação com a frieza de quem tem exatamente zero opções melhores disponíveis: Luna Carvalho estava do outro lado da mesa com um portfólio nas mãos, eu tinha assinado o contrato de parceria com a agência dela, e sair da própria reunião sem motivo razoável seria o tipo de coisa que circularia como fofoca pelo andar inteiro até o fim da tarde.</p>
-  <p data-reveal>Então fiquei.</p>
-  <p data-reveal>Passei meia hora administrando dois processos paralelos: participar de uma reunião e fingir que a participação era total.</p>
-  <p data-reveal>O trabalho dela era ainda melhor ao vivo do que no portfólio. Apresentava as fotos sem vender — só mostrava, como se fosse óbvio que aquilo era bom, como se quem não enxergasse que procurasse seus próprios óculos. Priya fez as perguntas certas. Felix tomou notas. Eu fiz as perguntas técnicas nos momentos adequados.</p>
-  <p data-reveal>E, completamente sem querer, continuei notando coisas que não estavam na pauta.</p>
-  <p data-reveal>O nariz franzido quando Felix sugeriu um enquadramento — menos de um segundo, mas estava lá. Ninguém mais na sala pegou.</p>
-  <p data-reveal>Os braços cruzados quando Sofia fez uma pergunta sobre prazo.</p>
-  <p data-reveal>O jeito que ela segurava a caneta.</p>
-  <p data-reveal>Informação inútil. Arquivada no lugar errado. Continuei.</p>
-  <p data-reveal>Quando a sala foi esvaziando, eu devia ter saído junto. Era o movimento lógico, era o movimento correto, era o que qualquer pessoa com um mínimo de autopreservação teria feito.</p>
-  <p data-reveal>Fiquei.</p>
-  <p data-reveal>Não por nenhuma razão que eu esteja disposto a documentar.</p>
-  <p data-reveal>Ela estava juntando o portfólio quando percebeu que a sala tinha ficado só nós dois. Vi o momento exato em que processou isso — um segundo de pausa, as mãos parando no movimento, e então continuando como se nada.</p>
-  <p data-reveal>Ela sempre foi boa em fingir que estava bem.</p>
-  <p data-reveal>Eu sempre soube quando não estava.</p>
-  <p class="dialogue" data-reveal>— Você continua atrasado — ela disse, antes de virar.</p>
-  <p data-reveal>Não esperava isso.</p>
-  <p data-reveal>Devia ter esperado — é exatamente o tipo de coisa que ela diria, é o jeito que ela sempre funcionou, atacar antes de defender como se ofensiva fosse a única postura que conhecia. Mas ainda assim me pegou, e por um segundo fiquei só olhando pra ela, processando.</p>
-  <p data-reveal>E então, sem que eu pudesse fazer absolutamente nada a respeito, senti alguma coisa dentro do peito afrouxar.</p>
-  <p data-reveal>Só um pouco. O suficiente pra ser inconveniente.</p>
-  <p class="dialogue" data-reveal>— Cheguei três minutos atrasado pra minha própria reunião — respondi. — Isso é praticamente pontualidade executiva.</p>
-  <p class="dialogue" data-reveal>— Você continua respondão.</p>
-  <p class="dialogue" data-reveal>— Você continua respondendo antes de pensar.</p>
-  <p class="dialogue" data-reveal>— E você continua corrigindo coisas que ninguém pediu pra você corrigir.</p>
-  <p data-reveal>Havia um sorriso tentando aparecer. Não deixei. Mas foi por pouco — e o "por pouco" é a parte que me preocupou, porque eu normalmente tenho muito mais controle sobre a musculatura facial do que isso.</p>
-  <p data-reveal>O que eu podia dizer era que a dinâmica voltou sem pedir licença, igual sempre fez, como se nove anos fossem um detalhe de logística e não uma quantidade real de tempo em que as duas pessoas envolvidas tinham se tornado completamente outras. A implicância estava lá, intacta, esperando do lado de fora da sala como se soubesse que ia precisar entrar mais cedo ou mais tarde.</p>
-  <p data-reveal>Não sei se isso era bom ou péssimo. Provavelmente as duas coisas.</p>
-  <p class="dialogue" data-reveal>— Faz tempo — ouvi a minha própria voz dizer, num tom que ficou mais baixo do que eu planejava.</p>
-  <p data-reveal>Não planejava dizer aquilo de jeito nenhum. Já estava acontecendo.</p>
-  <p class="dialogue" data-reveal>— Quase dez anos — ela respondeu.</p>
-  <p class="dialogue" data-reveal>— Eu sei contar, Luna.</p>
-  <p class="dialogue" data-reveal>— Eu sei que sabe. Você sempre soube tudo.</p>
-  <p data-reveal>Havia algo nessa última frase. Não era um elogio — o tom dela nunca foi de elogio quando dizia aquilo, nem quando tinha quinze anos. Era mais parecido com uma acusação embrulhada em ironia, do tipo que ela usava quando estava magoada mas não queria dar o braço a torcer.</p>
-  <p data-reveal>Registrei. Não toquei.</p>
-  <p data-reveal>Havia nove anos embaixo daquela conversa que eu não podia abrir. Cada frase que a gente trocava estava em cima de uma camada de coisas que ela não sabia e que eu não podia explicar — não agora, não assim, não no primeiro dia de um contrato de trabalho que ainda nem tinha sido assinado. Ela ainda acreditava na versão mais simples da história. Garoto some. Sem explicação. Ela concluiu o que qualquer pessoa razoável concluiria.</p>
-  <p data-reveal>A verdade não era essa.</p>
-  <p data-reveal>Nunca foi.</p>
-  <p data-reveal>Mas colocar isso em cima da mesa agora seria o tipo de má decisão que normalmente consigo identificar e desviar com bastante antecedência. Então guardei. Controlei. Mantive o perímetro.</p>
-  <p data-reveal>E então ela perguntou:</p>
-  <p class="dialogue" data-reveal>— Você ainda fotografa o céu?</p>
-  <p data-reveal>Não estava pronto pra essa pergunta.</p>
-  <p data-reveal>Devia estar — devia ter mapeado todas as direções possíveis que aquela conversa podia tomar e preparado resposta pra cada uma. Não mapeei. Erro de planejamento. A pergunta chegou e ficou parada no ar entre a gente por um segundo, estranha e familiar ao mesmo tempo, e antes que eu pudesse processar direito, ela já havia respondido a própria pergunta com a minha:</p>
-  <p class="dialogue" data-reveal>— Sempre — ela disse, baixinho. Como se fosse óbvio.</p>
-  <p data-reveal>Sempre.</p>
-  <p data-reveal>Uma palavra. Sete letras. Completamente devastadora na forma mais silenciosa possível.</p>
-  <p data-reveal>Assenti. Não porque era a resposta mais inteligente, mas porque era a única coisa que eu tinha disponível naquele segundo específico.</p>
-  <p data-reveal>E então — e essa é a parte que me incomoda mais quando paro pra pensar, porque representa uma falha técnica séria no que deveria ser um sistema de controle funcional — o apelido escapou.</p>
-
-  <div class="rupture">
-    <p class="dialogue" data-reveal>— Continua a mesma, <span class="whisper">Estrela</span>.</p>
-    <p data-reveal>Saí antes que ela respondesse.</p>
-    <p data-reveal>Movimento correto.</p>
-    <p data-reveal>Tardio demais, mas correto.</p>
-    <p data-reveal>Fiquei no escritório até o andar esvaziar.</p>
-    <p data-reveal>Hábito antigo. O silêncio ajuda a organizar o que o dia comprime. Normalmente funciona.</p>
-    <p data-reveal>Naquela noite fiquei olhando pro skyline sem processar nada de útil, o que tecnicamente é o oposto de organizar, mas tudo bem, às vezes o sistema precisa de um momento de travamento antes de voltar a funcionar direito.</p>
-    <p data-reveal>Em algum momento afrouxei a gravata. Tirei o relógio.</p>
-    <p data-reveal>Meu olhar caiu para o pulso.</p>
-    <p data-reveal>Preto. Gasto. Ridiculamente velho pra qualquer critério razoável de quando descartar alguma coisa.</p>
-    <p data-reveal>Eu devia ter jogado fora anos atrás.</p>
-    <p data-reveal>Não consegui.</p>
-    <p data-reveal>Nenhuma das vezes que tentei.</p>
-    <p data-reveal>Passei o polegar por cima uma vez, rápido, e voltei a olhar pro skyline.</p>
-  </div>
-
-  <p data-reveal>Amanhã tinha reunião de orçamento às oito. Call com Lisboa às dez. Três contratos pendentes de revisão.</p>
-  <p data-reveal>E Luna Carvalho assinando parceria com a Vasconcelos Group nos próximos dias.</p>
-  <p data-reveal>Coloquei o relógio de volta.</p>
-  <p data-reveal>Desliguei o computador.</p>
-  <p data-reveal>E fui embora tentando, sem muito sucesso, parar de ouvir a própria voz dizendo <span class="whisper">Estrela</span> naquela sala vazia.</p>
-
-    <!-- ══ CAP 5 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Cinco</small>
-    Quando a Chuva Escolhe
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Eu tinha um plano.</p>
-
-  <p data-reveal>Era um plano bom. Simples, funcional, com zero margem pra variável emocional: chegar, fazer meu trabalho com a competência que levei anos construindo, e tratar Noah Vasconcelos com a exata mesma cordialidade profissional que eu trataria qualquer outro cliente que eu nunca tivesse conhecido aos oito anos numa discussão sobre gansos.</p>
-
-  <p data-reveal>Um plano excelente.</p>
-
-  <p data-reveal>Durou até o elevador.</p>
-
-  <p data-reveal>As paredes espelhadas me devolveram uma versão de mim que parecia mais confiante do que eu me sentia. Melhor assim.</p>
-
-  <p class="dialogue" data-reveal>— Você consegue — disse pro meu próprio reflexo.</p>
-
-  <p data-reveal>Meu reflexo não pareceu convencido. Justa a ceticismo.</p>
-
-  <p data-reveal>Priya me esperava no corredor com um tablet, um café e aquele sorriso genuíno que eu já estava começando a reconhecer como marca registrada dela — o tipo de pessoa que na verdade gosta do próprio trabalho, o que em ambiente corporativo é tão raro quanto sol em Vancouver em outubro.</p>
-
-  <p class="dialogue" data-reveal>— Bom dia! Hoje é o primeiro dia de levantamento dos espaços. Noah vai acompanhar a manhã, então vocês vão ter chance de alinhar a direção visual antes de começar a fotografar de verdade.</p>
-
-  <p data-reveal><em>Noah vai acompanhar a manhã.</em></p>
-
-  <p class="dialogue" data-reveal>— Ótimo — falei, com a voz mais neutra que possuía.</p>
-
-  <p data-reveal>O estúdio parecia ter encolhido quando entrei. Noah estava de pé perto de uma mesa coberta de plantas baixas e referências fotográficas impressas, uma caneca de café ao lado, óculos finos apoiados no nariz enquanto lia alguma coisa. Os óculos eram novos. Ou novos pra mim, pelo menos. Não deveriam ser relevantes. Não eram. Totalmente irrelevantes.</p>
-
-  <p class="dialogue" data-reveal>— Luna — ele disse, sem tirar os olhos do papel por exatamente dois segundos antes de erguer a cabeça.</p>
-
-  <p class="dialogue" data-reveal>— Noah — respondi, no mesmo tom.</p>
-
-  <p data-reveal>A gente ficou assim por um momento, medindo a distância entre o que éramos antes e o que precisávamos ser agora. Então ele gesticulou pras plantas baixas e disse, com a voz de quem não vai desperdiçar o dia:</p>
-
-  <p class="dialogue" data-reveal>— Separei os quatro espaços que entram na campanha. Quero ouvir o que você acha antes de definir o roteiro de captação.</p>
-
-  <p data-reveal>Profissional. Direto. Sem abertura pra nada que não fosse trabalho.</p>
-
-  <p data-reveal><em>Tá bom, pensei. Dois podem jogar esse jogo.</em></p>
-
-  <p data-reveal>Me aproximei, coloquei a bolsa na cadeira, e comecei a analisar as plantas com a mesma seriedade que ele estava usando. Era um bom espaço. Vários, na verdade — o prédio principal, a ala de co-working reformada, a fachada externa, e um espaço de evento no térreo que tinha uma entrada de luz natural absolutamente perfeita que provavelmente ninguém da equipe de marketing tinha notado ainda.</p>
-
-  <p class="dialogue" data-reveal>— Essa entrada aqui — apontei pro térreo. — A luz da tarde vai ser extraordinária por volta das três. Dependendo do dia, mas se for o que estou imaginando vai ser a melhor tomada do projeto inteiro.</p>
-
-  <p data-reveal>Ele olhou onde eu tinha apontado. Silêncio de alguns segundos — o tipo de silêncio que com Noah nunca foi incômodo, era só processamento, eu sabia disso desde que tinha nove anos.</p>
-
-  <p class="dialogue" data-reveal>— Como você chegou nisso olhando pra uma planta baixa?</p>
-
-  <p class="dialogue" data-reveal>— Orientação do prédio, proporção da abertura, horário do sol em Vancouver em outubro. — Encolhi os ombros. — É matemática mais intuição. Aprendi com os erros.</p>
-
-  <p data-reveal>Ele ficou me olhando por um segundo mais do que era necessário pra uma resposta profissional. Voltou pras plantas sem dizer nada.</p>
-
-  <p data-reveal><em>Anotei mentalmente: não fazer mais nenhuma observação que possa ser interpretada como impressionante. Foco.</em></p>
-
-  <p data-reveal>Passamos a manhã percorrendo os espaços com Priya tomando nota e um rapaz do time de comunicação filmando referência em vídeo. Noah vinha junto, sempre um passo atrás, observando mais do que falando — o que, aprendi em menos de uma hora, era infinitamente mais perturbador do que se ele ficasse opinando sobre tudo o tempo inteiro.</p>
-
-  <p data-reveal>Porque quando Noah fica quieto e observa, você começa a se perguntar o que ele está vendo.</p>
-
-  <p data-reveal>No espaço de co-working, passei uns vinte minutos testando ângulos com a câmera, procurando o enquadramento que equilibrasse a arquitetura moderna com a textura humana que o espaço precisava ter pra não virar catálogo de imobiliária. Testei da janela, da entrada, de cima de uma cadeira que puxei sem pensar muito — o que provavelmente não foi a atitude mais elegante do mundo, mas quando estou buscando ângulo eu paro de me preocupar com dignidade.</p>
-
-  <p class="dialogue" data-reveal>— Você sempre faz isso? — a voz de Noah veio de algum lugar atrás.</p>
-
-  <p class="dialogue" data-reveal>— Fazer o quê?</p>
-
-  <p class="dialogue" data-reveal>— Subir em coisas.</p>
-
-  <p data-reveal>Desci da cadeira, virei pra encará-lo. Ele estava encostado no batente da porta com os braços cruzados e uma expressão que não era exatamente sorriso, mas era parente próximo.</p>
-
-  <p class="dialogue" data-reveal>— Quando preciso. Tem algum problema?</p>
-
-  <p class="dialogue" data-reveal>— Nenhum. Só atualizando o banco de dados.</p>
-
-  <p class="dialogue" data-reveal>— Perdão?</p>
-
-  <p class="dialogue" data-reveal>— Algumas coisas mudam em nove anos. Outras não. — Descruzou os braços, olhou pro teto. — A proporção dessa altura vai funcionar melhor se você fotografar do corredor lá fora com a porta aberta. Vai conseguir a profundidade sem precisar subir em nada.</p>
-
-  <p data-reveal>Eu detestei que ele estava certo. Testei do corredor. Estava certo. Não falei isso em voz alta. Mas acho que ele sabia — havia um quê de satisfação muito bem controlada no jeito que ele foi andando pro próximo espaço sem esperar comentário.</p>
-
-  <p class="dialogue" data-reveal>— Você virou chato corporativo — falei, acompanhando ele pelo corredor.</p>
-
-  <p class="dialogue" data-reveal>— Eu sempre fui chato. Só adicionei o corporativo.</p>
-
-  <p class="dialogue" data-reveal>— Pelo menos você tem autoconsciência.</p>
-
-  <p class="dialogue" data-reveal>— Sempre tive. Você que demorava a reconhecer.</p>
-
-  <p class="dialogue" data-reveal>— Eu reconhecia. Eu só não ia te dar a satisfação de admitir.</p>
-
-  <p data-reveal>Ele parou na frente da próxima porta, colocou a mão na maçaneta, e me olhou por cima do ombro com aquela expressão que em algum lugar entre os dez e os dezessete anos eu tinha aprendido a traduzir como <em>você acabou de me dar exatamente a resposta que eu esperava.</em></p>
-
-  <p class="dialogue" data-reveal>— Algumas coisas realmente não mudam — disse, e abriu a porta.</p>
-
-  <p data-reveal>Entrei fingindo que aquilo não tinha acertado em nada.</p>
-
-  <p data-reveal>O almoço foi em grupo — Priya, Felix, Sofia, eu e Noah numa mesa de reunião com marmitas e cronograma aberto no laptop. Fiquei do lado oposto a ele, o que era estratégico e também completamente óbvio.</p>
-
-  <p data-reveal>Foi no meio de uma explicação sobre temperatura de cor que percebi que Noah tinha parado de mexer no celular. Não disse nada. Só estava ouvindo. Havia no rosto dele uma expressão que não soube bem nomear — não era surpresa, não era a avaliação analítica de CEO que ele tinha usado pela manhã. Era uma coisa mais quieta. Mais velha, de alguma forma. O tipo de expressão que aparece quando alguém vê uma coisa que já conhecia e está confirmando que continua a mesma.</p>
-
-  <p data-reveal>Desviei o olhar antes que ele percebesse que eu tinha notado.</p>
-
-  <p data-reveal><em>Foco.</em></p>
-
-  <p data-reveal>A tarde foi de levantamento técnico. Priya saiu mais cedo pra uma reunião, Felix foi com ela, Sofia desapareceu depois das três. Quando a sessão de fotos começou de verdade no espaço principal, eu estava focada em capturar a luz certa, ajustando o ângulo da câmera pela décima vez — enquanto o som dos cliques era a única coisa que mantinha minha mente longe do fato de que Noah estava a poucos metros, analisando os monitores com aquela postura impecável de quem passou os últimos dez anos se acostumando com ela.</p>
-
-  <p class="dialogue" data-reveal>— O contraste na terceira foto está muito agressivo, Luna — a voz dele veio de trás, baixa e sem qualquer traço de emoção.</p>
-
-  <p data-reveal>Eu nem precisei olhar pra saber que ele estava com as mãos nos bolsos da calça social, a postura rígida de sempre.</p>
-
-  <p class="dialogue" data-reveal>— Não está agressivo, Noah. Está dramático. É o conceito da marca — respondi, sem tirar os olhos do visor. — Ou você esqueceu que a <span class="ember">Vantage</span> vende estilo de vida, não apenas produtos?</p>
-
-  <p data-reveal>Ouvi um som que poderia ser um suspiro ou um princípio de riso contido.</p>
-
-  <p class="dialogue" data-reveal>— Não esqueci. Mas o seu "conceito dramático" vai fazer o cliente parecer que está saindo de um filme de terror, não de um catálogo de moda.</p>
-
-  <p data-reveal>Virei-me, finalmente encarando-o. Ele sustentou meu olhar com aquela calma irritante.</p>
-
-  <p class="dialogue" data-reveal>— Se você acha que sabe mais sobre fotografia do que eu, a câmera está à sua disposição — desafiei, arqueando uma sobrancelha.</p>
-
-  <p class="dialogue" data-reveal>— Eu sei exatamente o que você faz — ele disse, dando um passo na minha direção. — Você tenta compensar a falta de profundidade do cenário com o contraste. É um truque antigo seu.</p>
-
-  <p data-reveal>Senti uma pontada de irritação, mas também uma faísca de nostalgia que tentei enterrar imediatamente. Ele ainda se lembrava dos meus truques.</p>
-
-  <p class="dialogue" data-reveal>— É um recurso técnico, não um truque. E, se me dá licença, tenho uma campanha pra entregar.</p>
-
-  <p data-reveal>Às quatro da tarde, sem que nenhum de nós dois tivesse planejado isso, sobrou eu e Noah no espaço do térreo — exatamente o que eu tinha apontado na planta baixa pela manhã, com a luz entrando pela abertura exatamente do jeito que eu tinha imaginado.</p>
-
-  <p data-reveal>Eu estava fotografando. Ele estava parado encostado na parede, café na mão, olhando.</p>
-
-  <p class="dialogue" data-reveal>— Eu tinha razão — falei, sem tirar o olho do visor. — Sobre a luz.</p>
-
-  <p class="dialogue" data-reveal>— Nunca disse que não tinha.</p>
-
-  <p class="dialogue" data-reveal>— Você fez aquela cara.</p>
-
-  <p class="dialogue" data-reveal>— Eu não fiz cara nenhuma.</p>
-
-  <p class="dialogue" data-reveal>— Noah. — Abaixei a câmera, virei pra ele. — Você fez aquela cara. A cara de "estou avaliando se isso procede antes de concordar".</p>
-
-  <p data-reveal>Ele ficou quieto por um segundo.</p>
-
-  <p class="dialogue" data-reveal>— É uma cara eficiente.</p>
-
-  <p class="dialogue" data-reveal>— É uma cara irritante.</p>
-
-  <p class="dialogue" data-reveal>— As duas coisas podem ser verdade simultaneamente.</p>
-
-  <p data-reveal>Voltei pra câmera. Ouvi, muito levemente, o som de alguém tentando não rir. Fingi não ter ouvido. Mas senti aquele calor inconveniente subindo pelo pescoço que aparece quando você está tentando ficar sério e o mundo inteiro está recusando cooperar.</p>
-
-  <p data-reveal>Trabalhei por mais uns vinte minutos enquanto a luz ia mudando — aquele dourado que Vancouver só faz em outubro, raro e perfeito, que dura exatamente o tempo que você tem pra aproveitá-lo antes de sumir.</p>
-
-  <p data-reveal>Quando abaixei a câmera de vez, olhei pro espaço, satisfeita do jeito silencioso que só acontece quando alguma coisa saiu exatamente como devia.</p>
-
-  <p class="dialogue" data-reveal>— Foram boas — disse Noah, de onde ainda estava encostado.</p>
-
-  <p class="dialogue" data-reveal>— Foram ótimas — corrigi, automático.</p>
-
-  <p class="dialogue" data-reveal>— Eu disse boas.</p>
-
-  <p class="dialogue" data-reveal>— Eu sei o que você disse. Eu vi as fotos, eu sei que foram ótimas.</p>
-
-  <p class="dialogue" data-reveal>— Tá bem. Foram ótimas.</p>
-
-  <p class="dialogue" data-reveal>— Obrigada.</p>
-
-  <p class="dialogue" data-reveal>— De nada.</p>
-
-  <p data-reveal>Silêncio. O tipo confortável — o que era um problema em si, porque silêncio confortável com Noah nunca foi neutro. Era o tipo de silêncio que a gente sempre teve quando não havia mais nada pra brigar e o que sobrava era só a presença um do outro.</p>
-
-  <p data-reveal>Guardei a lente devagar, pra ter alguma coisa pra fazer com as mãos.</p>
-
-  <p class="dialogue" data-reveal>— Luna.</p>
-
-  <p data-reveal>Ergui os olhos. Ele estava me olhando com aquela atenção direta que nunca aprendeu a ser discreta, os óculos levemente descidos no nariz de tanto dia de leitura, e havia uma pergunta no rosto dele que ele não estava fazendo em voz alta.</p>
-
-  <p class="dialogue" data-reveal>— Você vai ser boa nesse projeto — disse, por fim. Simples. Sem elaboração.</p>
-
-  <p class="dialogue" data-reveal>— Eu sei — respondi, com a mesma simplicidade.</p>
-
-  <p data-reveal>Ele quase sorriu. Quase sempre. Como se o sorriso inteiro fosse uma concessão que ele decidiu parar de fazer em algum ponto dos últimos nove anos e agora só deixasse aparecer em frações.</p>
-
-  <p data-reveal>Peguei a bolsa. Me preparei pra ir embora.</p>
-
-  <p class="dialogue" data-reveal>— Amanhã — ele disse, já virando pra sair também — você vai querer testar a fachada norte pela manhã. Antes das dez, enquanto o sol não virou.</p>
-
-  <p data-reveal>Parei. Olhei pra ele.</p>
-
-  <p class="dialogue" data-reveal>— Como você sabe disso?</p>
-
-  <p class="dialogue" data-reveal>— Orientação do prédio. Proporção da abertura. Horário do sol em Vancouver em outubro. — Uma pausa mínima. — É matemática mais intuição.</p>
-
-  <p data-reveal>Estava me devolvendo minhas próprias palavras. Palavra por palavra. Tom por tom. Ele saiu antes que eu conseguisse responder, e ouvi, no corredor, o som inconfundível de alguém que estava, finalmente, sorrindo de verdade.</p>
-
-  <p data-reveal>Fiquei parada ali por um segundo a mais do que precisava, sentindo uma coisa irritante e específica que reconheci imediatamente porque já havia sentido antes, muitas vezes, nas tardes de parque de quando eu tinha doze anos: a sensação de que Noah Vasconcelos me conhecia melhor do que qualquer pessoa tinha direito de conhecer alguém depois de nove anos de silêncio absoluto.</p>
-
-  <p data-reveal>Quando finalmente me virei pra sair, o céu de Vancouver já estava denso, quase preto. A chuva começou como um aviso e, em segundos, transformou-se em um dilúvio violento.</p>
-
-  <p class="dialogue" data-reveal>— Droga — praguejei, correndo pra proteger a câmera.</p>
-
-  <p data-reveal>Tentei sair rápido, mas o vento estava tão forte que a chuva entrava lateralmente pela porta de serviço. Em menos de um minuto, eu estava ensopada. Meu cabelo colava no rosto, minha blusa fina pesava, e eu tremia — não apenas pelo frio repentino, mas pela frustração de ter sido pega desprevenida depois de um dia que eu achei que tinha controlado razoavelmente bem.</p>
-
-  <p data-reveal>Corri pra marquise da entrada lateral, o único lugar coberto por perto.</p>
-
-  <p data-reveal>E lá estava ele.</p>
-
-  <div class="rupture">
-    <p data-reveal>Noah estava parado, perfeitamente seco, olhando pro relógio enquanto esperava o carro. Ele se virou quando me ouviu chegar, ofegante e pingando água.</p>
-    <p data-reveal>Os olhos dele percorreram meu estado deplorável.</p>
-    <p data-reveal>Por um segundo, vi algo ali.</p>
-    <p data-reveal>Preocupação.</p>
-    <p data-reveal>Mas desapareceu antes que eu tivesse certeza.</p>
-
-    <p class="dialogue" data-reveal>— Você parece um gato de rua — ele comentou, com um meio sorriso que não chegava aos olhos.</p>
-
-    <p class="dialogue" data-reveal>— Engraçado. Eu quase perdi uma lente de cinco mil dólares por causa dessa chuva, então guarde suas observações pro conselho administrativo.</p>
-
-    <p class="dialogue" data-reveal>— Você é teimosa demais pro seu próprio bem, Luna. Deveria ter saído quando a equipe saiu.</p>
-
-    <p class="dialogue" data-reveal>— Eu trabalho quando o trabalho precisa ser feito. Não sou paga pra seguir horários de escritório.</p>
-
-    <p data-reveal>Ele deu um passo à frente.</p>
-    <p data-reveal>O perfume dele chegou primeiro.</p>
-    <p data-reveal><em>Limpo.</em></p>
-    <p data-reveal><em>Familiar.</em></p>
-    <p data-reveal>Dei um passo pra trás.</p>
-    <p data-reveal><em>Não ajudou.</em></p>
-
-    <p class="dialogue" data-reveal>— Você está tremendo — ele disse, o tom agora mais grave.</p>
-    <p class="dialogue" data-reveal>— Eu estou bem. É só um pouco de água.</p>
-    <p class="dialogue" data-reveal>— Você está azul.</p>
-    <p class="dialogue" data-reveal>— Eu disse que estou bem, Noah. Não preciso de ajuda.</p>
-
-    <p data-reveal>Ele não respondeu. Apenas continuou me encarando enquanto eu cruzava os braços sobre o peito, tentando conter o tremor que teimava em sacudir meus ombros. Ele parecia estar travando uma batalha interna, os músculos do maxilar contraídos.</p>
-
-    <p data-reveal>De repente, ele tirou o blazer cinza impecável.</p>
-
-    <p class="dialogue" data-reveal>— O que você está fazendo? — perguntei, recuando um passo.</p>
-    <p class="dialogue" data-reveal>— Não vou ficar aqui parado vendo você pegar uma pneumonia por puro orgulho.</p>
-    <p class="dialogue" data-reveal>— Eu não quero o seu casaco!</p>
-    <p class="dialogue" data-reveal>— Luna, cala a boca — ele disse, num tom que não admitia discussão.</p>
-
-    <p data-reveal>Antes que eu pudesse protestar novamente, ele se aproximou, invadindo meu espaço, e jogou o blazer sobre meus ombros.</p>
-    <p data-reveal>O tecido ainda estava quente.</p>
-    <p data-reveal>Quente demais.</p>
-    <p data-reveal>O peso da peça me fez vacilar.</p>
-    <p data-reveal>Ele ajustou o blazer nos meus ombros.</p>
-    <p data-reveal>Por um segundo, esqueci do frio.</p>
-  </div>
-
-  <p class="dialogue" data-reveal>— O carro chegou — ele disse, olhando pra rua.</p>
-
-  <p data-reveal>Um SUV preto, imponente e com os vidros escurecidos, parou suavemente diante da marquise, cortando a cortina de água. Dei um passo em direção à chuva, pronta pra correr até o meu transporte, mas ele segurou meu braço. Não foi um puxão, mas foi firme o suficiente pra me impedir.</p>
-
-  <p class="dialogue" data-reveal>— Esquece o seu carro. O motorista vai cancelar a corrida e você vai ficar aqui até a madrugada. Eu te levo.</p>
-  <p class="dialogue" data-reveal>— Noah, não. Eu não vou pegar carona com você.</p>
-  <p class="dialogue" data-reveal>— Luna, olha pra essa rua. Não seja ridícula.</p>
-
-  <p data-reveal>Ele abriu a porta do passageiro e, sem me dar margem pra contestar, me guiou pra dentro. O interior era espaçoso, forrado em couro, e o cheiro do perfume dele parecia estar em cada centímetro daquele estofado. Me sentei, sentindo-me minúscula naquele banco largo, enquanto ele dava a volta e subia no lado do motorista, ocupando o espaço com uma facilidade que me irritava.</p>
-
-  <p data-reveal>O trajeto foi um silêncio cortante, apenas o som dos limpadores de para-brisa trabalhando freneticamente. Eu olhava pela janela, observando as luzes de Vancouver borradas pela chuva, sentindo o peso do blazer sobre meus ombros. O carro era alto, quase como se estivéssemos acima de todo o caos lá fora, protegidos por aquela bolha de metal e luxo.</p>
-
-  <p data-reveal>Quando o SUV estacionou na frente do meu prédio, me livrei do blazer rapidamente, quase como se o tecido estivesse queimando minha pele.</p>
-
-  <p class="dialogue" data-reveal>— Aqui — disse, estendendo a peça assim que a porta se abriu. — Obrigada. Não precisava.</p>
-
-  <p data-reveal>Noah nem se deu ao trabalho de olhar pra peça. Ele manteve as mãos no volante, o olhar fixo no meu, com aquela calma que me deixava furiosa.</p>
-
-  <p class="dialogue" data-reveal>— Fica com ele — disse, com a voz baixa. — Você ainda está tremendo. Pode me devolver amanhã.</p>
-
-  <p data-reveal>Ele não esperou minha resposta. Apenas destravou as portas e esperou que eu saísse. Desci do carro sentindo o vento frio da noite, mas ainda envolta pelo calor do blazer. O SUV arrancou, deixando-me parada na calçada, segurando a peça e sentindo o perfume dele impregnado nas minhas mãos.</p>
-
-  <p data-reveal>Esperei o SUV desaparecer na esquina antes de entrar no prédio.</p>
-  <p data-reveal>A portaria estava vazia àquela hora.</p>
-  <p data-reveal>O elevador demorou mais do que devia.</p>
-  <p data-reveal>Ou talvez eu só estivesse cansada demais.</p>
-  <p data-reveal>Quando as portas se abriram, entrei sozinha.</p>
-  <p data-reveal>O reflexo do espelho devolveu uma versão estranha de mim.</p>
-  <p data-reveal>Cabelo molhado.</p>
-  <p data-reveal>Olhos cansados.</p>
-  <p data-reveal>E um blazer que definitivamente não era meu.</p>
-  <p data-reveal>Desviei o olhar antes do terceiro andar.</p>
-  <p data-reveal>Quando cheguei ao apartamento, levei alguns segundos pra encontrar a chave certa.</p>
-  <p data-reveal>Fechei a porta atrás de mim.</p>
-  <p data-reveal>Só então percebi que ainda estava usando o blazer.</p>
-  <p data-reveal>Fiquei olhando pra ele por alguns segundos.</p>
-  <p data-reveal>Depois o deixei sobre uma das cadeiras da cozinha e fui tomar banho.</p>
-  <p data-reveal>Quando voltei, ele continuava lá.</p>
-  <p data-reveal>Grande demais pra mim.</p>
-  <p data-reveal>Desviei os olhos primeiro.</p>
-  <p data-reveal>Abri a geladeira sem estar com fome.</p>
-  <p data-reveal>Fechei de novo.</p>
-  <p data-reveal>O blazer continuava na cadeira.</p>
-  <p data-reveal><em>Familiar.</em></p>
-  <p data-reveal>O pior — o verdadeiro problema, o que eu não soube bem onde enfiar na pasta mental de "coisas a ignorar" — era que aquilo não me incomodava só porque era inconveniente.</p>
-  <p data-reveal>Incomodava porque parte de mim, a parte mais velha e mais teimosa, tinha sentido uma coisa perigosamente parecida com alívio.</p>
-
-<!-- ══ CAP 6 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Seis</small>
-    O Que Não Foi Dito
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Eu tinha um sistema.</p>
-
-  <p data-reveal>Não era um plano — aprendi na semana passada que planos com Noah envolvidos tinham expectativa de vida útil de aproximadamente um andar de elevador. Sistema era diferente. Sistema era mais modesto. Sistema era: chegar, trabalhar, não ler nada além do que estava na tela, e ir embora no horário que eu mesma definia.</p>
-
-  <p data-reveal>Priya me esperava com café e aquela energia de quem dormiu bem e tem agenda cheia, o que já era informação suficiente pra eu saber que o dia não ia ser simples.</p>
-
-  <p class="dialogue" data-reveal>— Bom dia! Então — ela abriu o tablet com a naturalidade de quem vai anunciar uma reunião que já existia há dias e só agora lembrou de mencionar — hoje à tarde tem a apresentação pros clientes da <span class="ember">Vantage</span>. Diretores de marketing. Eles querem ver a direção visual antes de você começar a fotografar de verdade.</p>
-
-  <p data-reveal>Processei isso.</p>
-
-  <p class="dialogue" data-reveal>— Hoje.</p>
-
-  <p class="dialogue" data-reveal>— Às quatorze. Noah vai conduzir a parte institucional, você apresenta a proposta visual.</p>
-
-  <p data-reveal><em>Noah vai conduzir.</em></p>
-
-  <p data-reveal>O problema não era a reunião. Eu gostava de apresentar — havia uma clareza em colocar o trabalho na frente de alguém e defender cada escolha que sempre me pareceu mais honesta do que qualquer outra forma de comunicação. O problema era a variável que eu não controlava: o que acontecia quando Noah e eu estávamos na mesma sala, do mesmo lado de uma mesa, defendendo a mesma coisa.</p>
-
-  <p data-reveal>Passei a manhã preparando o material. Selecionei as referências com critério, montei a sequência de imagens no ritmo certo — não apresentação de portfólio, mas argumento visual. Cada foto levando à próxima com uma lógica que precisava ser sentida antes de ser entendida.</p>
-
-  <p data-reveal>Noah apareceu no espaço de edição por volta das onze. Não disse nada. Só olhou pra tela por alguns segundos enquanto eu trabalhava, depois foi embora. Anotei mentalmente que aquilo não significava nada e não fui totalmente convincente.</p>
-
-  <p data-reveal>Os diretores da <span class="ember">Vantage</span> chegaram no horário — dois homens e uma mulher, todos com aquela postura de quem aprova ou não aprova coisas e está acostumado que as pessoas ao redor saibam disso. A sala de reunião no décimo segundo andar tinha a luz boa da tarde, o que eu tinha anotado como vantagem desde o primeiro dia.</p>
-
-  <p data-reveal>Noah os cumprimentou com aquela competência tranquila de quem faz isso há anos. Apresentou o projeto em linhas gerais, a proposta de calendário, os espaços selecionados. Depois me passou a palavra com um gesto discreto — não uma entrega formal, mais uma cedência de espaço — e ficou de pé perto da janela enquanto eu começava.</p>
-
-  <p data-reveal>Apresentei a proposta visual.</p>
-
-  <p data-reveal>A sequência funcionava. Eu sabia disso enquanto falava — havia um ritmo ali, uma progressão de luz e arquitetura que construía a identidade da marca sem precisar anunciá-la. Eu mostrei o espaço do térreo, a ala de co-working, a fachada norte no horário certo. Expliquei as escolhas de composição com a precisão de quem sabe o que está fazendo e o porquê.</p>
-
-  <p data-reveal>O diretor mais velho, Henrique, ouviu tudo com uma paciência que parecia ensaiada. Quando terminei, ele encostou na cadeira.</p>
-
-  <p class="dialogue" data-reveal>— É muito conceitual — disse, com o tom de quem acha que isso é um problema. — A gente precisa de algo que comunique confiança. Solidez. Não queremos arriscar uma estética que o consumidor não vai entender.</p>
-
-  <p data-reveal>Reconheci o argumento. Era o argumento de quem tem medo de errar e prefere ser mediano com certeza a ser bom com risco. Era legítimo. Também estava errado.</p>
-
-  <p class="dialogue" data-reveal>— Entendo a preocupação — respondi, mantendo o tom calibrado. — Mas o que estou propondo não é conceitual no sentido abstrato. É preciso. Cada escolha de luz e composição tem uma função: criar familiaridade com espaços que o consumidor reconhece como seus, não como aspiração distante. É mais próximo do que arriscado.</p>
-
-  <p data-reveal>A diretora — Camila, pelo crachá — inclinei levemente a cabeça, avaliando. O outro diretor não disse nada.</p>
-
-  <p data-reveal>Henrique olhou pra Noah.</p>
-
-  <p class="dialogue" data-reveal>— Noah, você concorda com essa direção?</p>
-
-  <p data-reveal>O silêncio durou exatamente o tempo necessário pra eu sentir o peso dele.</p>
-
-  <p data-reveal>Não olhei pra Noah. Mantive o olhar em Henrique, como se a pergunta não tivesse sido feita, como se a resposta não importasse.</p>
-
-  <p data-reveal>Importava.</p>
-
-  <p class="dialogue" data-reveal>— Sim — Noah disse, simplesmente. Sem elaboração, sem qualificação, sem o "mas" que eu esperava que viesse depois. — A proposta é tecnicamente sólida e visualmente coerente com o posicionamento que a <span class="ember">Vantage</span> quer construir nos próximos dois anos. Eu confio no julgamento de Luna.</p>
-
-  <p data-reveal>Camila assentiu. Henrique considerou por um segundo e assentiu também.</p>
-
-  <p data-reveal>A reunião continuou.</p>
-
-  <p data-reveal>Eu continuei falando, respondendo perguntas, ajustando detalhes de calendário. Fiz tudo isso com a exata competência que a situação exigia.</p>
-
-  <p data-reveal>E não olhei pra Noah uma única vez.</p>
-
-  <p data-reveal><em>Eu confio no julgamento de Luna.</em></p>
-
-  <p data-reveal><em>Simples assim. Sem negociação. Sem ressalva.</em></p>
-
-  <p data-reveal><em>Como se fosse a coisa mais óbvia do mundo.</em></p>
-
-
-  <p data-reveal>A equipe se dispersou depois das dezesseis. Priya tinha outra reunião, Felix foi editar referência em vídeo, Sofia saiu antes mesmo dos clientes. A sala de edição ficou quieta — aquele tipo de silêncio de final de tarde que tem textura própria, mais denso do que o silêncio da manhã.</p>
-
-  <p data-reveal>Fiquei trabalhando. Tinha material pra selecionar, uma sequência pra refinar antes do dia seguinte. Era trabalho real, não desculpa — mas também era conveniente ter trabalho real quando o alternativo era estar em outro lugar pensando no que não queria pensar.</p>
-
-  <p data-reveal>Noah voltou às dezessete e quinze.</p>
-
-  <p data-reveal>Não disse nada. Só entrou, colocou o café que trouxe de algum lugar na borda da mesa, e abriu o laptop num ângulo que claramente não era pra me ver mas que claramente sabia que eu estava ali.</p>
-
-  <p data-reveal>Trabalhamos em silêncio por quarenta minutos.</p>
-
-  <p data-reveal>Era o tipo de silêncio que eu reconhecia do passado — não ausência de conversa, mas presença paralela. A gente sempre tinha conseguido existir no mesmo espaço sem precisar preencher. Eu tinha esquecido disso. Ou tinha decidido esquecer, que não era a mesma coisa.</p>
-
-  <p class="dialogue" data-reveal>— Você não precisava ter feito isso — falei, sem tirar os olhos da tela.</p>
-
-  <p data-reveal>Silêncio de alguns segundos.</p>
-
-  <p class="dialogue" data-reveal>— Feito o quê?</p>
-
-  <p class="dialogue" data-reveal>— Na reunião. Eu teria conseguido sem o posicionamento.</p>
-
-  <p data-reveal>Ouvi o som leve de Noah encostando na cadeira.</p>
-
-  <p class="dialogue" data-reveal>— Eu sei.</p>
-
-  <p class="dialogue" data-reveal>— Então por que fez?</p>
-
-  <p data-reveal>A pausa dessa vez foi diferente — não processamento, mais escolha deliberada do que dizer.</p>
-
-  <p class="dialogue" data-reveal>— Porque Henrique toma decisão pelo espelho. Se ele vê alguém que ele respeita concordar, ele concorda. Não é sobre você — é sobre como ele funciona.</p>
-
-  <p class="dialogue" data-reveal>— Isso é manipulação.</p>
-
-  <p class="dialogue" data-reveal>— É leitura de sala.</p>
-
-  <p class="dialogue" data-reveal>— A diferença é semântica.</p>
-
-  <p class="dialogue" data-reveal>— A diferença é intenção. — Uma pausa curta. — O trabalho era bom, Luna. Ele merecia passar.</p>
-
-  <p data-reveal>Parei de digitar por um segundo. Voltei a digitar.</p>
-
-  <p data-reveal>Não respondi porque não havia resposta que não entregasse mais do que eu queria entregar.</p>
-
-  <p data-reveal>A luz da sala mudou primeiro.</p>
-
-  <p data-reveal>Não apagou de vez — foi uma hesitação, como quando um circuito decide o que fazer antes de fazer. Depois o ar condicionado parou. Depois a tela do sistema de acesso na porta piscou duas vezes e ficou vermelha.</p>
-
-  <p class="dialogue" data-reveal>— Sistema do prédio — Noah disse, já de pé, verificando o celular. — Manutenção não programada. Portas de segurança travaram.</p>
-
-  <p class="dialogue" data-reveal>— Por quanto tempo?</p>
-
-  <p class="dialogue" data-reveal>— Até o técnico liberar manualmente. Vinte minutos, talvez trinta.</p>
-
-  <p data-reveal>A luz de emergência entrou — aquele âmbar baixo que torna os espaços familiares em outra coisa. A sala de edição ficou menor. Não de forma dramática. Só ficou.</p>
-
-  <p data-reveal>Salvei o arquivo. Fechei o laptop. Não havia muito mais a fazer.</p>
-
-  <p data-reveal>Noah voltou pra cadeira. Não o laptop — só a cadeira, encostado, olhando pro teto por um momento antes de baixar o olhar pra frente. A luz âmbar pegava diferente no ângulo dele. Eu observei isso e depois parei de observar.</p>
-
-  <p data-reveal>O silêncio agora tinha outra qualidade. Não era o silêncio de trabalho paralelo — era o silêncio de duas pessoas que não têm tarefa pra executar e estão descobrindo o que sobra quando isso acontece.</p>
-
-  <p data-reveal>Sobrava bastante.</p>
-
-  <p class="dialogue" data-reveal>— Você ficou diferente — disse, antes de decidir se ia dizer.</p>
-
-  <p data-reveal>Noah não se moveu.</p>
-
-  <p class="dialogue" data-reveal>— Todo mundo fica.</p>
-
-  <p class="dialogue" data-reveal>— Não assim. — Procurei a palavra certa e não encontrei uma que fosse só profissional. — Você calculava antes. Agora você... contém.</p>
-
-  <p data-reveal>Ele me olhou por um momento com aquela atenção direta que nunca aprendeu a ser discreta.</p>
-
-  <p class="dialogue" data-reveal>— É a mesma coisa.</p>
-
-  <p class="dialogue" data-reveal>— Não é.</p>
-
-  <p class="dialogue" data-reveal>— Calcular é medir antes de agir. Conter é segurar o que já caiu. — Uma pausa. — As duas coisas têm custo. Só um deles aparece.</p>
-
-  <p data-reveal>Fiquei com aquilo por um segundo.</p>
-
-  <p data-reveal>Havia uma versão dessa frase que era só observação técnica sobre comportamento humano. Havia outra versão que era outra coisa completamente.</p>
-
-  <p data-reveal>Não perguntei qual era.</p>
-
-  <p class="dialogue" data-reveal>— Você ainda faz isso — ele disse, depois de um momento.</p>
-
-  <p class="dialogue" data-reveal>— O quê?</p>
-
-  <p class="dialogue" data-reveal>— Decide não perguntar quando quer saber.</p>
-
-  <p data-reveal>Senti aquele calor específico que aparece quando alguém lê você com mais precisão do que você leu a si mesmo.</p>
-
-  <p class="dialogue" data-reveal>— Nem sempre vale a pena perguntar.</p>
-
-  <p class="dialogue" data-reveal>— Eu sei. Só estou atualizando.</p>
-
-  <p data-reveal>Ele estava me devolvendo minhas próprias palavras de novo. Tom por tom. Sem ironia visível — só reconhecimento.</p>
-
-  <p data-reveal>A luz de emergência piscou uma vez. Ficou.</p>
-
-  <p data-reveal>Ficamos quietos.</p>
-
-  <p data-reveal>Não era desconforto. Era pior — era o tipo de quietude que não pede pra ser preenchida, que existe bem sem ajuda, que lembra que a gente já esteve aqui antes mesmo quando o espaço físico era completamente diferente.</p>
-
-  <p data-reveal>O sistema voltou às dezoito e quarenta.</p>
-
-  <p data-reveal>A tela da porta ficou verde. O ar condicionado retomou com aquele ruído baixo de sempre. A luz fluorescente entrou devagar, como se também precisasse de um momento.</p>
-
-  <p data-reveal>Peguei as coisas sem pressa. Noah fechou o laptop.</p>
-
-  <p data-reveal>Saímos.</p>
-
-  <p data-reveal>No corredor, ele apertou o botão do elevador. Esperamos lado a lado com aquela distância profissional de pessoas que compartilham um espaço e não precisam comentar sobre isso.</p>
-
-  <p data-reveal>As portas abriram.</p>
-
-  <p class="dialogue" data-reveal>— Amanhã você vai precisar de mais memória no cartão — ele disse, entrando. — O espaço de evento tem condições de luz que vão fazer você fotografar o dobro do que planeja.</p>
-
-  <p data-reveal>Olhei pra ele.</p>
-
-  <p class="dialogue" data-reveal>— Como você sabe quanto eu planejo fotografar?</p>
-
-  <p class="dialogue" data-reveal>— Porque você planeja sempre a metade do que acaba fazendo quando a luz está boa. — As portas começaram a fechar. — Boa noite, Luna.</p>
-
-  <p data-reveal>As portas fecharam.</p>
-
-  <p data-reveal>Fiquei parada no corredor por um segundo a mais do que precisava.</p>
-
-  <p data-reveal>O lobby estava quase vazio quando desci.</p>
-
-  <p data-reveal>Atravessei o saguão, empurrei a porta giratória, e saí pro ar de Vancouver no fim de tarde — aquele frio seco que não é desagradável, só presente, que lembra que você está do lado de fora de alguma coisa.</p>
-
-  <p data-reveal>Andei até o ponto de ônibus sem pressa.</p>
-
-  <p data-reveal>A reunião tinha ido bem. O material estava bom. O dia tinha sido, por qualquer métrica objetiva, um dia bem-sucedido.</p>
-
-  <p data-reveal>E mesmo assim havia alguma coisa que eu não sabia onde colocar.</p>
-
-  <p data-reveal>Não era o apoio na reunião — embora aquilo ainda pesasse de um jeito que eu preferia não examinar. Não era o sistema travado, nem o silêncio no âmbar, nem nenhuma das frases que ele disse ou não disse.</p>
-
-  <p data-reveal>Era a soma.</p>
-
-  <p data-reveal>Era o fato de que Noah não estava agindo como alguém que eu precisava me defender. Não estava pressionando, não estava recuando, não estava fazendo nada que me desse razão pra manter a distância que eu tinha passado nove anos construindo com a argamassa firme de tudo que tinha acontecido entre nós.</p>
-
-  <p data-reveal>Estava só... presente. Lendo o espaço. Lendo a sala. Lendo a mim.</p>
-
-  <p data-reveal>E o problema — o problema real, que eu finalmente deixei pousar enquanto o ônibus chegava e eu subia sem pensar — não era que ele estava sendo hostil.</p>
-
-  <p data-reveal>Era que não estava.</p>
-
-  <p data-reveal>Era que Noah Vasconcelos, depois de nove anos, ainda sabia exatamente quanto cartão de memória eu ia precisar antes de eu saber.</p>
-
-  <p data-reveal>E isso era muito mais difícil de ignorar do que qualquer conflito que eu tivesse me preparado pra ter.</p>
-
- <!-- ══ CAP 7 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Sete</small>
-    O Que o Silêncio Não Organiza
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Na quinta-feira de manhã eu cheguei com quinze minutos de antecedência e fiz questão de não pensar no motivo.</p>
-
-  <p data-reveal>Não era ansiedade. Era organização. Havia material pra revisar antes da sessão de fotos, um cartão de memória extra pra formatar, uma sequência de enquadramentos que eu queria testar antes que o resto da equipe chegasse e o espaço ficasse ocupado de vozes e movimentação. Motivos legítimos. Objetivos. Que não tinham nada a ver com o fato de que desde quarta-feira à noite eu estava carregando a frase <em>eu confio no julgamento de Luna</em> em algum lugar entre o pensamento e o incômodo, sem conseguir decidir onde exatamente ela pertencia.</p>
-
-  <p data-reveal>O espaço de evento no térreo estava vazio àquela hora. Só a luz da manhã entrando pela abertura leste — diferente da tarde, mais branca, sem o dourado que eu tinha fotografado antes. Boa de outro jeito. Mais limpa. Menos indulgente.</p>
-
-  <p data-reveal>Montei o equipamento em silêncio e comecei a trabalhar.</p>
-
-  <p data-reveal>Por quarenta minutos, foi só isso. Câmera, luz, espaço, escolha. O tipo de concentração que não deixa espaço pra mais nada e que eu usava desde os dezoito anos como a forma mais eficiente de organizar qualquer coisa que não conseguia organizar de outra maneira.</p>
-
-  <p data-reveal>Funcionou razoavelmente bem.</p>
-
-  <p data-reveal><em>Razoavelmente.</em></p>
-
-  <p data-reveal>Felix chegou às nove com dois cafés e uma teoria.</p>
-
-  <p class="dialogue" data-reveal>— Priya chega às nove e dois — anunciou, colocando um dos cafés na borda da mesa sem perguntar se eu queria. — Sofia às nove e quinze, às vezes nove e vinte se o metrô fez alguma coisa criativa. E Noah — ele pausou com a naturalidade de quem vai revelar uma informação geográfica sem importância — já estava aqui quando eu cheguei. O que significa que estava aqui antes das oito e meia, o que significa que algo específico está acontecendo hoje ou que ele é assim toda semana e ninguém me contou.</p>
-
-  <p class="dialogue" data-reveal>— É assim toda semana — disse Priya, entrando com o tablet e sem olhar pra cima. — Nove e dois, Felix, muito obrigada.</p>
-
-  <p data-reveal>Felix apontou pra ela com o café, satisfeito com a própria precisão.</p>
-
-  <p data-reveal>Observei aquilo. Não a chegada deles — o padrão. Felix coletava informação sobre pessoas com a descontração de quem está só fazendo conversa, mas havia uma estrutura por baixo. Ele sabia o horário de todo mundo. Sabia o que o horário significava. Sabia quando era rotina e quando era exceção sem precisar perguntar.</p>
-
-  <p data-reveal>Peguei o café. Continuei trabalhando.</p>
-
-  <p class="dialogue" data-reveal>— Você chegou antes das nove — Felix disse, na minha direção, com o tom de quem está anotando um dado novo num inventário mental.</p>
-
-  <p class="dialogue" data-reveal>— Tinha material pra revisar.</p>
-
-  <p class="dialogue" data-reveal>— Claro. — Ele não pareceu convencido nem desconvencido. Só adicionou a informação em algum lugar que eu não via. — O espaço de evento tem luz boa de manhã?</p>
-
-  <p class="dialogue" data-reveal>— Diferente da tarde. Mais direta.</p>
-
-  <p class="dialogue" data-reveal>— Mas você preferiu a tarde antes.</p>
-
-  <p class="dialogue" data-reveal>— Pra essa campanha, sim. De manhã eu só estava testando variáveis.</p>
-
-  <p data-reveal>Ele assentiu devagar, como se eu tivesse confirmado alguma hipótese que ele tinha sem me avisar.</p>
-
-  <p data-reveal>Priya abriu o laptop sem participar da conversa, organizou três abas em paralelo, e começou a responder emails com a eficiência de quem tem uma relação funcional e sem drama com o próprio trabalho. Não era frieza — era clareza. Priya sabia o que precisava fazer e fazia, e havia algo confortante nisso que eu só comecei a notar nessa semana.</p>
-
-  <p class="dialogue" data-reveal>— Luna, a aprovação do cronograma saiu — ela disse, ainda olhando pra tela. — Você tem liberdade de sessão até sexta da semana que vem. Depois disso entra revisão com o cliente.</p>
-
-  <p class="dialogue" data-reveal>— Perfeito.</p>
-
-  <p class="dialogue" data-reveal>— Precisa de alguma coisa específica pra hoje?</p>
-
-  <p class="dialogue" data-reveal>— Acesso ao espaço de co-working a partir das duas. E se puder confirmar que o sistema de iluminação vai estar no modo padrão — não quero a automação interferindo.</p>
-
-  <p data-reveal>Priya anotou sem comentário. Dois minutos depois, mandou a confirmação por mensagem.</p>
-
-  <p data-reveal>Felix me olhou com aquela expressão levemente admirada de quem acabou de ver um idioma sendo falado fluentemente.</p>
-
-  <p class="dialogue" data-reveal>— Você fala priyês — ele disse.</p>
-
-  <p class="dialogue" data-reveal>— O quê?</p>
-
-  <p class="dialogue" data-reveal>— Priyês. O dialeto de fazer pedido específico e receber confirmação em dois minutos. A maioria das pessoas pede genérico e espera vinte. Você pediu exato e ela respondeu imediato. — Ele inclinei a cabeça. — Aprendeu rápido.</p>
-
-  <p data-reveal>Não respondi porque não havia muito o que responder. Mas guardei aquilo.</p>
-
-  <p data-reveal>A sessão da tarde foi boa.</p>
-
-  <p data-reveal>Não o tipo de boa que precisa ser explicado — o tipo que você reconhece enquanto está acontecendo, quando cada decisão técnica encaixa na anterior e o espaço começa a fazer sentido através da câmera de um jeito que não fazia antes de você entrar nele. O co-working tinha uma textura de uso que eu queria preservar: as mesas com marcas de caneca, as cadeiras em ângulos ligeiramente diferentes, a parede de vidro com digitais de palma que alguém tinha esquecido de limpar. Detalhes que o cliente provavelmente ia pedir pra tirar e que eu ia defender com a calma de quem sabe o que está fazendo.</p>
-
-  <p data-reveal>Sofia ajudava com o reflector quando eu precisava, quieta e precisa do jeito que tornava fácil trabalhar com ela. Felix transitava entre os espaços com a câmera de vídeo, captando referência, fazendo comentários soltos que às vezes eram úteis e às vezes eram só Felix processando o ambiente em voz alta.</p>
-
-  <p data-reveal>Noah apareceu às três e pouco.</p>
-
-  <p data-reveal>Entrou, olhou o espaço, olhou o que eu estava fotografando, não disse nada. Ficou de pé perto da entrada por alguns minutos, depois puxou uma cadeira — não a mais próxima, não a mais distante, a que ficava no ângulo que não atrapalhava o meu campo de visão — e abriu o laptop.</p>
-
-  <p data-reveal>Continuei trabalhando.</p>
-
-  <p data-reveal>Quinze minutos depois, sem olhar pra cima:</p>
-
-  <p class="dialogue" data-reveal>— A mesa do fundo vai dar melhor resultado se você mudar o ângulo uns dez graus pra esquerda. A entrada de luz da janela lateral vai criar profundidade sem precisar de reflector adicional.</p>
-
-  <p data-reveal>Testei. Estava certo.</p>
-
-  <p data-reveal>Não comentei. Ele também não esperava comentário — já estava olhando pro laptop de novo.</p>
-
-  <p data-reveal>Felix olhou pra mim. Olhou pra Noah. Olhou de volta pra mim. Não disse nada, o que, vindo de Felix, era informação em si.</p>
-
-  <p data-reveal>Continuamos.</p>
-
-  <p data-reveal>Na sala de edição, às cinco da tarde, com o material do dia aberto na tela, eu estava selecionando quadros quando percebi o padrão.</p>
-
-  <p data-reveal>Não de uma vez. Foi chegando em camadas, do jeito que as coisas chegam quando você não está procurando — primeiro uma observação solta, depois outra, depois o momento em que as duas se conectam e formam alguma coisa que você não tem certeza se queria ver.</p>
-
-  <p data-reveal>Felix lia pessoas. Era o que ele fazia — coletava comportamento, padrão, micro-informação, e montava um mapa social do ambiente com a naturalidade de quem respira. Ele sabia o horário de todo mundo. Sabia o que o horário significava. Sabia quando eu tinha chegado cedo e o que isso provavelmente queria dizer, mesmo sem perguntar.</p>
-
-  <p data-reveal>Priya lia sistemas. Processos, fluxos, dependências. Ela organizava o ambiente com uma precisão que não precisava de explicação porque já estava acontecendo antes que você percebesse que havia algo pra organizar. Quando eu falei priyês sem saber que era priyês, ela simplesmente respondeu.</p>
-
-  <p data-reveal>E Noah.</p>
-
-  <p data-reveal>Noah lia ela.</p>
-
-  <p data-reveal>Não de forma genérica — não como "lia bem as pessoas" ou "era perceptivo". Era específico. Era o cartão de memória do dia anterior. Era o ângulo de dez graus que ele sugeriu sem estar olhando pra câmera. Era saber onde ela ia ficar no corredor pra não atrapalhar o campo de visão antes de ela saber onde ia ficar.</p>
-
-  <p data-reveal>Havia uma diferença entre alguém que te observa e alguém que já te conhece o suficiente pra antecipar. E a diferença não era confortante. Era o tipo de coisa que, uma vez percebida, não voltava a ser invisível.</p>
-
-  <p data-reveal>Fechei a sequência de edição. Salvei o arquivo.</p>
-
-  <p data-reveal>Levantei pra pegar água e quase esbarrei em Felix, que estava encostado no batente da porta com aquela postura de quem chegou há mais tempo do que parecia.</p>
-
-  <p class="dialogue" data-reveal>— Boas fotos hoje — ele disse, com simplicidade.</p>
-
-  <p class="dialogue" data-reveal>— Foram.</p>
-
-  <p class="dialogue" data-reveal>— O espaço de co-working é difícil. Muita gente fotografa o design e esquece que o design é pra ser usado, não só visto. Você fotografou o uso.</p>
-
-  <p data-reveal>Olhei pra ele. Às vezes Felix dizia coisas com aquela leveza que tornava difícil saber se era comentário técnico ou outra coisa.</p>
-
-  <p class="dialogue" data-reveal>— Você entende de fotografia ou só de pessoas?</p>
-
-  <p class="dialogue" data-reveal>— Pessoas é tudo que existe — ele respondeu, sem hesitar. — Fotografia, arquitetura, reunião de cliente. É sempre sobre o que as pessoas fazem com o espaço.</p>
-
-  <p data-reveal>Não respondi. Mas levei aquilo junto quando fui pegar a água.</p>
-
-  <p data-reveal>O dia terminou sem incidente.</p>
-
-  <p data-reveal>Essa era a palavra certa — sem incidente. Produtivo, funcional, dentro do cronograma. A equipe tinha trabalhado bem, o material estava bom, Priya ia mandar o relatório de progresso pra <span class="ember">Vantage</span> no dia seguinte e provavelmente ia estar correto até a terceira casa decimal.</p>
-
-  <p data-reveal>Noah saiu antes de mim. Passou pela sala de edição, pegou o casaco, disse <em>até amanhã</em> com a mesma inflexão que diria qualquer outra coisa funcional, e foi embora. Sem antecipação técnica desta vez. Sem devolução de palavras. Só saiu.</p>
-
-  <p data-reveal>O que era normal. Era o que deveria acontecer. Era exatamente o tipo de dia que eu tinha pedido pro universo quando tracei o sistema no início da semana.</p>
-
-  <p data-reveal>Guardei o equipamento devagar, sozinha no espaço que já estava com aquele silêncio de fim de expediente — não vazio, só quieto, com a textura de tudo que tinha acontecido ali durante o dia ainda presente no ar antes de dissipar.</p>
-
-  <p data-reveal>Passei pelo lobby, cumprimentei o porteiro, saí.</p>
-
-  <p data-reveal>Vancouver estava naquele cinza específico do fim de tarde que não é triste nem bonito, só presente. Andei até o ponto sem pressa.</p>
-
-  <p data-reveal>O dia tinha sido bom. O trabalho estava avançando. A equipe funcionava. Eu estava me encaixando no ritmo do lugar — aprendendo os processos, entendendo os silêncios, sabendo quando falar priyês e quando deixar Felix inventariar o ambiente em paz.</p>
-
-  <p data-reveal>Era isso que eu tinha vindo fazer. Era o que estava acontecendo.</p>
-
-  <p data-reveal>E mesmo assim havia essa coisa pequena e persistente que eu não sabia nomear com precisão — não raiva, não ansiedade, não a agitação confusa do Capítulo 6. Só uma espécie de consciência que não desligava. A percepção de que o dia tinha sido normal e que normal, aqui, dentro dessa empresa, com essa equipe, com Noah no mesmo espaço sempre um passo atrás e sempre certo sobre o ângulo da câmera —</p>
-
-  <p data-reveal>Normal não estava sendo neutro.</p>
-
-  <p data-reveal>Estava sendo outra coisa.</p>
-
-  <p data-reveal>Eu só ainda não sabia o nome exato.</p>
-
-
-<!-- ══ CAP 8 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Oito</small>
-    Custo Calculado
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Noah</div>
-
-  <p data-reveal>Chego antes de todo mundo.</p>
-  <p data-reveal>Não é insônia. Não é ansiedade. É só o jeito que eu funciono — o silêncio do escritório às sete da manhã tem uma qualidade específica que o resto do dia não tem, uma ausência de ruído que deixa o pensamento mais limpo, os números mais claros, as decisões menos contaminadas pelo que outras pessoas precisam ou esperam de mim.</p>
-  <p data-reveal>É eficiência. Só isso.</p>
-  <p data-reveal>Ou pelo menos é o que eu digo quando alguém pergunta.</p>
-
-  <p data-reveal>A rotina do primeiro horário é sempre a mesma: café, email, relatório do dia anterior, agenda da semana. Nessa ordem. Sem variação. Variação gera atrito e atrito desperdiça tempo, e tempo é o único recurso que não tem substituto disponível no mercado.</p>
-  <p data-reveal>Na terça-feira da segunda semana de campanha, eu estava no meio do relatório quando Priya apareceu na porta com o tablet e aquela expressão de quem tem boa notícia e já decidiu que vai compartilhar independentemente de você ter perguntado.</p>
-  <p class="dialogue" data-reveal>— O cliente aprovou o conceito visual — ela disse. — Feedback formal ainda vem, mas o que chegou informalmente foi muito positivo.</p>
-  <p class="dialogue" data-reveal>— Bom.</p>
-  <p class="dialogue" data-reveal>— A Luna está trabalhando rápido. Mais rápido do que o cronograma previa.</p>
-  <p data-reveal>Continuei olhando pro relatório.</p>
-  <p class="dialogue" data-reveal>— Ela tem esse perfil — respondi.</p>
-  <p data-reveal>Havia uma pausa de meio segundo que eu reconheci como Priya considerando se ia falar mais alguma coisa.</p>
-  <p data-reveal>Ela decidiu que não ia.</p>
-  <p class="dialogue" data-reveal>— Reunião de alinhamento às duas — ela disse, e saiu.</p>
-  <p data-reveal>Voltei pro relatório.</p>
-  <p data-reveal>Durou uns quarenta segundos antes de eu perceber que não estava processando nenhuma das linhas que estava lendo.</p>
-
-  <p data-reveal>Eu continuo antecipando os movimentos dela.</p>
-  <p data-reveal>Esse é o problema mais inconveniente da semana, e eu tenho problemas inconvenientes suficientes pra isso ser uma afirmação com algum peso.</p>
-  <p data-reveal>Não é algo que decidi fazer. Não é atenção deliberada ou observação estratégica — os dois teriam uma justificativa funcional e eu conseguiria arquivar como comportamento profissional razoável. É outra coisa. É o tipo de coisa que acontece antes que o cérebro consciente entre no processo.</p>
-  <p data-reveal>Eu sei quando ela vai trocar de lente sem precisar olhar pro equipamento. Sei quando vai esquecer o café em cima de alguma superfície e só lembrar uma hora depois. Sei quando está realmente concentrada e quando está concentrada por fora mas processando outra coisa por dentro — a postura muda dois graus, o ritmo do movimento fica levemente diferente.</p>
-  <p data-reveal>Esses detalhes foram aprendidos quando eu tinha dez anos. Aparentemente o armazenamento deles é permanente.</p>
-  <p data-reveal>Isso deveria ter desaparecido. Ou pelo menos enfraquecido.</p>
-  <p data-reveal>Não enfraqueceu.</p>
-
-  <p data-reveal>Felix apareceu no corredor às dez e meia com um café que claramente não era o primeiro do dia e aquele sorriso de quem está prestes a dizer alguma coisa que vai ser engraçada pra pelo menos uma das pessoas envolvidas na conversa.</p>
-  <p class="dialogue" data-reveal>— Você sabia que ela ia subir pro terceiro andar antes de ela sair da sala — ele disse, sem preâmbulo.</p>
-  <p class="dialogue" data-reveal>— Eu estava verificando o cronograma.</p>
-  <p class="dialogue" data-reveal>— Você estava olhando pra porta antes de ela abrir.</p>
-  <p class="dialogue" data-reveal>— Felix.</p>
-  <p class="dialogue" data-reveal>— Não é crítica. É observação. — Ele tomou um gole do café. — Vocês dois têm um GPS estranho. Ela também faz isso.</p>
-  <p data-reveal>Não respondi.</p>
-  <p data-reveal>Felix ficou olhando pra mim por um segundo com aquela expressão de alguém que tem mais a dizer e está avaliando o custo-benefício de dizer.</p>
-  <p data-reveal>Optou por não dizer.</p>
-  <p class="dialogue" data-reveal>— A reunião das duas foi confirmada — ele falou, e foi embora.</p>
-  <p data-reveal>Fiquei parado no corredor por um segundo mais do que era necessário.</p>
-  <p data-reveal>A brincadeira do Felix era inofensiva. Era do jeito que ele funcionava — observava, comentava, não aprofundava. Não havia intenção de provocar nem julgamento implícito.</p>
-  <p data-reveal>O problema era que ele tinha razão.</p>
-  <p data-reveal>E que eu havia passado a última hora inteira evitando pensar nisso exatamente.</p>
-
-  <p data-reveal>O celular tocou às onze e quarenta.</p>
-  <p data-reveal>O nome na tela não me surpreendeu. Tinha esperado essa ligação desde a primeira semana — não hoje especificamente, não nesse horário, mas sabia que ia chegar.</p>
-  <p data-reveal>Fechei a porta da sala antes de atender.</p>
-  <p class="dialogue" data-reveal>— Pai.</p>
-  <p class="dialogue" data-reveal>— Como está a campanha?</p>
-  <p data-reveal>A voz do meu pai tem uma qualidade específica em ligações de trabalho — objetiva, rápida, sem inflexão que indique o que está pensando. Aprendi a trabalhar com isso mais cedo do que deveria ter precisado aprender.</p>
-  <p class="dialogue" data-reveal>— No prazo. Feedback inicial positivo.</p>
-  <p class="dialogue" data-reveal>— A Vantage aprovou a proposta?</p>
-  <p class="dialogue" data-reveal>— Formalmente na sexta. Informalmente já está aprovado.</p>
-  <p class="dialogue" data-reveal>— Bom. — Uma pausa. — Os clientes do setor hoteleiro?</p>
-  <p class="dialogue" data-reveal>— Alinhados. Reunião de apresentação na semana que vem.</p>
-  <p data-reveal>Ele ficou em silêncio por dois segundos. Era um silêncio diferente do anterior — não de processamento, de transição.</p>
-  <p class="dialogue" data-reveal>— Como está a fotógrafa?</p>
-  <p data-reveal>Respondi antes de processar completamente o que tinha sido perguntado.</p>
-  <p class="dialogue" data-reveal>— Ela está fazendo um ótimo trabalho.</p>
-  <p data-reveal>Pausa.</p>
-  <p class="dialogue" data-reveal>— Não foi isso que eu perguntei.</p>
-  <p data-reveal>Eu me encostei na mesa. Olhei pro teto por um segundo.</p>
-  <p class="dialogue" data-reveal>— Estamos trabalhando juntos — disse. — Está funcionando bem.</p>
-  <p class="dialogue" data-reveal>— Vocês já se encontraram.</p>
-  <p data-reveal>Não foi pergunta.</p>
-  <p class="dialogue" data-reveal>— Sim.</p>
-  <p class="dialogue" data-reveal>— Imaginei que isso aconteceria.</p>
-  <p data-reveal>Havia alguma coisa no tom dele que eu não soube classificar imediatamente. Não era surpresa. Não era exatamente preocupação. Era mais parecido com alguém que esperava por uma notícia e estava avaliando o peso dela agora que havia chegado.</p>
-  <p class="dialogue" data-reveal>— Parece que a vida resolveu dar essa oportunidade a vocês — ele disse.</p>
-  <p data-reveal>Ficou parado no ar.</p>
-  <p class="dialogue" data-reveal>— Você chama isso de oportunidade?</p>
-  <p data-reveal>Ele não respondeu à pergunta.</p>
-  <p data-reveal>Ficou em silêncio por um tempo que eu aprendi, ao longo de anos, a não tentar preencher. O silêncio do meu pai antes de dizer alguma coisa importante tem uma textura específica — mais longo do que o normal, mais quieto, como se ele estivesse pesando cada palavra antes de colocá-la em circulação.</p>
-  <p class="dialogue" data-reveal>— Escute com atenção.</p>
-  <p data-reveal>Eu já estava ouvindo. Mas fechei o laptop de qualquer jeito.</p>
-  <p class="dialogue" data-reveal>— Não conte nada.</p>
-  <p data-reveal>A frase chegou antes que eu pudesse preparar uma resposta.</p>
-  <p class="dialogue" data-reveal>— Ela merece uma explicação — falei.</p>
-  <p class="dialogue" data-reveal>— Ela não pode saber. — Firme. Sem inflexão que deixasse espaço pra negociação. — No momento certo, ela vai saber. Mas ainda não.</p>
-  <p class="dialogue" data-reveal>— Já faz quase dez anos.</p>
-  <p class="dialogue" data-reveal>— Ainda não.</p>
-  <p data-reveal>Dois segundos de silêncio.</p>
-  <p class="dialogue" data-reveal>— Nem ela — ele completou. — Nem a família.</p>
-  <p data-reveal>Eu conhecia o argumento. Tinha ouvido variações dele por anos suficientes pra saber que contestar diretamente não chegava a lugar nenhum — não porque o argumento fosse irrefutável, mas porque havia informação que ele tinha e eu não tinha, e essa assimetria tornava qualquer debate incompleto por definição.</p>
-  <p data-reveal>O que não tornava a situação mais fácil de sustentar.</p>
-  <p class="dialogue" data-reveal>— Estamos trabalhando juntos — repeti. — Não é possível manter distância da forma que você está sugerindo.</p>
-  <p class="dialogue" data-reveal>— Então limite essa convivência ao estritamente profissional.</p>
-  <p data-reveal>Eu olhei pela parede de vidro da sala.</p>
-  <p data-reveal>Do outro lado, pelo corredor, eu conseguia ver parte do espaço de trabalho onde a equipe estava. Luna estava lá — de costas pra mim, câmera no ombro, conversando com alguém da equipe técnica com aquele gesto específico que ela fazia quando estava explicando alguma coisa sobre enquadramento.</p>
-  <p data-reveal>Profissional. Como se fosse simples.</p>
-  <p class="dialogue" data-reveal>— Você sabe por quê — ele disse.</p>
-  <p data-reveal>Uma afirmação. Não uma pergunta.</p>
-  <p class="dialogue" data-reveal>— Sei — respondi.</p>
-  <p data-reveal>A ligação terminou.</p>
-  <p data-reveal>Eu fiquei com o celular na mão por alguns segundos, olhando pra tela apagada, e então coloquei na mesa com mais cuidado do que a situação exigia.</p>
-  <p data-reveal>Fechei os olhos.</p>
-  <p data-reveal>Só por um instante.</p>
-
-  <p data-reveal>Tem uma versão de mim que sabe exatamente o que está fazendo e por quê está fazendo.</p>
-  <p data-reveal>Essa versão tomou uma decisão há nove anos e continuou sustentando essa decisão através de tudo que veio depois — a distância, o silêncio, os anos de construir alguma coisa do zero numa cidade que continuava sendo a mesma mas sem a pessoa que havia tornado essa cidade específica.</p>
-  <p data-reveal>Essa versão entende o peso da informação que o meu pai guarda. Entende por que o momento certo ainda não chegou. Entende que há coisas maiores do que o que eu quero ou o que ela merece, e que algumas proteções precisam ser mantidas mesmo quando o custo delas é desproporcional.</p>
-  <p data-reveal>Eu acredito nisso.</p>
-  <p data-reveal>A maior parte do tempo.</p>
-  <p data-reveal>Há outra versão, menor, que fica quieta durante a maior parte do dia mas que às vezes aparece — nos intervalos entre uma tarefa e outra, no silêncio do escritório às sete da manhã, nas noites em que o skyline de Vancouver fica lá fora sem ter nada de útil pra dizer.</p>
-  <p data-reveal>Essa versão não tem argumentos elaborados.</p>
-  <p data-reveal>Só tem uma pergunta.</p>
-  <p data-reveal>E eu aprendi, ao longo de nove anos, a não deixar essa pergunta terminar antes de mudar o foco de atenção.</p>
-
-  <p data-reveal>A reunião das duas foi objetiva.</p>
-  <p data-reveal>Cronograma, aprovações pendentes, próximas etapas. Luna apresentou o material da semana com a mesma precisão de sempre — nenhum excesso, nenhuma venda, só o trabalho existindo por conta própria. Priya fez perguntas. Felix tomou notas.</p>
-  <p data-reveal>Eu conduzi a reunião.</p>
-  <p data-reveal>E continuei, em paralelo, fazendo o inventário de coisas que eu não podia dizer.</p>
-  <p data-reveal>Não é diferente de qualquer outra reunião que conduzo — há sempre camadas de informação que ficam fora da mesa, decisões tomadas antes de entrar na sala, contexto que existe mas que não circula naquele espaço específico. É assim que negociação funciona. É assim que gestão funciona.</p>
-  <p data-reveal>A diferença é que nessas outras situações eu não conheço a outra pessoa desde que ela tinha oito anos.</p>
-  <p data-reveal>E ela não me conhece desde que eu tinha dez.</p>
-
-  <p data-reveal>Depois que a reunião terminou e a sala foi esvaziando, fiquei pra revisar uns pontos do contrato com Priya. Levou uns vinte minutos. Quando saímos, o andar estava mais silencioso — o fim da tarde esvaziando o espaço gradualmente, a maioria da equipe já indo embora ou nos últimos ajustes do dia.</p>
-  <p data-reveal>No corredor, do lado de fora da sala de edição, Felix estava parado com o celular na mão dizendo alguma coisa.</p>
-  <p data-reveal>Ouvi a resposta antes de ver a cena.</p>
-  <p data-reveal>Luna riu.</p>
-  <p data-reveal>Não uma gargalhada — era um riso menor, mais interno, do tipo que aparece quando algo é genuinamente inesperado e o filtro não chegou a tempo. O tipo de riso que eu conheço desde que ela tinha nove anos e o Russ Peterson derrubou o sanduíche no próprio colo e ficou com cara de completo espanto.</p>
-  <p data-reveal>Parei.</p>
-  <p data-reveal>Não decidi parar. Meu corpo parou antes da decisão entrar no processo.</p>
-  <p data-reveal>Felix disse mais alguma coisa. Ela respondeu com aquele gesto específico das mãos que ela faz quando está defendendo um argumento que acha óbvio — o tipo de coisa que eu não devia mais reconhecer, que devia ter saído da memória junto com mil outras informações que o tempo apaga por utilidade zero.</p>
-  <p data-reveal>Mas estava lá.</p>
-  <p data-reveal>Intacto.</p>
-  <p data-reveal>Ela riu de novo, mais curto dessa vez, antes de pegar a câmera e voltar pro material.</p>
-  <p data-reveal>E foi nesse segundo específico que percebi alguma coisa que eu vinha evitando perceber desde a primeira semana — com mais eficiência do que deveria ter conseguido, considerando a evidência disponível.</p>
-  <p data-reveal>Ela aprendeu a viver sem mim.</p>
-  <p data-reveal>Não do jeito que fica um buraco visível onde alguma coisa foi retirada. Do jeito real, do jeito completo — ela construiu uma vida inteira que funciona, que tem amizades e trabalho e aquele riso que aparece sem filtro quando algo genuinamente a pega de surpresa.</p>
-  <p data-reveal>Era exatamente o que eu queria que acontecesse.</p>
-  <p data-reveal>Passei anos querendo exatamente isso.</p>
-  <p data-reveal>Então por que doía tanto assistir?</p>
-
-  <p data-reveal>Fiquei no escritório até o andar esvaziar.</p>
-  <p data-reveal>Hábito antigo. Normalmente funciona.</p>
-  <p data-reveal>Naquela noite os documentos ficaram abertos sem serem lidos por mais tempo do que eu devia ter deixado. Em algum momento afrouxei a gravata. Tirei o relógio. Fiquei olhando pro skyline de Vancouver sem processar nada de útil.</p>
-  <p data-reveal>Meu pai tinha dito: <em>mantenha distância.</em></p>
-  <p data-reveal>Eu disse que sabia por quê.</p>
-  <p data-reveal>Disse porque era verdade. Porque há uma arquitetura inteira construída em cima dessa decisão — anos de cuidado, de silêncio, de não tocar em certos assuntos com certas pessoas — e eu entendo a lógica dessa arquitetura mesmo quando discordo do custo dela.</p>
-  <p data-reveal>Entender não é o mesmo que conseguir.</p>
-  <p data-reveal>Esses dois conceitos ficam parecendo equivalentes quando você está no meio de uma ligação difícil. Ficam cada vez menos equivalentes no silêncio depois que a ligação termina.</p>
-  <p data-reveal>Olhei pro pulso.</p>
-  <p data-reveal>O <span class="ember">elástico preto</span> estava onde sempre está — gasto, desbotado, ridiculamente velho pra qualquer critério razoável de descarte.</p>
-  <p data-reveal>Nove anos.</p>
-  <p data-reveal>Passei o polegar por cima uma vez, rápido, o gesto automático de quem confirma que alguma coisa ainda está no lugar.</p>
-  <p data-reveal>Ela não sabe que eu tenho isso.</p>
-  <p data-reveal>Ela vai saber, um dia. Ou não vai. Depende de como as coisas se desenvolverem, de quando o momento certo chegar, de se o momento certo vier antes de eu perder completamente a janela de poder ser honesto sem causar dano irreversível.</p>
-  <p data-reveal>Não tenho controle sobre nenhuma dessas variáveis.</p>
-  <p data-reveal>Essa é a parte mais difícil — não o segredo em si, não a distância, não os nove anos de uma decisão que não foi inteiramente minha. É não ter controle. É depender do momento certo sem ter acesso ao calendário que define quando ele chega.</p>
-  <p data-reveal>Coloquei o relógio de volta. Fechei o laptop.</p>
-  <p data-reveal>Amanhã tinha call às oito, reunião de orçamento às dez, e Luna Carvalho fotografando a fachada norte com aquela luz específica da manhã que ela havia identificado na primeira semana como a melhor do projeto.</p>
-  <p data-reveal>Eu ia chegar cedo de qualquer jeito.</p>
-  <p data-reveal>Isso pelo menos não havia mudado.</p>
-
-  <!-- ══ CAP 9 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Nove</small>
-    Logística
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Existe uma teoria — não científica, não de ninguém específico, só minha — de que o universo tem um senso de humor particularmente sádico quando você está tentando manter alguma coisa sob controle.</p>
-  <p data-reveal>A evidência mais recente: eu tinha passado duas semanas inteiras tentando devolver um blazer.</p>
-  <p data-reveal>Duas semanas. Dez dias úteis. Incontáveis oportunidades no corredor, na sala de edição, nas sessões de foto onde ele aparecia e depois sumia antes que eu encontrasse a janela certa. O blazer tinha viajado pra dentro e pra fora da minha bolsa tantas vezes que Felix tinha perguntado uma vez, de passagem, se eu estava usando ele como peso de ginástica.</p>
-  <p data-reveal>Não estava. Estava sendo covarde, mas isso era informação que Felix não precisava ter.</p>
-  <p data-reveal>Naquela manhã, coloquei o blazer na bolsa com a determinação de quem tomou uma decisão irrevogável e se comprometeu com ela. Hoje era o dia. Sem desculpa, sem janela perdida, sem <span class="ember">Noah</span> sumindo antes que eu chegasse com coragem suficiente.</p>
-  <p data-reveal>Saí de casa com trinta minutos de antecedência só pra garantir.</p>
-  <p data-reveal>O universo, claramente, adorou isso.</p>
-
-  <p data-reveal>O estacionamento da Vasconcelos Group às sete e meia tinha a energia específica de quando uma equipe inteira está se preparando pra sair ao mesmo tempo — o tipo de energia que parece organizada de longe e é puro caos de perto. Havia malas, equipamentos, cafés em copos descartáveis, pelo menos três conversas acontecendo em paralelo e uma quarta que ninguém estava ouvindo direito porque todos estavam no meio da própria.</p>
-  <p data-reveal>Felix me encontrou perto da entrada com aquela energia de quem já tomou café demais e está feliz com isso.</p>
-  <p class="dialogue" data-reveal>— Dois carros — ele disse, como se estivesse me passando inteligência tática. — O Marcus está organizando. Tem uma mala enorme de equipamento que precisa ir no SUV, então está tentando equilibrar peso e pessoas.</p>
-  <p class="dialogue" data-reveal>— Faz sentido.</p>
-  <p class="dialogue" data-reveal>— Fizemos um sorteio.</p>
-  <p data-reveal>Olhei pra ele.</p>
-  <p class="dialogue" data-reveal>— Por quê?</p>
-  <p class="dialogue" data-reveal>— Porque todo mundo quer ir no carro do Noah por causa do ar-condicionado, e o outro acaba sem ninguém. — Ele tomou um gole do café. </p>
-  <p class="dialogue" data-reveal>— Já estão falando os nomes. Você ainda não foi chamada.</p>
-  <p data-reveal>Priya apareceu do meu outro lado com o timing de quem estava esperando a deixa.</p>
-  <p class="dialogue" data-reveal>— O Marcus está ali — ela apontou. — Vai chamar por nome.</p>
-  <p data-reveal>Fui até o grupo ao redor do Marcus, que tinha uma prancheta. Uma prancheta física, de papel — simultaneamente antiquado e reconfortante.</p>
-  <p class="dialogue" data-reveal>— Sedan A — ele anunciou, com a formalidade de quem está lendo resultado de eleição —, Marcus, Priya, Felix, Renato.</p>
-  <p data-reveal>Felix me lançou um olhar por cima do ombro do Marcus com a expressão de alguém que sabe de alguma coisa e está contendo a revelação por prazer pessoal.</p>
-  <p class="dialogue" data-reveal>— SUV — Marcus continuou —, Noah Vasconcelos—</p>
-  <p data-reveal>E parou. Olhou pra prancheta.</p>
-  <p class="dialogue" data-reveal>— Luna Carvalho.</p>
-  <p data-reveal>Fechei os olhos.</p>
-  <p data-reveal>Só por um segundo. O tempo exato de processar que o universo, de fato, não tinha dia ruim.</p>
-  <p data-reveal>Quando abri, Felix estava olhando pro chão com a atenção absorta de alguém subitamente muito interessado no concreto. Priya tinha voltado o rosto na direção oposta com uma velocidade que sugeria esforço consciente.</p>
-  <p data-reveal>Noah estava do outro lado do grupo. Sua expressão não indicava nada específico — só aquela neutralidade de costume que eu nunca conseguia decidir se era treinada ou natural.</p>
-  <p class="dialogue" data-reveal>— Podemos trocar se você quiser — ele disse.</p>
-  <p data-reveal>Sem ironia. Sem mágoa. Uma oferta prática, feita com a mesma objetividade com que ele faria qualquer oferta prática.</p>
-  <p data-reveal>Aquilo foi, de alguma forma, pior do que qualquer outra coisa que ele poderia ter dito.</p>
-  <p class="dialogue" data-reveal>— Não precisa.</p>
-  <p class="dialogue" data-reveal>— Tem certeza?</p>
-  <p class="dialogue" data-reveal>— É só um carro.</p>
-  <p data-reveal>Mentira.</p>
-  <p data-reveal>Não era só um carro. Mas dizer isso em voz alta em frente a todo o grupo era claramente impossível.</p>
-  <p class="dialogue" data-reveal>— É só um carro — repeti, com mais convicção do que sentia.</p>
-
-  <p data-reveal>O grupo começou a se dispersar. Eu fui até a bolsa, tirei o blazer com o movimento rápido de quem vai fazer alguma coisa antes de ter tempo de reconsiderar, e fui até lá.</p>
-  <p data-reveal>Noah estava do lado do carro, verificando alguma coisa no celular. Levantou os olhos quando me aproximei.</p>
-  <p class="dialogue" data-reveal>— Noah.</p>
-  <p class="dialogue" data-reveal>— Hm?</p>
-  <p data-reveal>Estendi o blazer.</p>
-  <p data-reveal>Houve um segundo em que ele ficou olhando pra peça com uma expressão que eu não soube ler completamente. Não surpresa exatamente. O reconhecimento de alguém que vê um objeto que não estava esperando ver naquele contexto.</p>
-  <p class="dialogue" data-reveal>— Seu blazer. Eu tinha tentado devolver antes, mas você sempre sumia.</p>
-  <p class="dialogue" data-reveal>— Você podia ter ficado com ele.</p>
-  <p class="dialogue" data-reveal>— E fazer o quê? Abrir uma coleção?</p>
-  <p data-reveal>Houve uma pausa. E então, no canto do rosto dele, o começo de alguma coisa que conteve antes de chegar a lugar nenhum.</p>
-  <p class="dialogue" data-reveal>— Justo.</p>
-  <p data-reveal>Ele pegou o blazer, dobrou com aquele cuidado automático de quem guarda roupa bem por hábito. – E foi aí que a Sofia apareceu.</p>
-  <p data-reveal>Do nada, como costuma aparecer, com a chave do SUV na mão e aquela expressão que eu tinha aprendido a classificar como perigosamente divertida.</p>
-  <p data-reveal>Sofia entregou a chave diretamente pra ele.</p>
-  <p data-reveal>Noah foi abrir o carro, colocar o blazer no banco de trás, organizar o equipamento, ajustar o que precisava ser ajustado. E nisso ficamos só nós duas no estacionamento por um momento.</p>
-  <p data-reveal>Sofia me olhou. Olhou pro carro. Olhou de volta pra mim com aquela calma de quem já viu essa cena antes e sabe exatamente como vai terminar.</p>
-  <p class="dialogue" data-reveal>— Você foi de ônibus pra casa naquela noite de chuva, foi? — ela disse, num tom completamente neutro.</p>
-  <p data-reveal>Não foi pergunta de verdade. Era o tipo de frase que já traz a resposta dentro.</p>
-  <p data-reveal>Eu abri a boca. Fechei. E então, antes que eu pudesse decidir qual das respostas disponíveis era a menos comprometedora, soltei uma risada — pequena, involuntária, do tipo que sai antes de qualquer filtro entrar em ação.</p>
-  <p data-reveal>Sofia não sorriu. Mas havia alguma coisa nos olhos dela que era o equivalente facial de um sorriso muito contido por alguém que pratica contenção há muito tempo.</p>
-  <p data-reveal>Naquele momento Noah voltou.</p>
-  <p data-reveal>Eu não soube se ele tinha ouvido. O estacionamento tinha barulho suficiente — outros carros, vozes da equipe mais longe, o som do porta-malas batendo em algum lugar. Era possível que não tivesse chegado claro.</p>
-  <p data-reveal>Era possível. Então ela virou para Noah e disse:</p>
-  <p class="dialogue" data-reveal>— Dirige com cuidado.</p>
-  <p data-reveal>E foi embora antes que qualquer um conseguisse dizer mais nada.</p>
-
-  <p data-reveal>Eu conhecia aquele carro. Não de um jeito que eu tivesse admitido em voz alta, mas o corpo reconheceu antes de qualquer decisão consciente: o couro escuro, o ar-condicionado preciso, o isolamento acústico que transforma o barulho da cidade em algo distante. E o cheiro. O mesmo do blazer que eu tinha carregado na bolsa por semanas — Prada L'Homme.</p>
-  <p data-reveal>O blazer estava no banco de trás. A dois metros de mim. No carro que cheirava a ele.</p>
-  <p data-reveal>Noah entrou, ajustou o retrovisor, conectou o GPS. Movimentos funcionais, sequenciais.</p>
-  <p data-reveal>Saímos do estacionamento às oito e vinte e três.</p>
-  <p data-reveal>Eu sei o horário porque olhei pro celular logo depois, o tipo de gesto automático de quem precisa de alguma informação objetiva pra ancorar o momento. Oito e vinte e três. Dado concreto. Sólido. Não sujeito a interpretação.</p>
-
-  <p data-reveal>Vancouver passava pela janela do jeito que passa quando você não está de verdade tentando ver. Prédios. O café da esquina com fila na calçada. A ponte, e então o rio, e então o verde começando a aparecer nas beiradas da estrada, gradual, como uma cor que vai ganhando volume sem que você perceba o momento exato em que virou outra coisa.</p>
-  <p data-reveal>Nós falamos sobre o projeto. Ele perguntou sobre o equipamento pro espaço externo do hotel. Eu expliquei a lógica — lente específica, horário de luz, o que eu esperava conseguir das fachadas. Ele ouviu, fez uma pergunta técnica sobre a arquitetura do local, eu respondi.</p>
-  <p data-reveal>Depois ficou quieto. Não o silêncio desconfortável de duas pessoas que não têm o que dizer — esse eu reconheceria. Era outro tipo. Mais parecido com o silêncio que existe quando duas pessoas estão no mesmo espaço e nenhuma está fingindo que ele é mais amplo do que é.</p>
-  <p data-reveal>Eu olhei pela janela. Ele dirigiu.</p>
-  <p data-reveal>Em algum momento ele mudou a rota por uma avenida diferente, mais perto da orla. A água apareceu do lado direito, cinza e quieta naquela hora da manhã.</p>
-  <p class="dialogue" data-reveal>— Você ainda fotografa a orla? — ele perguntou.</p>
-  <p data-reveal>Não era pergunta de trabalho. Era do outro tipo.</p>
-  <p class="dialogue" data-reveal>— Às vezes. Menos do que antes.</p>
-  <p class="dialogue" data-reveal>— Você ia toda semana.</p>
-  <p class="dialogue" data-reveal>— Eu tinha mais tempo antes.</p>
-  <p class="dialogue" data-reveal>— Ou priorizava diferente.</p>
-  <p data-reveal>Olhei pra ele. Ele estava olhando pra frente, mãos no volante, o tom neutro de quem está fazendo observação e não julgamento.</p>
-  <p class="dialogue" data-reveal>— As duas coisas — admiti.</p>
-  <p data-reveal>Ficamos em silêncio por mais um pouco. Mas era um silêncio diferente — menos tenso, mais parecido com o tipo que existe quando duas pessoas não precisam preencher o espaço porque o espaço não está vazio.</p>
-
-  <p data-reveal>A lanchonete apareceu à direita quando estávamos a uns quinze minutos do hotel. Era uma daquelas construções que resistem ao tempo por teimosia — fachada desgastada, sinal levemente torto. Eu reconheci antes de entender por quê. Então entendi.</p>
-  <p class="dialogue" data-reveal>— Ela ainda existe? — ouvi minha própria voz dizer.</p>
-  <p class="dialogue" data-reveal>— Parece que sim. — Noah reduziu levemente a velocidade. — Achei que tinham fechado uns três anos atrás.</p>
-  <p class="dialogue" data-reveal>— Eu também.</p>
-  <p data-reveal>Ficamos olhando enquanto passávamos. Havia uma mesa do lado de fora com duas pessoas tomando café, ignorando completamente o frio.</p>
-  <p class="dialogue" data-reveal>— Você roubava minhas batatas lá — disse.</p>
-  <p class="dialogue" data-reveal>— Eu não roubava.</p>
-  <p class="dialogue" data-reveal>— Noah.</p>
-  <p class="dialogue" data-reveal>— Eu pegava algumas.</p>
-  <p class="dialogue" data-reveal>— Sem pedir.</p>
-  <p class="dialogue" data-reveal>— Porque você ia dizer não.</p>
-  <p class="dialogue" data-reveal>— Exatamente. Isso é roubo.</p>
-  <p class="dialogue" data-reveal>— Roubo pressupõe intenção de privar permanentemente. Eu devolvia o favor em outros contextos.</p>
-  <p class="dialogue" data-reveal>— Você devolvia comendo minhas outras batatas.</p>
-  <p class="dialogue" data-reveal>— Em outros contextos de outros dias.</p>
-  <p data-reveal>Havia alguma coisa em discutir a semântica jurídica do roubo de batata frita que era suficientemente absurdo pra ser engraçado sem nenhum esforço adicional. Senti o sorriso antes de poder decidir sobre ele — pequeno, real, do tipo que não precisa de permissão porque chega antes da chance de conceder ou negar.</p>
-  <p data-reveal>Olhei pra ele. Ele estava com o canto do lábio levemente mais alto do que o neutro de costume. Não o quase-sorriso que eu tinha começado a mapear nas primeiras semanas e depois parado de procurar. Era o outro — menor, mais interno, o tipo que aparece quando alguma coisa é de fato engraçada.</p>
-  <p data-reveal>Eu o conhecia. Esse era o problema — eu o conhecia. Sabia a diferença entre os sorrisos dele desde que eu tinha seis anos e ele tinha oito e nós dividíamos banco de parque e divergências sobre tudo que podia ser motivo de divergência.</p>
-  <p data-reveal>Voltei a olhar pela janela antes de poder fazer mais alguma coisa com essa informação.</p>
-
-  <p data-reveal>Em algum ponto da rodovia ele colocou uma música. Baixa — o tipo de volume que preenche silêncio sem substituí-lo. Algo instrumental, sem letra.</p>
-  <p data-reveal>Não era o tipo de silêncio que existe quando não há assunto. Era outro — mais parecido com o som que fica quando o ruído do dia foi processado e o que sobra é a presença de duas pessoas no mesmo espaço. Não menor. Só mais honesto sobre o que era: dois adultos numa estrada, a montanha do lado, a música baixa, e o silêncio que existe quando você para de tentar fazer o silêncio ser outra coisa.</p>
-
-  <p data-reveal>O hotel ficava no limite da cidade — arquitetura que tentava equilibrar eficiência corporativa e estética de montanha, sem chegar a ser uma coisa nem outra com convicção total.</p>
-  <p data-reveal>A recepção tinha pé-direito alto e madeira nas paredes. Cheirava a café e àquele produto de limpeza específico que hotéis de rede usam e que é igual em todos os países.</p>
-  <p data-reveal>Noah foi direto pra recepção. Eu fiquei com o equipamento, observando o lobby com o olhar que sempre ligo quando entro num espaço novo — não o olhar de pessoa, o olhar de fotógrafa.</p>
-  <p data-reveal>Priya apareceu do meu lado ainda ligeiramente sonolenta, o tablet já na mão.</p>
-  <p class="dialogue" data-reveal>— Temos duas horas antes da primeira sessão. Dá pra fazer um levantamento dos espaços.</p>
-  <p class="dialogue" data-reveal>— Eu começo já.</p>
-  <p data-reveal>Peguei a câmera.</p>
-  <p data-reveal>O lobby tinha uma janela grande no fundo que dava pro jardim. A luz da manhã entrava lateral, criando uma sombra comprida no piso de pedra — o tipo de detalhe que desaparece quando o sol sobe e que existe só naquele momento específico, por talvez quarenta minutos antes de nunca mais ser exatamente assim.</p>
-  <p data-reveal>Eu levantei a câmera.</p>
-  <p data-reveal>Pelo visor, o mundo ficou menor e mais legível. Como sempre fica.</p>
-  <p data-reveal>Isso, pelo menos, não havia mudado.</p>
-
-  <!-- ══ CAP 10 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Dez</small>
-    Desgaste
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Dois dias de hotel têm uma qualidade diferente de dois dias de escritório. No escritório existe a rotina como estrutura — os mesmos corredores, as mesmas salas, os mesmos horários que organizam o tempo em blocos conhecidos. No hotel existe só o projeto, sem a moldura habitual, e isso torna tudo levemente mais exposto do que deveria ser. Sem rotina, fica mais difícil fingir que algo não existe só porque você decidiu que não existe.</p>
-
-  <p data-reveal>Acordei antes do despertador. Por alguns segundos fiquei encarando o teto do quarto, ouvindo apenas o ar-condicionado e o barulho distante de alguma porta fechando no corredor. Demorou um instante até meu cérebro lembrar onde eu estava. Hotel. Segundo dia. Mais algumas horas de trabalho e depois estrada de volta.</p>
-
-  <p data-reveal>Levantei antes que pudesse transformar o silêncio em desculpa para pensar demais.</p>
-
-  <p data-reveal>Quando desci para o café, parte da equipe já ocupava algumas mesas espalhadas pelo restaurante. Priya digitava no tablet enquanto tomava café preto. Felix equilibrava um prato grande demais para qualquer pessoa razoável.</p>
-  <p class="dialogue" data-reveal>— Isso tudo é seu?</p>
-  <p class="dialogue" data-reveal>— Tecnicamente, ainda é do hotel.</p>
-  <p class="dialogue" data-reveal>— Felix.</p>
-  <p class="dialogue" data-reveal>— Estou valorizando o café da manhã incluso na diária.</p>
-  <p data-reveal>Priya nem levantou os olhos do tablet.</p>
-  <p class="dialogue" data-reveal>— Ignore. Ele descobriu ontem que fazem waffles na hora.</p>
-  <p class="dialogue" data-reveal>— Algumas experiências mudam uma pessoa.</p>
-
-  <p data-reveal>Balancei a cabeça, servindo uma xícara de café. Noah ainda não estava ali. Percebi a ausência antes de perceber que tinha procurado por ela. Ignorei o fato imediatamente.</p>
-
-  <p data-reveal>Terminamos o café pouco depois das oito e seguimos para o espaço de convenções. A programação do dia era simples no papel: finalizar as fotos dos ambientes, revisar alguns detalhes da decoração, registrar o material promocional e conferir a logística do evento principal. Na prática, cronogramas nunca sobrevivem intactos.</p>
-
-  <p data-reveal>Fotografei a manhã inteira. Comecei pela área externa enquanto a luz ainda estava suave. Depois fui para o salão principal, registrando ângulos amplos antes que a equipe começasse a circular por todos os lados.</p>
-
-  <p data-reveal>Felix ficou comigo durante quase toda a manhã. Reposicionava refletores, carregava equipamentos, conferia baterias e cartões de memória antes mesmo que eu pedisse.</p>
-  <p class="dialogue" data-reveal>— Espera.</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-  <p class="dialogue" data-reveal>— A luz.</p>
-  <p data-reveal>Esperei alguns segundos. Uma nuvem passou em frente ao sol. A claridade ficou uniforme. Levantei a câmera.</p>
-  <p class="dialogue" data-reveal>— Agora.</p>
-  <p data-reveal>O obturador disparou três vezes. Baixei a câmera e ampliei a imagem no visor.</p>
-  <p class="dialogue" data-reveal>— Essa ficou melhor.</p>
-  <p class="dialogue" data-reveal>— Você realmente espera a luz mudar.</p>
-  <p class="dialogue" data-reveal>— Economiza metade da edição.</p>
-  <p class="dialogue" data-reveal>— Faz sentido.</p>
-
-  <p data-reveal>Enquanto trocava a lente, ouvi passos se aproximando.</p>
-  <p class="dialogue" data-reveal>— Como está ficando?</p>
-  <p data-reveal>Levantei os olhos. Noah. Virei a câmera para mostrar as imagens. Ele ficou ao meu lado observando a sequência no visor.</p>
-  <p class="dialogue" data-reveal>— Essa.</p>
-  <p data-reveal>Apontou para uma das fotos.</p>
-  <p class="dialogue" data-reveal>— A composição está mais limpa.</p>
-  <p data-reveal>Ampliei. Ele tinha razão. A diferença era pequena. Mas existia.</p>
-  <p class="dialogue" data-reveal>— Eu provavelmente escolheria essa na edição.</p>
-  <p class="dialogue" data-reveal>— Então estamos pensando igual.</p>
-  <p data-reveal>Foi um comentário simples. Mesmo assim meu cérebro decidiu guardar a frase por tempo demais.</p>
-
-  <p data-reveal>Ele observou mais algumas imagens.</p>
-  <p class="dialogue" data-reveal>— Bom trabalho.</p>
-  <p data-reveal>Assenti apenas. Ele voltou para a equipe da organização.</p>
-  <p data-reveal>Respirei fundo antes de pegar a câmera outra vez.</p>
-
-  <p data-reveal>O restante da manhã passou rápido. Perto das onze, um dos refletores apagou completamente.</p>
-  <p class="dialogue" data-reveal>— Não me diz...</p>
-  <p data-reveal>Felix testou o cabo. Depois a bateria. Depois fez uma careta.</p>
-  <p class="dialogue" data-reveal>— Morreu.</p>
-  <p data-reveal>Ótimo. Justo quando faltava fotografar o corredor principal. Priya conseguiu outro equipamento com a equipe técnica do hotel antes que o atraso passasse de quinze minutos.</p>
-
-  <p data-reveal>Quando tudo voltou a funcionar, Noah passou rapidamente pelo corredor.</p>
-  <p class="dialogue" data-reveal>— Resolveram?</p>
-  <p class="dialogue" data-reveal>— Sim.</p>
-  <p class="dialogue" data-reveal>— Precisam de mais alguma coisa?</p>
-  <p class="dialogue" data-reveal>— Está tudo certo.</p>
-  <p data-reveal>Ele apenas assentiu e seguiu para outra reunião. Não ofereceu soluções que ninguém havia pedido. Também não ficou supervisionando. Confiou que resolveríamos.</p>
-  <p data-reveal>Estranhamente, aquilo dizia bastante sobre a forma como ele trabalhava.</p>
-
-  <p data-reveal>Continuei fotografando até o cronograma da manhã finalmente terminar.</p>
-
-  <p data-reveal>Às quatro e meia, enquanto revisava algumas imagens no corredor, Felix apareceu segurando dois copos de café.</p>
-  <p class="dialogue" data-reveal>— Boa viagem? — perguntou, com uma leveza específica de quem estava perguntando outra coisa.</p>
-  <p class="dialogue" data-reveal>— Sim.</p>
-  <p class="dialogue" data-reveal>— O trânsito estava tranquilo?</p>
-  <p class="dialogue" data-reveal>— Estava.</p>
-  <p class="dialogue" data-reveal>— Que bom. — Ele me entregou um dos cafés. — Fico feliz quando a infraestrutura rodoviária coopera com a equipe.</p>
-  <p class="dialogue" data-reveal>— Felix.</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-  <p class="dialogue" data-reveal>— Você não está perguntando sobre o trânsito.</p>
-  <p class="dialogue" data-reveal>— Não?</p>
-  <p class="dialogue" data-reveal>— Não.</p>
-  <p data-reveal>Ele levou a mão ao peito, ofendido de um jeito completamente teatral.</p>
-  <p class="dialogue" data-reveal>— Luna, eu jamais esconderia uma segunda intenção atrás de uma pergunta perfeitamente legítima sobre mobilidade urbana.</p>
-  <p class="dialogue" data-reveal>— Você está escondendo uma terceira.</p>
-  <p data-reveal>Ele riu pelo nariz.</p>
-  <p class="dialogue" data-reveal>— Tudo bem. Só queria saber se a volta ontem foi... tranquila.</p>
-  <p class="dialogue" data-reveal>— Foi.</p>
-  <p class="dialogue" data-reveal>— Só isso?</p>
-  <p class="dialogue" data-reveal>— Só isso.</p>
-  <p class="dialogue" data-reveal>— Entendido.</p>
-  <p data-reveal>Fez um gesto como se riscasse um item de uma prancheta invisível.</p>
-  <p class="dialogue" data-reveal>— Mistério encerrado.</p>
-  <p class="dialogue" data-reveal>— Você é insuportável.</p>
-  <p class="dialogue" data-reveal>— Mas trouxe café.</p>
-  <p data-reveal>Peguei o copo sem responder. Ele saiu com uma expressão discretamente satisfeita, como alguém que tinha conseguido exatamente a quantidade de informação que esperava. O que era irritante, mas não surpreendente.</p>
-
-  <p data-reveal>O almoço do segundo dia foi em grupo. O restaurante do hotel reservou uma mesa comprida perto das janelas. Toda a equipe estava ali, junto com dois representantes da gerência local que haviam acompanhado parte da montagem do evento. Sentei onde havia espaço. O que significava ficar ao lado de Priya. Priya ao lado de Felix. Felix ao lado de Noah. Duas pessoas entre nós. Distância suficiente para não existir necessidade de conversa direta. Não suficiente para que eu deixasse de perceber quando ele falava.</p>
-
-  <p data-reveal>As conversas começaram espalhadas pela mesa. Cronogramas. Fornecedores. O evento principal da semana seguinte. Eu me concentrei no prato à minha frente. O almoço era bom. Comi sem registrar muito o sabor.</p>
-
-  <p data-reveal>Em algum momento, Rodrigo — um dos gerentes locais — pediu para ver algumas fotos da manhã. Entreguei a câmera destravada. Ele passou alguns segundos deslizando pelas imagens.</p>
-  <p class="dialogue" data-reveal>— Impressionante.</p>
-  <p data-reveal>Parou em duas fotografias tiradas praticamente do mesmo lugar.</p>
-  <p class="dialogue" data-reveal>— Tem uma coisa interessante nesse par.</p>
-  <p data-reveal>Virou a câmera na direção da mesa.</p>
-  <p class="dialogue" data-reveal>— É quase como se você soubesse exatamente o que ele queria ver sem precisar perguntar.</p>
-  <p data-reveal>Ele estava se referindo a Noah. Priya olhou rapidamente para as fotos antes de assentir.</p>
-  <p class="dialogue" data-reveal>— Ela costuma entender rápido o briefing.</p>
-  <p class="dialogue" data-reveal>— Rápido até demais — comentou Felix, divertido.</p>
-  <p data-reveal>Rodrigo entregou a câmera de volta.</p>
-  <p class="dialogue" data-reveal>— Isso economiza muito tempo.</p>
-  <p data-reveal>Antes que eu respondesse, ouvi a voz de Noah pela primeira vez desde que nos sentamos.</p>
-  <p class="dialogue" data-reveal>— Também facilita quando o fotógrafo presta atenção antes de fotografar.</p>
-  <p data-reveal>Olhei automaticamente para o copo de água à minha frente. Era um elogio profissional. Objetivo. Coerente. Mesmo assim, senti meu estômago apertar por um segundo.</p>
-  <p data-reveal>Felix percebeu. Claro que percebeu. Mas, pela primeira vez desde que o conhecia, escolheu não comentar absolutamente nada. Voltou a conversar com Rodrigo sobre iluminação do salão, como se aquele momento não tivesse existido.</p>
-  <p data-reveal>Agradeci mentalmente.</p>
-
-  <p data-reveal>Havia alguma coisa desconfortável em ser lida de fora. Em descobrir que uma dinâmica que eu mal conseguia nomear internamente parecia óbvia para pessoas que conviviam conosco havia pouco mais de um dia. O desconforto não era sobre o trabalho. Era sobre não saber quanto do resto também estava visível.</p>
-
-  <p data-reveal>Depois do almoço voltamos para a sala reservada para a equipe. Marcus saiu para uma reunião com a administração do hotel. Priya desapareceu entre ligações e planilhas. Felix ficou organizando equipamentos para a viagem de volta.</p>
-  <p data-reveal>Eu sentei diante do notebook e comecei a descarregar os cartões de memória. Centenas de imagens apareceram na tela. Comecei o processo mecânico de sempre. Separar. Eliminar duplicatas. Marcar favoritas. Editar exposição.</p>
-
-  <p data-reveal>Enquanto ajustava uma fotografia do jardim externo, ouvi a porta abrir. Noah entrou acompanhado de Marcus. Eles precisavam revisar presencialmente algumas cláusulas do contrato da parceria. Escolheram a mesa do fundo. Falavam baixo. Números. Datas. Cláusulas.</p>
-  <p data-reveal>Continuei olhando para o monitor. Ou tentei. Havia uma foto aberta. O jardim ainda coberto pelo orvalho da manhã. A luz atravessava as folhas criando pequenas manchas douradas. Fiquei encarando a imagem por tempo demais. Não porque houvesse algo errado nela. Mas porque eu tinha consciência demais da presença dele a poucos metros dali.</p>
-  <p data-reveal>Respirei fundo. Voltei ao trabalho. Segui avançando pelas fotos.</p>
-
-  <p data-reveal>Até encontrar uma imagem tirada por acaso. O foco estava na decoração. Ao fundo, desfocado, Noah conversava com um dos gerentes. Fiquei olhando alguns segundos. O suficiente para perceber que ele nem deveria estar naquela composição. Pensei em excluir. O cursor permaneceu sobre a tecla. Depois apenas marquei a foto como descartada e continuei trabalhando.</p>
-
-  <p data-reveal>Não aconteceu nada. Nenhuma conversa. Nenhum olhar prolongado. Nenhuma aproximação. Quando a reunião terminou, ele passou pela minha mesa.</p>
-  <p class="dialogue" data-reveal>— O cronograma da volta continua às cinco.</p>
-  <p class="dialogue" data-reveal>— Certo.</p>
-  <p class="dialogue" data-reveal>— Dá tempo de terminar?</p>
-  <p class="dialogue" data-reveal>— Dá.</p>
-  <p class="dialogue" data-reveal>— Qualquer coisa deixa o restante para o escritório.</p>
-  <p class="dialogue" data-reveal>— Vou deixar tudo organizado.</p>
-  <p data-reveal>Ele apenas assentiu. Foi embora logo em seguida. Nenhum de nós sustentou o olhar por mais de um segundo.</p>
-
-  <p data-reveal>Não aconteceu nada. E, ainda assim, alguma coisa parecia ligeiramente diferente depois que ele saiu. Como quando uma pressão constante desaparece sem aviso e você só percebe que ela existia porque deixou de existir.</p>
-
-  <p data-reveal>A viagem de volta começou pouco depois das cinco da tarde. Para a minha infelicidade — ou felicidade, dependendo do quanto eu quisesse mentir para mim mesma — voltaríamos exatamente como tínhamos vindo. Em outras palavras, eu e Noah no mesmo carro.</p>
-  <p data-reveal>Felix seguiu com Priya, Marcus e Renato no sedan da empresa. Eles ainda precisavam revisar alguns documentos e discutir os próximos prazos antes de chegar a Vancouver. Nós saímos alguns minutos antes.</p>
-  <p data-reveal>O equipamento ocupava boa parte do banco traseiro. Ajustei o cinto, apoiei a mochila aos pés e fechei a porta. O silêncio se instalou antes mesmo de Noah ligar o motor. Não era desconfortável. Também não era exatamente confortável. Era apenas... conhecido.</p>
-
-  <p data-reveal>Saímos do estacionamento do hotel enquanto o fim da tarde começava a dourar as montanhas ao redor. A estrada parecia mais vazia do que dois dias antes. Durante vários quilômetros, o único som foi o do motor e da música baixa que saía do sistema de som do carro.</p>
-  <p class="dialogue" data-reveal>— O espaço ficou melhor do que eu esperava.</p>
-  <p class="dialogue" data-reveal>— Também achei.</p>
-  <p class="dialogue" data-reveal>— A luz natural vai ser um desafio.</p>
-  <p class="dialogue" data-reveal>— Dependendo do horário, sim.</p>
-  <p class="dialogue" data-reveal>— Já pensou na sequência das fotos?</p>
-  <p class="dialogue" data-reveal>— Mais ou menos. Vou montar um rascunho essa semana.</p>
-  <p class="dialogue" data-reveal>— Se precisar reservar algum espaço adicional, fala com a Priya. Ela tem acesso ao calendário.</p>
-  <p class="dialogue" data-reveal>— Pode deixar.</p>
-  <p data-reveal>O silêncio voltou a ocupar o carro. Observei a paisagem pela janela. As árvores passavam rápidas, interrompidas de vez em quando por pequenos lagos que refletiam o céu do fim da tarde.</p>
-
-  <p data-reveal>Em algum momento, o celular dele tocou pelo viva-voz. Era Marcus. A conversa durou pouco mais de dois minutos. Questões de orçamento. Confirmação de horários. Uma assinatura que precisaria ser enviada ainda naquela noite. Quando desligou, o carro voltou ao silêncio.</p>
-
-  <p data-reveal>Engraçado. Dois dias antes, aquele silêncio parecia pesado. Agora parecia apenas... silêncio. E isso me incomodava mais. O silêncio tenso tem causa. Você sabe exatamente o que evitar. O familiar simplesmente existe. Você percebe que deixou de procurar assunto porque já não sente obrigação de preencher cada intervalo. E eu não lembrava em que momento isso tinha acontecido.</p>
-
-  <p data-reveal>O cansaço começou a aparecer quando ainda faltava mais de uma hora para Vancouver. Peguei o celular. Respondi duas mensagens. Abri o e-mail. Fechei de novo. Olhei algumas fotos da câmera apenas para confirmar que os arquivos estavam salvos.</p>
-  <p data-reveal>Sem perceber, apoiei a cabeça no vidro da janela. O movimento constante do carro fazia tudo parecer mais lento. A luz do lado de fora foi mudando aos poucos. As sombras ficaram mais compridas. As primeiras luzes da estrada começaram a acender.</p>
-
-  <p data-reveal>Não sei exatamente em que momento fechei os olhos. Os últimos quilômetros de que me lembro estavam banhados por aquela luz dourada típica do fim de tarde. Depois disso... nada.</p>
-
-  <p data-reveal>Acordei devagar. Primeiro ouvi o motor. Depois percebi as luzes de Vancouver atravessando a janela. Demorei alguns segundos para entender por que estava tão aquecida.</p>
-  <p data-reveal>Havia alguma coisa sobre meus ombros. Olhei para baixo. O blazer. O mesmo blazer que eu havia devolvido dois dias antes. O mesmo que ele tinha dobrado e deixado no banco traseiro durante toda a viagem. Agora estava cuidadosamente apoiado sobre mim. Não jogado. Colocado. Como quem tenta não acordar alguém.</p>
-
-  <p data-reveal>O tecido ainda conservava um pouco do calor. E o cheiro. Prada L'Homme. O mesmo perfume que havia impregnado o meu quarto por semanas depois daquela primeira carona.</p>
-
-  <p data-reveal>Olhei discretamente para o painel. A música estava mais baixa do que antes. O ar-condicionado também. Estava levemente mais quente. A temperatura exata de que eu costumava gostar quando acabava dormindo durante viagens.</p>
-
-  <p data-reveal>Era logística. Era isso. O tipo de cuidado automático que qualquer pessoa teria ao perceber outra dormindo com frio e um blazer disponível no banco de trás. Eu sabia. Sabia exatamente o que aquilo era. E, ainda assim, havia uma diferença enorme entre entender racionalmente um gesto... e convencer o resto de mim a tratá-lo como algo comum.</p>
-
-  <p data-reveal>Quando o carro parou em frente ao meu prédio, desafivelei o cinto ainda meio sonolenta. Peguei a mochila.</p>
-  <p class="dialogue" data-reveal>— Boa noite.</p>
-  <p class="dialogue" data-reveal>— Boa noite.</p>
-  <p data-reveal>Desci. Fechei a porta. Só quando atravessei a entrada do prédio percebi que o blazer continuava sobre meus ombros.</p>
-  <p data-reveal>Não pensei em tirá-lo. Também não decidi ficar com ele. Simplesmente entrei no elevador como se ele ainda fosse meu. Foi apenas quando as portas se fecharam que passei a mão pela manga do tecido. Suspirei. O cheiro dele ainda estava ali.</p>
-
-  <p data-reveal>Abri a porta do apartamento. Entrei. Deixei a mochila no chão. Tirei os sapatos. O blazer permaneceu nos meus ombros por mais alguns segundos. Então o retirei devagar. Fiquei olhando para o tecido entre as mãos.</p>
-
-  <p data-reveal>Vou devolver amanhã. Coloquei-o sobre o sofá e caminhei até o quarto. Dei três passos. Parei. Voltei. Peguei o blazer outra vez. Fiquei alguns segundos sem entender por quê. Então apenas o dobrei com cuidado e o apoiei sobre a cadeira ao lado da cama.</p>
-
-  <p data-reveal>Segunda vez. Mesmo padrão. Mesmo erro.</p>
-  <p data-reveal>A diferença era que, desta vez... eu nem tinha percebido quando aquilo começou a parecer normal.</p>
-
-  <!-- ══ CAP 11 ══ -->
-  <h2 class="chapter-title" data-reveal>
-    <small>Capítulo Onze</small>
-    Linha do Tempo
-  </h2>
-
-  <div class="pov-badge" data-reveal>ponto de vista — Luna</div>
-
-  <p data-reveal>Renato tem sessenta e dois anos, trinta e um dentro da Vasconcelos Group e o tipo de memória institucional que transforma qualquer conversa de corredor em arquivo histórico involuntário.</p>
-
-  <p data-reveal>Ele não consulta agendas. Não precisa. Lembra de campanhas pelo tipo de chuva que caiu no dia da montagem. De fornecedores pelo café que costumavam pedir. De reuniões pelo modelo do notebook que alguém usava na época. Às vezes parecia que o prédio inteiro existia dentro da cabeça dele.</p>
-
-  <p data-reveal>Eu aprendi isso numa quarta-feira à tarde. Estava encostada na mesa de edição, exportando algumas imagens do evento em Whistler, quando Renato passou em direção à impressora carregando uma pilha de contratos.</p>
-
-  <p class="dialogue" data-reveal>— Renato.</p>
-  <p class="dialogue" data-reveal>— Oi, Luna.</p>
-  <p class="dialogue" data-reveal>— Posso tirar uma dúvida?</p>
-  <p class="dialogue" data-reveal>— Sempre.</p>
-
-  <p data-reveal>Girei o notebook na direção dele.</p>
-
-  <p class="dialogue" data-reveal>— Você exportaria essas imagens em JPEG ou TIFF? A gráfica pediu qualidade máxima, mas também reclamou do tamanho dos arquivos.</p>
-
-  <p data-reveal>Ele apoiou os contratos na bancada e colocou os óculos um pouco mais para a ponta do nariz.</p>
-
-  <p class="dialogue" data-reveal>— Depende do destino.</p>
-
-  <p data-reveal>Começou a explicar calmamente as diferenças entre compressão, resolução e impressão. Eu prestava atenção. Até que, no meio da explicação, ele sorriu de leve, como quem lembrava de alguma coisa.</p>
-
-  <p class="dialogue" data-reveal>— Engraçado…</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-  <p class="dialogue" data-reveal>— Esse mesmo problema já apareceu anos atrás.</p>
-
-  <p data-reveal>Continuou olhando para a tela.</p>
-
-  <p class="dialogue" data-reveal>— Numa campanha de inverno. A gráfica reclamou exatamente da mesma coisa.</p>
-  <p class="dialogue" data-reveal>— E como resolveram?</p>
-  <p class="dialogue" data-reveal>— O Noah resolveu pessoalmente.</p>
-
-  <p data-reveal>Meu dedo parou sobre o touchpad. Renato não percebeu.</p>
-
-  <p class="dialogue" data-reveal>— Deve fazer uns quatro… talvez cinco anos.</p>
-  <p class="dialogue" data-reveal>— Faz tempo.</p>
-  <p class="dialogue" data-reveal>— É.</p>
-
-  <p data-reveal>Ele riu sozinho.</p>
-
-  <p class="dialogue" data-reveal>— Naquela época ele ainda estava começando a aparecer mais por aqui.</p>
-  <p class="dialogue" data-reveal>— Entendi.</p>
-
-  <p data-reveal>Ele voltou ao assunto original como se nada tivesse acontecido.</p>
-
-  <p class="dialogue" data-reveal>— Enfim… exporta em TIFF para a gráfica e guarda uma versão em JPEG para o arquivo interno. Economiza espaço.</p>
-  <p class="dialogue" data-reveal>— Certo.</p>
-  <p class="dialogue" data-reveal>— Resolve.</p>
-  <p class="dialogue" data-reveal>— Obrigada.</p>
-  <p class="dialogue" data-reveal>— Disponha.</p>
-
-  <p data-reveal>Pegou os contratos outra vez.</p>
-
-  <p class="dialogue" data-reveal>— Ah… e não esquece de incorporar o perfil de cor.</p>
-  <p class="dialogue" data-reveal>— Pode deixar.</p>
-
-  <p data-reveal>Ele seguiu até a impressora. Esperou as folhas saírem uma a uma. Dobrou tudo cuidadosamente.</p>
-
-  <p class="dialogue" data-reveal>— Obrigado, Luna.</p>
-  <p class="dialogue" data-reveal>— Imagina.</p>
-
-  <p data-reveal>Foi embora para a mesa dele perto da janela. Eu continuei olhando para a tela. Ou, pelo menos, era isso que meus olhos estavam fazendo. Minha cabeça já tinha ido para outro lugar.</p>
-
-  <p data-reveal><strong>Quatro… talvez cinco anos.</strong></p>
-  <p data-reveal><strong>Quando ele ainda estava começando a aparecer mais por aqui.</strong></p>
-
-  <p data-reveal>A frase parecia pequena demais para o estrago que fazia.</p>
-
-  <p data-reveal><em>Começando a aparecer mais.</em></p>
-
-  <p data-reveal>Mais. A palavra implicava outra. Antes. Se ele estava começando a aparecer <em>mais</em>, então já aparecia antes. Se já aparecia antes… então a presença de Noah naquela empresa não tinha começado quando nos reencontramos semanas atrás. Tinha começado muito antes.</p>
-
-  <p data-reveal>Antes de quanto?</p>
-
-  <p data-reveal>Continuei encarando a janela de exportação aberta no monitor. A barra de progresso chegou a cem por cento. Outra janela apareceu. Eu não cliquei em nada.</p>
-
-  <p data-reveal>Fiz o que sempre faço quando um problema aparece sem todas as peças. Organizei os fatos. Datas. Sequências.</p>
-
-  <p data-reveal>O que eu sabia.</p>
-
-  <p data-reveal>Noah tinha dezessete anos quando foi embora. Eu tinha quinze. Setembro de dois mil e quinze. Depois disso… silêncio. Não houve despedida de verdade. Não houve explicação. Não houve uma conversa que justificasse desaparecer da vida de alguém de um dia para o outro. Houve apenas ausência. E o tipo de silêncio que cresce sozinho quando ninguém se dispõe a quebrá-lo.</p>
-
-  <p data-reveal>Quase dez anos. Era isso que eu acreditava.</p>
-
-  <p data-reveal>Até Renato mencionar, casualmente, uma campanha de quatro ou cinco anos atrás.</p>
-
-  <p data-reveal>O intervalo entre essas duas datas era onde toda a minha versão da história morava. E, pela primeira vez desde setembro de dois mil e quinze… ela parecia incompleta.</p>
-
-  <p data-reveal>Uma lembrança surgiu antes que eu pudesse impedir. O banco de madeira do parque. As folhas secas espalhadas pelo chão. Ele dizendo que voltava depois. Eu acreditando. Porque, aos quinze anos, você acredita quando alguém importante diz que volta.</p>
-
-  <p data-reveal>O problema nunca foi ele ter ido embora. Foi o fato de nunca ter voltado.</p>
-
-  <p data-reveal>Ou, pelo menos… era isso que eu pensava até cinco minutos atrás.</p>
-
-  <p data-reveal>Na manhã seguinte, Priya apareceu na minha mesa antes mesmo de eu terminar o primeiro café.</p>
-
-  <p class="dialogue" data-reveal>— Tem um favor para fazer?</p>
-  <p class="dialogue" data-reveal>— Claro.</p>
-  <p class="dialogue" data-reveal>— O marketing quer montar um painel para o aniversário da empresa. Precisamos separar algumas imagens históricas. Você pode dar uma olhada no arquivo?</p>
-  <p class="dialogue" data-reveal>— Posso.</p>
-  <p class="dialogue" data-reveal>— Não precisa editar nada. Só selecionar o que fizer sentido.</p>
-  <p class="dialogue" data-reveal>— Certo.</p>
-
-  <p data-reveal>Ela agradeceu e voltou para a própria mesa.</p>
-
-  <p data-reveal>Era um trabalho simples. Pelo menos era isso que deveria ser.</p>
-
-  <p data-reveal>O servidor de arquivos da Vasconcelos Group reunia décadas de fotografias institucionais. Eventos. Campanhas. Inaugurações. Convenções. Pastas organizadas por ano, depois por mês e, por fim, por evento.</p>
-
-  <p data-reveal>Abri a primeira. 2025. Fotos recentes. Algumas eu mesma havia tirado.</p>
-
-  <p data-reveal>Passei para a seguinte. 2024. Depois 2023. 2022.</p>
-
-  <p data-reveal>As imagens mudavam. Os rostos também. Alguns funcionários permaneciam. Outros desapareciam conforme os anos voltavam.</p>
-
-  <p data-reveal>Sem perceber, parei de procurar apenas fotografias úteis para o painel. Comecei a procurar outra coisa. Outra pessoa.</p>
-
-  <p data-reveal>Desci mais um ano. 2021. Nada. 2020. Nada. 2019. Também não.</p>
-
-  <p data-reveal>Franzi a testa. Renato havia dito quatro ou cinco anos. Talvez estivesse arredondando.</p>
-
-  <p data-reveal>Continuei. 2018. Mais uma convenção. Algumas reuniões. Nenhum sinal dele.</p>
-
-  <p data-reveal>Respirei fundo. Abri a pasta seguinte. 2017.</p>
-
-  <p data-reveal>Havia dezenas de eventos. Conferências. Lançamentos. Fotos de equipes reunidas no saguão principal.</p>
-
-  <p data-reveal>Abri uma pasta chamada <em>Evento Corporativo — Setembro</em>.</p>
-
-  <p data-reveal>As miniaturas começaram a carregar. Fui passando uma por uma. Funcionários. Parceiros. Executivos.</p>
-
-  <p data-reveal>Até que meu dedo parou sobre o mouse.</p>
-
-  <p data-reveal>Ampliei a imagem.</p>
-
-  <p data-reveal>Noah.</p>
-
-  <p data-reveal>Mais novo. Talvez vinte e um ou vinte e dois anos. O cabelo um pouco mais curto. O rosto ainda menos marcado. Mas era ele. Reconheci antes mesmo de ampliar completamente a fotografia.</p>
-
-  <p data-reveal>Ao lado dele estava um homem mais velho. Não precisei pensar muito. A mesma estrutura do rosto. Os mesmos ombros retos. O mesmo jeito de manter as mãos unidas à frente do corpo. O pai.</p>
-
-  <p data-reveal>Meu olhar voltou automaticamente para a data da pasta.</p>
-
-  <p data-reveal><strong>2017.</strong></p>
-
-  <p data-reveal>Dois anos. Dois anos depois de setembro de 2015.</p>
-
-  <p data-reveal>Meu estômago apertou.</p>
-
-  <p data-reveal>Ele estava ali. Naquela empresa. Naquela cidade. Dois anos depois. E eu não fazia ideia.</p>
-
-  <p data-reveal>Continuei observando a fotografia. Foi então que notei uma terceira pessoa.</p>
-
-  <p data-reveal>Uma mulher. Estava alguns passos afastada dos dois. Não parecia alguém que tivesse sido chamado apenas para posar. Parecia fazer parte da cena. Da rotina.</p>
-
-  <p data-reveal>Havia alguma coisa nela. Não exatamente no rosto. Era o jeito como mantinha o peso apoiado em uma das pernas. O ângulo da cabeça. A postura de quem conhecia aquele ambiente há muito tempo.</p>
-
-  <p data-reveal>Era uma sensação estranha. Como reconhecer uma música sem conseguir lembrar o nome.</p>
-
-  <p data-reveal>Continuei encarando a tela por tempo demais.</p>
-
-  <p class="dialogue" data-reveal>— Você encontrou as de 2017.</p>
-
-  <p data-reveal>A voz veio ao meu lado. Nem ouvi Sofia se aproximar.</p>
-
-  <p data-reveal>Levantei os olhos. Ela segurava uma pasta contra o peito enquanto observava o monitor com tranquilidade. Não parecia surpresa. Também não parecia curiosa. Como se soubesse exatamente qual fotografia estava aberta antes mesmo de olhar.</p>
-
-  <p class="dialogue" data-reveal>— Quem é ela?</p>
-
-  <p data-reveal>Apontei discretamente para a terceira pessoa da foto.</p>
-
-  <p class="dialogue" data-reveal>— Essa aqui.</p>
-
-  <p data-reveal>Sofia permaneceu alguns segundos em silêncio. Não era o silêncio de quem buscava a resposta. Era o de quem já sabia exatamente qual era. E estava decidindo quanto dela entregar.</p>
-
-  <p class="dialogue" data-reveal>— Era diferente naquela época — disse por fim.</p>
-
-  <p data-reveal>Continuou olhando para a fotografia. Não para Noah. Para a terceira pessoa.</p>
-
-  <p class="dialogue" data-reveal>— Mudou bastante.</p>
-  <p class="dialogue" data-reveal>— Quem?</p>
-
-  <p data-reveal>Um sorriso discreto apareceu no rosto dela.</p>
-
-  <p class="dialogue" data-reveal>— Você faz perguntas muito diretas.</p>
-  <p class="dialogue" data-reveal>— Costumam funcionar.</p>
-  <p class="dialogue" data-reveal>— Nem sempre.</p>
-
-  <p data-reveal>Ela cruzou os braços. O olhar permaneceu preso à fotografia por mais alguns segundos.</p>
-
-  <p class="dialogue" data-reveal>— Faz muito tempo.</p>
-  <p class="dialogue" data-reveal>— Sofia…</p>
-
-  <p data-reveal>Ela soltou uma pequena risada.</p>
-
-  <p class="dialogue" data-reveal>— Tudo bem.</p>
-
-  <p data-reveal>Levantou a mão e apontou para a mulher na fotografia.</p>
-
-  <p class="dialogue" data-reveal>— Sou eu.</p>
-
-  <p data-reveal>Olhei outra vez para a tela. Depois para ela. Voltei para a fotografia.</p>
-
-  <p data-reveal>Agora fazia sentido. Não era o rosto que eu tinha achado familiar. Era a postura. O jeito de distribuir o peso do corpo. O ângulo da cabeça.</p>
-
-  <p class="dialogue" data-reveal>— Eu sabia que conhecia esse jeito.</p>
-  <p class="dialogue" data-reveal>— Espero ter mudado para melhor.</p>
-  <p class="dialogue" data-reveal>— Mudou.</p>
-  <p class="dialogue" data-reveal>— Ainda bem.</p>
-  <p class="dialogue" data-reveal>— Você já trabalhava aqui nessa época?</p>
-  <p class="dialogue" data-reveal>— Já.</p>
-  <p class="dialogue" data-reveal>— E conhecia o Noah?</p>
-
-  <p data-reveal>O sorriso dela diminuiu quase imperceptivelmente.</p>
-
-  <p class="dialogue" data-reveal>— Conhecia.</p>
-  <p class="dialogue" data-reveal>— Há bastante tempo?</p>
-
-  <p data-reveal>Sofia respirou fundo antes de responder.</p>
-
-  <p class="dialogue" data-reveal>— Tempo suficiente para guardar algumas boas lembranças.</p>
-  <p class="dialogue" data-reveal>— E algumas ruins?</p>
-
-  <p data-reveal>Ela sorriu de lado.</p>
-
-  <p class="dialogue" data-reveal>— Essas costumam durar mais.</p>
-
-  <p data-reveal>Olhei novamente para a fotografia. Ela também. Parecia enxergar alguma coisa muito além daquela imagem.</p>
-
-  <p class="dialogue" data-reveal>— Engraçado…</p>
-  <p class="dialogue" data-reveal>— O quê?</p>
-
-  <p data-reveal>Ela riu baixinho.</p>
-
-  <p class="dialogue" data-reveal>— Vocês dois eram impossíveis.</p>
-  <p class="dialogue" data-reveal>— Eu e o Noah?</p>
-  <p class="dialogue" data-reveal>— Vocês passavam mais tempo implicando um com o outro do que conversando. Falavam ao mesmo tempo, terminavam a frase um do outro e, cinco segundos depois, já estavam discutindo de novo por qualquer bobagem.</p>
-
-  <p data-reveal>Franzi a testa. Aquela cena… Eu conhecia aquela cena. Não exatamente pela imagem. Pela sensação.</p>
-
-  <p data-reveal>Uma lembrança antiga começou a surgir devagar.</p>
-
-  <p data-reveal>O parque perto de casa. Eu e Noah discutindo porque ele dizia que eu não sabia andar de bicicleta. Uma garota mais velha sentada no banco, rindo da nossa implicância infantil. Ela dizia que um dia nós dois íamos cansar de brigar. Nunca cansávamos.</p>
-
-  <p class="dialogue" data-reveal>— Espera…</p>
-
-  <p data-reveal>Levantei os olhos para Sofia.</p>
-
-  <p class="dialogue" data-reveal>— Era você.</p>
-
-  <p data-reveal>Ela sorriu.</p>
-
-  <p class="dialogue" data-reveal>— Finalmente lembrou.</p>
-  <p class="dialogue" data-reveal>— Você era a babá dele.</p>
-  <p class="dialogue" data-reveal>— Durante alguns anos.</p>
-  <p class="dialogue" data-reveal>— Você também ficava comigo quando minha mãe precisava sair…</p>
-  <p class="dialogue" data-reveal>— Ficava.</p>
-
-  <p data-reveal>Balancei a cabeça, ainda tentando encaixar aquela lembrança na mulher que trabalhava alguns metros da minha mesa todos os dias.</p>
-
-  <p class="dialogue" data-reveal>— Eu não tinha reconhecido você.</p>
-  <p class="dialogue" data-reveal>— Você era uma criança. É normal.</p>
-
-  <p data-reveal>Houve um silêncio confortável entre nós. Durou apenas alguns segundos.</p>
-
-  <p class="dialogue" data-reveal>— Você conhece essa história, não conhece?</p>
-
-  <p data-reveal>O sorriso dela diminuiu.</p>
-
-  <p class="dialogue" data-reveal>— Conheço partes.</p>
-  <p class="dialogue" data-reveal>— E o resto?</p>
-  <p class="dialogue" data-reveal>— O resto pertence a quem viveu.</p>
-
-  <p data-reveal>Encarei Sofia por alguns segundos. Ela sustentou meu olhar sem desviar. Não parecia esconder a verdade por maldade. Parecia apenas respeitar um limite que considerava não ser dela atravessar.</p>
-
-  <p class="dialogue" data-reveal>— Acho que um dia você vai entender.</p>
-
-  <p data-reveal>Pegou a pasta debaixo do braço.</p>
-
-  <p class="dialogue" data-reveal>— Não deixa a Priya esperando pelas fotos.</p>
-  <p class="dialogue" data-reveal>— Pode deixar.</p>
-
-  <p data-reveal>Ela caminhou até a porta. Antes de sair, olhou para mim mais uma vez.</p>
-
-  <p class="dialogue" data-reveal>— E, por incrível que pareça… o jeito de vocês dois implicarem um com o outro continua exatamente o mesmo.</p>
-
-  <p data-reveal>Soltei uma risada curta, mais por reflexo do que por achar graça. Ela sorriu de volta e saiu.</p>
-
-  <p data-reveal>Olhei novamente para a fotografia. Noah. O pai. Sofia. 2017.</p>
-
-  <p data-reveal>Fechei a imagem. Separei as fotografias que Priya havia pedido. Respondi alguns e-mails. Participei de uma reunião rápida com o marketing. Conversei com Felix sobre os arquivos do evento. Fiz tudo o que precisava ser feito.</p>
-
-  <p data-reveal>Não lembro de ter prestado atenção em nenhuma dessas coisas.</p>
-
-  <p data-reveal>Quando o relógio marcou o fim do expediente, desliguei o computador quase no automático. Desejei boa noite para quem cruzou comigo no corredor. Nem percebi se Noah ainda estava na empresa.</p>
-
-  <p data-reveal>Pela primeira vez desde que ele reapareceu na minha vida, a presença dele deixava de ser a única pergunta.</p>
-
-  <p data-reveal>Agora havia uma linha do tempo inteira que eu desconhecia.</p>
-
-  <p data-reveal>Saí do prédio pouco depois das seis. O vento frio de Vancouver me atingiu assim que as portas de vidro se fecharam atrás de mim.</p>
-
-  <p data-reveal>Caminhei até meu prédio sem colocar música. Sem olhar o celular. Sem perceber direito o caminho.</p>
-
-  <p data-reveal>Tinha datas girando na minha cabeça. 2015. 2017. Quatro ou cinco anos. Renato. A fotografia. Sofia. A babá que ria das nossas brigas. "Conheço partes." "O resto pertence a quem viveu."</p>
-
-  <p data-reveal>Cada resposta parecia abrir espaço para duas perguntas novas.</p>
-
-  <p data-reveal>E, pela primeira vez em muito tempo… eu já não tinha certeza de que a história que contei para mim durante quase dez anos era realmente a história inteira.</p>
-
-</main>
-
-<!-- ══ BOTÃO "ACABOU?" NO FINAL DO ARCO I ══ -->
-<div class="arc-end-wrapper">
-  <button id="arc-end-btn" class="arc-end-btn">Acabou?</button>
-</div>
-
-<!-- ══ MODAL DE DECISÃO — FIM DO ARCO I ══ -->
-<div id="arc-end-modal" class="arc-end-modal">
-  <div class="arc-end-modal-box">
-    <p>Acabou?</p>
-    <div class="arc-end-actions">
-      <button id="arc-yes" class="arc-end-yes">Sim</button>
-      <button id="arc-no" class="arc-end-no">Não</button>
+    <!-- ══ SPLASH SCREEN ══ -->
+    <div id="splash">
+        <div class="splash-inner">
+            <p class="splash-sub">Vasconcelos Group</p>
+            <h1 class="splash-title">Gerador<br><em>de Crachá</em></h1>
+            <div class="splash-line"></div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- ══ BOTÃO PARA O GERADOR DE CRACHÁ ══ -->
-<a href="cracha.html" id="cracha-access-btn" style="
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 100;
-    background: var(--lantern);
-    color: var(--night);
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-family: 'EB Garamond', serif;
-    font-size: 0.9rem;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s, background 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-">
-    🏢 Crachá
-</a>
+    <div class="thread" id="thread"></div>
 
-<style>
-    #cracha-access-btn:hover {
-        transform: scale(1.05);
-        background: var(--warmth);
-    }
-    .theme-light #cracha-access-btn {
-        background: var(--lantern);
-        color: var(--night);
-    }
-    .theme-light #cracha-access-btn:hover {
-        background: var(--warmth);
-    }
-</style>
+    <main class="cracha-page">
 
-<!-- Tema -->
-<button id="theme-toggle" aria-label="Alternar tema" title="Alternar tema claro/escuro">🌙</button>
+        <h1>Vasconcelos Group</h1>
+        <p class="subtitle">Gerador de Crachá Corporativo</p>
 
-<!-- Menu de capítulos -->
-<button id="chapters-toggle" aria-label="Menu de capítulos" title="Capítulos">☰</button>
-<nav id="chapters-menu" role="navigation" aria-label="Índice">
-  <div class="menu-header">
-    <span>Capítulos</span>
-    <button id="chapters-close" aria-label="Fechar menu">&times;</button>
-  </div>
-  <ul id="chapters-list"></ul>
-</nav>
+        <!-- ══ FORMULÁRIO ══ -->
+        <div class="cracha-form">
+            <div>
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" placeholder="Ex: Luna Carvalho" value="Luna Carvalho">
+            </div>
 
-<!-- Modal de continuar leitura -->
-<div id="continue-modal" role="dialog" aria-modal="true" aria-label="Continuar leitura">
-  <div class="modal-overlay"></div>
-  <div class="modal-box">
-    <p>Deseja continuar de onde parou?</p>
-    <div class="modal-actions">
-      <button id="continue-yes">Continuar</button>
-      <button id="continue-no">Começar do início</button>
-    </div>
-  </div>
-</div>
+            <div>
+                <label for="departamento">Departamento</label>
+                <select id="departamento">
+                    <option value="Marketing">Marketing</option>
+                    <option value="Design">Design</option>
+                    <option value="TI">TI</option>
+                    <option value="RH">RH</option>
+                    <option value="Diretoria">Diretoria</option>
+                    <option value="Operações">Operações</option>
+                    <option value="Vendas">Vendas</option>
+                    <option value="Jurídico">Jurídico</option>
+                </select>
+            </div>
 
-<script src="script.js"></script>
+            <div>
+                <label for="cargo">Cargo</label>
+                <select id="cargo" onchange="toggleCargoInput()">
+                    <option value="Fotógrafa">Fotógrafa</option>
+                    <option value="Designer Gráfico">Designer Gráfico</option>
+                    <option value="Desenvolvedor(a) Full Stack">Desenvolvedor(a) Full Stack</option>
+                    <option value="Analista de RH">Analista de RH</option>
+                    <option value="Gerente de Projetos">Gerente de Projetos</option>
+                    <option value="Diretor(a) de Criação">Diretor(a) de Criação</option>
+                    <option value="Coordenador(a) de Marketing">Coordenador(a) de Marketing</option>
+                    <option value="Analista de Vendas">Analista de Vendas</option>
+                    <option value="Advogado(a) Corporativo">Advogado(a) Corporativo</option>
+                    <option value="Analista de Sistemas">Analista de Sistemas</option>
+                    <option value="Assistente Administrativo">Assistente Administrativo</option>
+                    <option value="Outro">Outro (digitar)</option>
+                </select>
+            </div>
+
+            <div id="cargo-outro-container">
+                <label for="cargo-outro">Digite o cargo</label>
+                <input type="text" id="cargo-outro" placeholder="Ex: Especialista em Branding">
+            </div>
+
+            <div>
+                <label for="id_funcionario">ID do Funcionário</label>
+                <input type="text" id="id_funcionario" placeholder="Gerado automaticamente" readonly>
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary" onclick="gerarCrachá()">Gerar Crachá</button>
+                <button onclick="history.back()" class="btn-secondary">← Voltar ao livro</button>
+            </div>
+        </div>
+
+        <!-- ══ CRACHÁ GERADO ══ -->
+        <div id="cracha-container" class="cracha-card" style="display: none;">
+            <img src="logo.png" alt="Vasconcelos Group" onerror="this.style.display='none'">
+            <div class="info">
+                <p><strong>Nome:</strong> <span id="cracha-nome">—</span></p>
+                <p><strong>Departamento:</strong> <span id="cracha-departamento">—</span></p>
+                <p><strong>Cargo:</strong> <span id="cracha-cargo">—</span></p>
+                <p><strong>ID:</strong> <span id="cracha-id">—</span></p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>Vasconcelos Group — Excelência, Estratégia, Resultados.</footer>
+
+    <script src="script.js"></script>
+    <script>
+        // ══ Função para mostrar/esconder campo de cargo personalizado ══
+        function toggleCargoInput() {
+            const cargoSelect = document.getElementById('cargo');
+            const outroContainer = document.getElementById('cargo-outro-container');
+
+            if (cargoSelect.value === 'Outro') {
+                outroContainer.style.display = 'block';
+            } else {
+                outroContainer.style.display = 'none';
+            }
+        }
+
+        // ══ Gerar ID automático baseado no departamento ══
+        function gerarID(departamento) {
+            const prefixos = {
+                'Marketing': 'MKT',
+                'Design': 'DSG',
+                'TI': 'TEC',
+                'RH': 'RH',
+                'Diretoria': 'DIR',
+                'Operações': 'OPS',
+                'Vendas': 'VND',
+                'Jurídico': 'JUR'
+            };
+            const prefixo = prefixos[departamento] || 'VG';
+            const numero = String(Math.floor(Math.random() * 9000) + 1000);
+            return `${prefixo}-${numero}`;
+        }
+
+        // ══ Função principal do gerador ══
+        function gerarCrachá() {
+            const nome = document.getElementById('nome').value.trim() || 'Não informado';
+            const dept = document.getElementById('departamento').value;
+
+            // Cargo: se for "Outro", usa o input personalizado
+            let cargo = document.getElementById('cargo').value;
+            if (cargo === 'Outro') {
+                cargo = document.getElementById('cargo-outro').value.trim() || 'Não informado';
+            }
+
+            const id = gerarID(dept);
+
+            document.getElementById('cracha-nome').textContent = nome;
+            document.getElementById('cracha-departamento').textContent = dept;
+            document.getElementById('cracha-cargo').textContent = cargo;
+            document.getElementById('cracha-id').textContent = id;
+
+            const container = document.getElementById('cracha-container');
+            container.style.display = 'flex';
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ══ Gerar automaticamente ao carregar ══
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleCargoInput();
+            gerarCrachá();
+        });
+    </script>
+
 </body>
-    </html>
+  </html>
