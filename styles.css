@@ -645,3 +645,115 @@
   #theme-toggle { top: 12px; right: 12px; }
   #chapters-toggle { top: 12px; left: 12px; }
         }
+/* ── BOTÃO "ACABOU?" ── */
+.arc-end-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 6vh 0 2vh;
+}
+
+.arc-end-btn {
+  background: transparent;
+  border: 1px solid var(--lantern);
+  color: var(--lantern);
+  padding: 12px 32px;
+  border-radius: 20px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.arc-end-btn:hover {
+  background: var(--lantern);
+  color: var(--night);
+}
+
+/* ── MODAL "ACABOU?" ── */
+.arc-end-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+}
+
+.arc-end-modal.open {
+  display: flex;
+}
+
+.arc-end-modal-box {
+  background: var(--night);
+  color: var(--paper);
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.arc-end-modal.open .arc-end-modal-box {
+  transform: scale(1);
+}
+
+.arc-end-modal-box p {
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.arc-end-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.arc-end-yes,
+.arc-end-no {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.arc-end-yes {
+  background: var(--lantern);
+  color: var(--night);
+}
+
+.arc-end-yes:hover {
+  transform: scale(1.03);
+}
+
+.arc-end-no {
+  background: var(--dusk);
+  color: var(--paper);
+}
+
+.arc-end-no:hover {
+  transform: scale(1.03);
+}
+
+/* ── TEMA CLARO ── */
+.theme-light .arc-end-modal-box {
+  background: var(--night);
+  color: var(--paper);
+}
+
+.theme-light .arc-end-btn {
+  color: var(--lantern);
+}
+
+.theme-light .arc-end-btn:hover {
+  background: var(--lantern);
+  color: var(--night);
+}
