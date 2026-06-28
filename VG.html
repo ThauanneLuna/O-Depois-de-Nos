@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasconcelos Group — Portal Corporativo</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* ── ESTILOS DO PORTAL (Glassmorphism + Tema) ── */
+        .vg-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 10vh;
+            color: var(--paper);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(38, 43, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .glass:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+        .theme-light .glass {
+            background: rgba(240, 236, 225, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* ── NAVEGAÇÃO DO PORTAL ── */
+        .vg-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--dusk);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .vg-nav .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .vg-nav .logo-area img {
+            height: 40px;
+            width: auto;
+        }
+        .vg-nav .logo-area span {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            color: var(--lantern);
+            letter-spacing: 0.1em;
+        }
+        .vg-nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .vg-nav-links a {
+            color: var(--thread);
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .vg-nav-links a:hover {
+            color: var(--lantern);
+        }
+
+        /* ── HERO ── */
+        .vg-hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 0;
+        }
+        .vg-hero img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+        .vg-hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--lantern);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        .vg-hero .subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--thread);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        .vg-hero .btn-primary {
+            background: var(--lantern);
+            color: var(--night);
+            padding: 14px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            transition: transform 0.3s, background 0.3s;
+            display: inline-block;
+        }
+        .vg-hero .btn-primary:hover {
+            transform: scale(1.05);
+            background: var(--warmth);
+        }
+
+        /* ── SEÇÕES ── */
+        .vg-section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            color: var(--lantern);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .vg-grid-2, .vg-grid-3, .vg-grid-4 {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .vg-grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .vg-grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .vg-grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        /* ── DEPARTAMENTOS / LIDERANÇA ── */
+        .vg-card {
+            background: var(--night);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--dusk);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .vg-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--lantern);
+        }
+        .vg-card h3 {
+            font-family: 'Fraunces', serif;
+            color: var(--lantern);
+            margin-bottom: 0.5rem;
+        }
+        .vg-card p, .vg-card li {
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+            color: var(--paper);
+        }
+
+        /* ── NOTÍCIAS ── */
+        .vg-news-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--dusk);
+        }
+        .vg-news-item:last-child {
+            border-bottom: none;
+        }
+        .vg-news-item .date {
+            font-size: 0.85rem;
+            color: var(--thread);
+        }
+        .vg-news-item h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--lantern);
+            margin: 0.25rem 0;
+        }
+
+        /* ── TRABALHE CONOSCO ── */
+        .vg-job {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--dusk);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .vg-job:last-child {
+            border-bottom: none;
+        }
+        .vg-job .info h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--lantern);
+            margin: 0;
+        }
+        .vg-job .info p {
+            font-size: 0.9rem;
+            color: var(--thread);
+            margin: 0;
+        }
+        .vg-job .btn-small {
+            background: transparent;
+            border: 1px solid var(--lantern);
+            color: var(--lantern);
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .vg-job .btn-small:hover {
+            background: var(--lantern);
+            color: var(--night);
+        }
+
+        /* ── PORTAL DO FUNCIONÁRIO ── */
+        .vg-portal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .vg-portal-links a {
+            background: var(--dusk);
+            color: var(--paper);
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .vg-portal-links a:hover {
+            background: var(--lantern);
+            color: var(--night);
+            transform: scale(1.05);
+        }
+
+        /* ── RODAPÉ ── */
+        .vg-footer {
+            text-align: center;
+            padding: 3rem 0 1rem;
+            border-top: 1px solid var(--dusk);
+            font-family: 'EB Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--thread);
+            line-height: 1.8;
+        }
+        .vg-footer a {
+            color: var(--lantern);
+            text-decoration: none;
+        }
+        .vg-footer a:hover {
+            text-decoration: underline;
+        }
+        .vg-footer .disclaimer {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* ── RESPONSIVIDADE ── */
+        @media (max-width: 768px) {
+            .vg-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .vg-nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .vg-hero h1 { font-size: 2rem; }
+            .vg-grid-2, .vg-grid-3, .vg-grid-4 { grid-template-columns: 1fr; }
+            .vg-job { flex-direction: column; align-items: flex-start; }
+        }
+
+        /* ── TEMA CLARO ── */
+        .theme-light .vg-card {
+            background: var(--night);
+            border-color: var(--dusk);
+        }
+        .theme-light .vg-card:hover {
+            border-color: var(--lantern);
+        }
+        .theme-light .vg-job .btn-small {
+            color: var(--lantern);
+            border-color: var(--lantern);
+        }
+        .theme-light .vg-job .btn-small:hover {
+            background: var(--lantern);
+            color: var(--night);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ══ SPLASH SCREEN ══ -->
+    <div id="splash">
+        <div class="splash-inner">
+            <p class="splash-sub">Portal Corporativo</p>
+            <h1 class="splash-title">Vasconcelos<br><em>Group</em></h1>
+            <div class="splash-line"></div>
+        </div>
+    </div>
+
+    <div class="thread" id="thread"></div>
+
+    <main class="vg-page">
+
+        <!-- ══ NAVEGAÇÃO DO PORTAL ══ -->
+        <nav class="vg-nav">
+            <div class="logo-area">
+                <img src="logo.png" alt="Vasconcelos Group" onerror="this.style.display='none'">
+                <span>Vasconcelos Group</span>
+            </div>
+            <div class="vg-nav-links">
+                <a href="#sobre">Sobre</a>
+                <a href="#departamentos">Departamentos</a>
+                <a href="#lideranca">Liderança</a>
+                <a href="#noticias">Notícias</a>
+                <a href="#trabalhe">Trabalhe Conosco</a>
+                <a href="#portal">Portal</a>
+            </div>
+        </nav>
+
+        <!-- ══ HERO ══ -->
+        <section class="vg-hero glass">
+            <img src="logo.png" alt="Vasconcelos Group" onerror="this.style.display='none'">
+            <h1>VASCONCELOS GROUP</h1>
+            <p class="subtitle">«Transformando ideias em resultados. Construindo o futuro através da inovação, estratégia e excelência.»</p>
+            <a href="#sobre" class="btn-primary">Explorar Empresa</a>
+        </section>
+
+        <!-- ══ SOBRE ══ -->
+        <section id="sobre" class="glass">
+            <h2 class="vg-section-title">Sobre Nós</h2>
+            <div class="vg-grid-2">
+                <div>
+                    <h3 style="font-family:'Fraunces',serif;color:var(--lantern);">História</h3>
+                    <p>Fundada em 2015, a Vasconcelos Group nasceu com a missão de transformar o mercado corporativo através da inovação e da estratégia. Com sede em Vancouver, a empresa cresceu rapidamente, tornando-se referência nos setores de tecnologia e desenvolvimento empresarial.</p>
+                    <h3 style="font-family:'Fraunces',serif;color:var(--lantern);margin-top:1.5rem;">Missão</h3>
+                    <p>Capacitar organizações e pessoas a alcançarem seu potencial máximo através de soluções inovadoras e uma cultura de excelência.</p>
+                </div>
+                <div>
+                    <h3 style="font-family:'Fraunces',serif;color:var(--lantern);">Visão</h3>
+                    <p>Ser reconhecida globalmente como a empresa que redefine o futuro dos negócios, unindo tecnologia, estratégia e talento humano.</p>
+                    <h3 style="font-family:'Fraunces',serif;color:var(--lantern);margin-top:1.5rem;">Valores</h3>
+                    <ul style="list-style:none;padding:0;">
+                        <li>🔹 <strong>Inovação</strong> — O futuro começa hoje.</li>
+                        <li>🔹 <strong>Integridade</strong> — Transparência em tudo.</li>
+                        <li>🔹 <strong>Colaboração</strong> — Juntos somos mais fortes.</li>
+                        <li>🔹 <strong>Excelência</strong> — Não aceitamos menos.</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--dusk);">
+                <h3 style="font-family:'Fraunces',serif;color:var(--lantern);">Mensagem do Fundador</h3>
+                <p style="font-style:italic;">"Acredito que o verdadeiro sucesso de uma empresa não está apenas nos resultados que ela alcança, mas no impacto que ela gera nas pessoas e no mundo. A Vasconcelos Group foi construída sobre essa crença, e cada passo que damos é guiado por ela." — <strong>Noah Vasconcelos</strong></p>
+            </div>
+        </section>
+
+        <!-- ══ DEPARTAMENTOS ══ -->
+        <section id="departamentos" class="glass">
+            <h2 class="vg-section-title">Departamentos</h2>
+            <div class="vg-grid-3">
+                <div class="vg-card"><h3>Diretoria Executiva</h3><p>Responsável pela estratégia global e tomada de decisões de alto nível.</p></div>
+                <div class="vg-card"><h3>Tecnologia</h3><p>Desenvolvimento de soluções inovadoras e infraestrutura de TI.</p></div>
+                <div class="vg-card"><h3>Engenharia</h3><p>Projetos de engenharia e inovação industrial.</p></div>
+                <div class="vg-card"><h3>Marketing</h3><p>Estratégias de branding, comunicação e posicionamento de mercado.</p></div>
+                <div class="vg-card"><h3>Recursos Humanos</h3><p>Gestão de talentos, cultura organizacional e desenvolvimento de pessoas.</p></div>
+                <div class="vg-card"><h3>Financeiro</h3><p>Planejamento financeiro, auditoria e gestão de investimentos.</p></div>
+                <div class="vg-card"><h3>Jurídico</h3><p>Assessoria jurídica, compliance e gestão de riscos.</p></div>
+                <div class="vg-card"><h3>Pesquisa e Desenvolvimento</h3><p>Inovação, prototipagem e criação de novas tecnologias.</p></div>
+                <div class="vg-card"><h3>Estratégia Corporativa</h3><p>Planejamento de longo prazo e expansão de mercado.</p></div>
+            </div>
+        </section>
+
+        <!-- ══ LIDERANÇA ══ -->
+        <section id="lideranca" class="glass">
+            <h2 class="vg-section-title">Liderança</h2>
+            <div class="vg-grid-3">
+                <div class="vg-card">
+                    <div style="width:80px;height:80px;border-radius:50%;background:var(--dusk);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">👤</div>
+                    <h3 style="text-align:center;">Noah Vasconcelos</h3>
+                    <p style="text-align:center;color:var(--lantern);">CEO & Fundador</p>
+                    <p style="text-align:center;font-size:0.9rem;">Líder visionário com mais de 15 anos de experiência em estratégia corporativa.</p>
+                </div>
+                <div class="vg-card">
+                    <div style="width:80px;height:80px;border-radius:50%;background:var(--dusk);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">👤</div>
+                    <h3 style="text-align:center;">Luna Carvalho</h3>
+                    <p style="text-align:center;color:var(--lantern);">Diretora de Marketing</p>
+                    <p style="text-align:center;font-size:0.9rem;">Especialista em branding e comunicação estratégica.</p>
+                </div>
+                <div class="vg-card">
+                    <div style="width:80px;height:80px;border-radius:50%;background:var(--dusk);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">👤</div>
+                    <h3 style="text-align:center;">Sofia Mendes</h3>
+                    <p style="text-align:center;color:var(--lantern);">Diretora de RH</p>
+                    <p style="text-align:center;font-size:0.9rem;">Especialista em desenvolvimento humano e cultura organizacional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ NOTÍCIAS ══ -->
+        <section id="noticias" class="glass">
+            <h2 class="vg-section-title">Notícias Corporativas</h2>
+            <div>
+                <div class="vg-news-item">
+                    <span class="date">12 de junho, 2026</span>
+                    <h4>Novo Centro de Inovação</h4>
+                    <p>A Vasconcelos Group anuncia a construção de um novo centro de pesquisa e desenvolvimento em Vancouver.</p>
+                </div>
+                <div class="vg-news-item">
+                    <span class="date">28 de maio, 2026</span>
+                    <h4>Promoções Internas</h4>
+                    <p>Cinco novos diretores foram promovidos em reconhecimento ao excelente desempenho.</p>
+                </div>
+                <div class="vg-news-item">
+                    <span class="date">15 de abril, 2026</span>
+                    <h4>Parceria Estratégica</h4>
+                    <p>A Vasconcelos Group firma parceria com a Vantage para o lançamento de uma nova campanha global.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ TRABALHE CONOSCO ══ -->
+        <section id="trabalhe" class="glass">
+            <h2 class="vg-section-title">Trabalhe Conosco</h2>
+            <div>
+                <div class="vg-job">
+                    <div class="info">
+                        <h4>Desenvolvedor(a) Full Stack</h4>
+                        <p>Tecnologia — Vancouver, BC</p>
+                    </div>
+                    <a href="#" class="btn-small">Saiba mais</a>
+                </div>
+                <div class="vg-job">
+                    <div class="info">
+                        <h4>Analista de Marketing</h4>
+                        <p>Marketing — Vancouver, BC</p>
+                    </div>
+                    <a href="#" class="btn-small">Saiba mais</a>
+                </div>
+                <div class="vg-job">
+                    <div class="info">
+                        <h4>Gerente de Projetos</h4>
+                        <p>Estratégia Corporativa — Vancouver, BC</p>
+                    </div>
+                    <a href="#" class="btn-small">Saiba mais</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ PORTAL DO FUNCIONÁRIO ══ -->
+        <section id="portal" class="glass">
+            <h2 class="vg-section-title">Portal do Funcionário</h2>
+            <div class="vg-portal-links">
+                <a href="#">Diretório</a>
+                <a href="#">Meu Perfil</a>
+                <a href="#">Organograma</a>
+                <a href="#">E-mail Corporativo</a>
+                <a href="#">Avisos Internos</a>
+                <a href="#">Comunicados</a>
+            </div>
+            <div style="margin-top:2rem;text-align:center;">
+                <a href="cracha.html" style="background:var(--lantern);color:var(--night);padding:12px 32px;border-radius:30px;text-decoration:none;font-family:'EB Garamond',serif;font-size:1.05rem;display:inline-block;transition:transform 0.3s;">
+                    🪪 Criar meu crachá
+                </a>
+            </div>
+        </section>
+
+        <!-- ══ RODAPÉ ══ -->
+        <footer class="vg-footer">
+            <p>
+                <a href="index.html">← Voltar ao livro</a>
+            </p>
+            <p>Vasconcelos Group — Excelência, Estratégia, Resultados.</p>
+            <p class="disclaimer">
+                A Vasconcelos Group faz parte do universo fictício de <em>Depois de Nós</em>.<br>
+                Todas as informações, funcionários e documentos apresentados nesta página são exclusivamente parte da obra de ficção.
+            </p>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+                                        </html>
