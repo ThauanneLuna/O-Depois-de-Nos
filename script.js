@@ -487,6 +487,47 @@ chapters.forEach((h2, index) => {
 
 })();
 
+/* ══ CONTROLE DO MODAL "ACABOU?" ══ */
+(function() {
+  const modal = document.getElementById('arc-end-modal');
+  const btn = document.getElementById('arc-end-btn');
+  const yesBtn = document.getElementById('arc-yes');
+  const noBtn = document.getElementById('arc-no');
+
+  if (!modal || !btn) return;
+
+  // Abre o modal
+  btn.addEventListener('click', () => {
+    modal.classList.add('open');
+  });
+
+  // Fecha o modal com "Não"
+  if (noBtn) {
+    noBtn.addEventListener('click', () => {
+      modal.classList.remove('open');
+    });
+  }
+
+  // "Sim" → vai para o próximo arco
+  if (yesBtn) {
+    yesBtn.addEventListener('click', () => {
+      const meta = document.querySelector('meta[name="volume"]');
+      const currentVolume = meta ? parseInt(meta.content) || 1 : 1;
+      window.location.href = currentVolume === 1 ? 'arco2.html' : `arco${currentVolume + 1}.html`;
+    });
+  }
+
+  // Fecha com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal.classList.remove('open');
+  });
+
+  // Fecha clicando fora do modal
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('open');
+  });
+})();
+
 /* ══ SALVAR PROGRESSO DE LEITURA ══ */
 (function() {
   const STORAGE_KEY = 'reading-progress';
