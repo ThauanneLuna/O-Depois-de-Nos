@@ -1,234 +1,241 @@
-<div align="center">
+<div align="center">🥀 Depois de Nós
 
-# 🥀 O Depois de Nós
+Algumas histórias nunca terminam — só esperam recomeçar.
 
-### _Algumas histórias nunca terminam — só esperam recomeçar_
+Romance contemporâneo psicológico sobre duas pessoas que cresceram juntas, foram separadas por circunstâncias que nunca compreenderam e, anos depois, são obrigadas a trabalhar lado a lado enquanto descobrem que o passado nunca ficou realmente para trás.
 
-Romance contemporâneo psicológico sobre dois amigos de infância separados por um passado mal resolvido que voltam a se encontrar anos depois, agora em lados opostos de uma vida adulta que não os poupou.
+</div>---
 
-</div>
+🌫️ Sobre o Projeto
 
----
+Depois de Nós é um romance contemporâneo com elementos de drama psicológico, friends to lovers, second chance romance e slow burn.
 
-# 🌫️ Sobre o Projeto
+A narrativa acompanha Luna Carvalho, uma fotógrafa profissional, e Noah Vasconcelos, CEO do Vasconcelos Group, que voltam a se encontrar quase dez anos após um desaparecimento que mudou completamente suas vidas.
 
-**Depois de Nós** é um romance contemporâneo com foco em tensão emocional, subtexto e construção lenta de relacionamento.
+Sem conhecer toda a verdade, Luna passou anos acreditando que Noah simplesmente escolheu abandoná-la. Já Noah convive diariamente com o peso de um passado que nunca conseguiu explicar.
 
-A história acompanha Luna Carvalho e Noah Vasconcelos, dois antigos amigos que se reencontram anos depois em circunstâncias profissionais — carregando um passado interrompido, incompleto e cheio de silêncios.
-
-O foco do projeto é:
-
-- 💔 Tensão emocional constante
-- 🧠 Subtexto acima de diálogo direto
-- 🌧️ Memórias interferindo no presente
-- ⚖️ Relações mal resolvidas
-- 🔥 Slow burn psicológico real
+Agora, trabalhando no mesmo projeto, ambos precisam enfrentar memórias, ressentimentos e sentimentos que permaneceram vivos mesmo depois de tantos anos.
 
 ---
 
-# ⚙️ Estrutura Narrativa
+🎯 Temas Centrais
 
-bash
+- 💔 Segunda chance
+- 🌧️ Memórias que moldam o presente
+- 🤝 Amizade interrompida
+- ❤️ Amor construído lentamente
+- 🧠 Trauma, culpa e perdão
+- ⚖️ Confiança quebrada
+- 🏛️ Legado, responsabilidade e família
+- 🌙 Silêncios que dizem mais que palavras
+
+---
+
+⚙️ Estrutura Narrativa
+
 POV alternado (Luna / Noah)
 Primeira pessoa
-Romance psicológico
+Romance contemporâneo psicológico
+Slow Burn
+Friends to Lovers
+Second Chance Romance
 Subtexto dominante
-Construção lenta
-Sem resolução precoce
-
+Sem resolução emocional precoce
 
 ---
 
-🧩 Arcos da História
-
-🌙 ARCO 1 — Reencontro (Cap. 1–6)
-
-Luna descobre que trabalhará com Noah
-
-Choque emocional imediato
-
-Reintrodução da dinâmica antiga
-
-Tensão silenciosa crescente
-
-
-
----
-
-🌧️ ARCO 2 — Aproximação Forçada (Cap. 7–14)
-
-Convivência constante
-
-Memórias começam a interferir
-
-Pequenas rachaduras emocionais
-
-Dinâmica antiga voltando sem permissão
-
-
-
----
-
-🌫️ ARCO 3 — Verdade Escondida (Cap. 15–20)
-
-Início da investigação do passado
-
-Sofia começa a revelar fragmentos
-
-Ciúmes e ruído emocional
-
-Conflitos internos mais fortes
-
-
-
----
-
-💥 ARCO 4 — Ruptura (Cap. 21–26)
-
-Verdade completa revelada
-
-Conflito emocional intenso
-
-Quebra da confiança
-
-Separação emocional
-
-
-
----
-
-🌙 ARCO 5 — Depois de Nós (Cap. 27–32)
-
-Reconstrução lenta
-
-Perdão progressivo
-
-Reaproximação real
-
-Final romântico
-
-
-
----
-
-👤 Personagens
+👥 Personagens
 
 🌙 Luna Carvalho
 
-Fotógrafa profissional, sensível, teimosa e emocionalmente defensiva.
-Vive entre controle e memória.
+24 anos • Fotógrafa Profissional
 
+Aniversário: 14 de março
+
+Criativa, sensível, observadora e extremamente teimosa.
+
+Transforma emoções em fotografias e guarda lembranças com uma intensidade que a impede de esquecer Noah.
+
+Aparência
+
+- Cabelos castanhos escuros, levemente ondulados.
+- Olhos castanhos claros e muito expressivos.
+- Pele clara.
+- Altura média.
+- Estilo minimalista em tons claros.
+
+Medo: ter sido abandonada por escolha.
 
 ---
 
 🖤 Noah Vasconcelos
 
-CEO do Vasconcelos Group.
-Controlado, observador e protetor.
-Não frio — apenas contido.
+26 anos • CEO do Vasconcelos Group
 
+Aniversário: 2 de setembro
+
+Controlado, inteligente, reservado e extremamente leal.
+
+Aprendeu cedo que responsabilidade vem antes dos próprios sentimentos.
+
+Aparência
+
+- Cabelos castanho-escuros.
+- Olhos verde-avelã, que mudam conforme a iluminação.
+- Alto.
+- Corpo atlético.
+- Estilo corporativo sofisticado.
+
+Medo: que Luna jamais consiga perdoá-lo.
 
 ---
 
 💬 Emma
 
 Melhor amiga de Luna.
-Sarcástica, direta e emocionalmente precisa.
 
+Sarcástica, espontânea e emocionalmente perceptiva.
+
+É quem mais desafia Luna a admitir aquilo que tenta esconder.
 
 ---
 
 🕯️ Sofia
 
-Figura do passado.
-Guarda a verdade que ninguém mais contou.
+Figura quase maternal.
 
+Conhece toda a verdade do passado de Luna e Noah.
+
+Afetuosa, irônica e estrategicamente manipuladora.
+
+É a guardiã da história que ninguém contou.
 
 ---
 
 🎭 Felix
 
-Alívio cômico.
-Expõe subtexto através de humor.
+Designer.
 
+Brincalhão, criativo e caótico na medida certa.
+
+Percebe tensões antes de todos e costuma expô-las através do humor.
 
 ---
 
 📊 Priya
 
-Observadora estratégica.
-Espelha a dinâmica emocional do ambiente.
+Marketing.
 
+Cabelos curtos.
+
+Observadora, estratégica e extremamente racional.
+
+Fala pouco, mas quando fala, muda completamente o rumo de uma conversa.
+
+---
+
+📈 Sara
+
+Branding.
+
+Discreta, organizada e focada em dados.
+
+Sua presença reforça o ambiente corporativo e a profissionalização da equipe.
+
+---
+
+🚛 Marcus
+
+Responsável pela logística.
+
+Prático, eficiente e confiável.
+
+Resolve problemas antes mesmo que eles cheguem aos protagonistas.
+
+---
+
+🏛️ Vasconcelos Group
+
+Holding multissetorial fictícia de alto padrão, fundada por Henrique Vasconcelos.
+
+Inspirada na estrutura de grandes consultorias globais, bancos privados e holdings familiares, a empresa combina tradição, inovação e governança estratégica.
+
+Áreas de atuação
+
+- Consultoria Estratégica
+- Gestão Empresarial
+- Tecnologia e Inovação
+- Branding e Comunicação
+- Logística e Operações
+- Desenvolvimento de Soluções
+- Investimentos
+
+Estrutura Corporativa
+
+Henrique Vasconcelos
+
+- Fundador do Vasconcelos Group.
+- Pai de Noah.
+- Atual Presidente do Conselho.
+- Responsável por preservar o legado e orientar as decisões estratégicas da holding.
+
+Noah Vasconcelos
+
+- CEO desde 2024.
+- Lidera a expansão e modernização do grupo.
+- Atua ao lado do Conselho Administrativo, equilibrando inovação e tradição.
 
 ---
 
 🧠 Dinâmica Central
 
-Luna interpreta emoções e cria defesas
-
-Noah observa tudo, mas fala pouco
-
-Passado interrompido influencia cada interação
-
-Nada é totalmente dito, mas tudo é sentido
-
-
+- Luna interpreta emoções e cria barreiras para se proteger.
+- Noah observa tudo, mas raramente expressa o que sente.
+- O passado influencia cada decisão do presente.
+- Os personagens secundários enxergam a tensão entre os dois antes deles próprios.
+- O romance é construído através de gestos, silêncios e pequenas mudanças, nunca por grandes declarações.
 
 ---
 
-⚡ Regras do Projeto
+📖 Regras do Projeto
 
-✔️ Slow burn real (sem aceleração artificial)
-✔️ Subtexto > diálogo direto
-✔️ Emoções implícitas
-✔️ Memória afetando comportamento presente
-✔️ Conflito sem resolução rápida
-✔️ Gestos pequenos com grande impacto emocional
-
+- ✔️ Slow burn verdadeiro.
+- ✔️ Subtexto acima de diálogos expositivos.
+- ✔️ Emoções construídas gradualmente.
+- ✔️ Memórias influenciando comportamentos.
+- ✔️ Conflitos sem resolução imediata.
+- ✔️ Gestos pequenos com grande impacto emocional.
+- ✔️ Coerência psicológica em todos os personagens.
+- ✔️ Ambiente corporativo como reflexo da tensão entre Luna e Noah.
 
 ---
 
 🌧️ Tom da Narrativa
 
-Íntimo e psicológico
-
-Direto, sem floreio desnecessário
-
-Silêncios carregam peso
-
-Romance construído em tensão, não em declarações
-
-Realismo emocional acima de idealização
-
-
+- Íntimo.
+- Psicológico.
+- Elegante.
+- Contemporâneo.
+- Cinematográfico.
+- Emocional.
+- Realista.
 
 ---
 
-📍 Status Atual
+📍 Status do Projeto
 
-Capítulos 1–3: estabelecidos
-
-Capítulos 4–6: em construção estrutural
-
-Dinâmica central: ativa e consistente
-
-Risco atual: acelerar conexão emocional cedo demais
-
-
+- Universo narrativo consolidado.
+- Personagens principais e secundários definidos.
+- Vasconcelos Group estruturado.
+- Cronologia principal estabelecida.
+- Ambientação corporativa integrada ao desenvolvimento emocional da história.
 
 ---
 
-💔 Núcleo da História
-
-Eles não se perderam no passado.
+<div align="center">🌙 "Eles não se perderam.
 
 Foram interrompidos.
 
-E agora precisam descobrir se ainda existem na mesma versão um do outro.
-
-
----
-
-<div align="center">🌙 “Algumas histórias não acabam. Só aprendem a doer em silêncio.”
+E agora precisam descobrir se ainda conseguem encontrar o caminho de volta."
 
 </div>
