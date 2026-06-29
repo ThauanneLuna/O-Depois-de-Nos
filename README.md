@@ -1,16 +1,20 @@
-<div align="center">🥀 Depois de Nós
+<div align="center">
 
-Algumas histórias nunca terminam — só esperam recomeçar.
+# 🥀 Depois de Nós
+
+### *Algumas histórias nunca terminam — só esperam recomeçar.*
 
 Romance contemporâneo psicológico sobre duas pessoas que cresceram juntas, foram separadas por circunstâncias que nunca compreenderam e, anos depois, são obrigadas a trabalhar lado a lado enquanto descobrem que o passado nunca ficou realmente para trás.
 
-</div>---
+</div>
 
-🌫️ Sobre o Projeto
+---
 
-Depois de Nós é um romance contemporâneo com elementos de drama psicológico, friends to lovers, second chance romance e slow burn.
+# 🌫️ Sobre o Projeto
 
-A narrativa acompanha Luna Carvalho, uma fotógrafa profissional, e Noah Vasconcelos, CEO do Vasconcelos Group, que voltam a se encontrar quase dez anos após um desaparecimento que mudou completamente suas vidas.
+**Depois de Nós** é um romance contemporâneo com elementos de drama psicológico, **Friends to Lovers**, **Second Chance Romance** e **Slow Burn**.
+
+A narrativa acompanha **Luna Carvalho**, uma fotógrafa profissional, e **Noah Vasconcelos**, CEO do **Vasconcelos Group**, que voltam a se encontrar quase dez anos após um desaparecimento que mudou completamente suas vidas.
 
 Sem conhecer toda a verdade, Luna passou anos acreditando que Noah simplesmente escolheu abandoná-la. Já Noah convive diariamente com o peso de um passado que nunca conseguiu explicar.
 
@@ -18,7 +22,7 @@ Agora, trabalhando no mesmo projeto, ambos precisam enfrentar memórias, ressent
 
 ---
 
-🎯 Temas Centrais
+# ✨ Temas Centrais
 
 - 💔 Segunda chance
 - 🌧️ Memórias que moldam o presente
@@ -31,32 +35,41 @@ Agora, trabalhando no mesmo projeto, ambos precisam enfrentar memórias, ressent
 
 ---
 
-⚙️ Estrutura Narrativa
+# ⚙️ Estrutura Narrativa
 
+```text
 POV alternado (Luna / Noah)
+
 Primeira pessoa
+
 Romance contemporâneo psicológico
+
 Slow Burn
+
 Friends to Lovers
+
 Second Chance Romance
+
 Subtexto dominante
+
 Sem resolução emocional precoce
+```
 
 ---
 
-👥 Personagens
+# 👥 Personagens
 
-🌙 Luna Carvalho
+## 🌙 Luna Carvalho
 
-24 anos • Fotógrafa Profissional
+**24 anos • Fotógrafa Profissional**
 
-Aniversário: 14 de março
+**Aniversário:** 14 de março
 
 Criativa, sensível, observadora e extremamente teimosa.
 
 Transforma emoções em fotografias e guarda lembranças com uma intensidade que a impede de esquecer Noah.
 
-Aparência
+### Aparência
 
 - Cabelos castanhos escuros, levemente ondulados.
 - Olhos castanhos claros e muito expressivos.
@@ -64,35 +77,35 @@ Aparência
 - Altura média.
 - Estilo minimalista em tons claros.
 
-Medo: ter sido abandonada por escolha.
+**Medo:** ter sido abandonada por escolha.
 
 ---
 
-🖤 Noah Vasconcelos
+## 🖤 Noah Vasconcelos
 
-26 anos • CEO do Vasconcelos Group
+**26 anos • CEO do Vasconcelos Group**
 
-Aniversário: 2 de setembro
+**Aniversário:** 2 de setembro
 
 Controlado, inteligente, reservado e extremamente leal.
 
 Aprendeu cedo que responsabilidade vem antes dos próprios sentimentos.
 
-Aparência
+### Aparência
 
 - Cabelos castanho-escuros.
-- Olhos verde-avelã, que mudam conforme a iluminação.
+- Olhos verde-avelã.
 - Alto.
 - Corpo atlético.
 - Estilo corporativo sofisticado.
 
-Medo: que Luna jamais consiga perdoá-lo.
+**Medo:** que Luna jamais consiga perdoá-lo.
 
 ---
 
-💬 Emma
+## 💬 Emma
 
-Melhor amiga de Luna.
+**Melhor amiga de Luna**
 
 Sarcástica, espontânea e emocionalmente perceptiva.
 
@@ -100,9 +113,11 @@ Sarcástica, espontânea e emocionalmente perceptiva.
 
 ---
 
-🕯️ Sofia
+## 🕯️ Sofia
 
-Figura quase maternal.
+**Coordenadora de Projetos**
+
+Antiga babá de Noah e figura quase maternal para ambos.
 
 Conhece toda a verdade do passado de Luna e Noah.
 
@@ -112,19 +127,19 @@ Afetuosa, irônica e estrategicamente manipuladora.
 
 ---
 
-🎭 Felix
+## 🎭 Felix
 
-Designer.
+**Designer • 24 anos**
 
-Brincalhão, criativo e caótico na medida certa.
+Criativo, brincalhão e caótico na medida certa.
 
 Percebe tensões antes de todos e costuma expô-las através do humor.
 
 ---
 
-📊 Priya
+## 📊 Priya
 
-Marketing.
+**Marketing • 25 anos**
 
 Cabelos curtos.
 
@@ -134,9 +149,9 @@ Fala pouco, mas quando fala, muda completamente o rumo de uma conversa.
 
 ---
 
-📈 Sara
+## 📈 Sara
 
-Branding.
+**Branding • 28 anos**
 
 Discreta, organizada e focada em dados.
 
@@ -144,9 +159,11 @@ Sua presença reforça o ambiente corporativo e a profissionalização da equipe
 
 ---
 
-🚛 Marcus
+## 🚛 Marcus
 
-Responsável pela logística.
+**Logística • 35 anos**
+
+Responsável pela logística, transporte e organização operacional.
 
 Prático, eficiente e confiável.
 
@@ -154,40 +171,42 @@ Resolve problemas antes mesmo que eles cheguem aos protagonistas.
 
 ---
 
-🏛️ Vasconcelos Group
+# 🏛️ Vasconcelos Group
 
-Holding multissetorial fictícia de alto padrão, fundada por Henrique Vasconcelos.
+Holding multissetorial fictícia de alto padrão fundada por **Henrique Vasconcelos**.
 
-Inspirada na estrutura de grandes consultorias globais, bancos privados e holdings familiares, a empresa combina tradição, inovação e governança estratégica.
+Inspirada em grandes consultorias globais, holdings familiares e bancos privados, a empresa atua em diversos setores estratégicos, combinando tradição, inovação e governança corporativa.
 
-Áreas de atuação
+## Áreas de Atuação
 
-- Consultoria Estratégica
-- Gestão Empresarial
-- Tecnologia e Inovação
-- Branding e Comunicação
-- Logística e Operações
-- Desenvolvimento de Soluções
-- Investimentos
-
-Estrutura Corporativa
-
-Henrique Vasconcelos
-
-- Fundador do Vasconcelos Group.
-- Pai de Noah.
-- Atual Presidente do Conselho.
-- Responsável por preservar o legado e orientar as decisões estratégicas da holding.
-
-Noah Vasconcelos
-
-- CEO desde 2024.
-- Lidera a expansão e modernização do grupo.
-- Atua ao lado do Conselho Administrativo, equilibrando inovação e tradição.
+- 💼 Consultoria Estratégica
+- 📊 Gestão Empresarial
+- 💻 Tecnologia e Inovação
+- 🎨 Branding e Comunicação
+- 🚚 Logística e Operações
+- ⚙️ Desenvolvimento de Soluções
+- 📈 Investimentos
 
 ---
 
-🧠 Dinâmica Central
+## Estrutura Corporativa
+
+### Henrique Vasconcelos
+
+- Fundador do Vasconcelos Group.
+- Pai de Noah Vasconcelos.
+- Atual Presidente do Conselho.
+- Responsável por preservar o legado da empresa.
+
+### Noah Vasconcelos
+
+- CEO desde 2024.
+- Responsável pela modernização e expansão do grupo.
+- Lidera a empresa ao lado do Conselho Administrativo.
+
+---
+
+# 🧠 Dinâmica Central
 
 - Luna interpreta emoções e cria barreiras para se proteger.
 - Noah observa tudo, mas raramente expressa o que sente.
@@ -197,9 +216,9 @@ Noah Vasconcelos
 
 ---
 
-📖 Regras do Projeto
+# 📖 Regras do Projeto
 
-- ✔️ Slow burn verdadeiro.
+- ✔️ Slow Burn verdadeiro.
 - ✔️ Subtexto acima de diálogos expositivos.
 - ✔️ Emoções construídas gradualmente.
 - ✔️ Memórias influenciando comportamentos.
@@ -210,32 +229,34 @@ Noah Vasconcelos
 
 ---
 
-🌧️ Tom da Narrativa
+# 🌧️ Tom da Narrativa
 
 - Íntimo.
 - Psicológico.
-- Elegante.
 - Contemporâneo.
+- Elegante.
 - Cinematográfico.
 - Emocional.
 - Realista.
 
 ---
 
-📍 Status do Projeto
+# 📍 Status do Projeto
 
-- Universo narrativo consolidado.
-- Personagens principais e secundários definidos.
-- Vasconcelos Group estruturado.
-- Cronologia principal estabelecida.
-- Ambientação corporativa integrada ao desenvolvimento emocional da história.
+- ✅ Universo narrativo consolidado.
+- ✅ Personagens definidos.
+- ✅ Vasconcelos Group estruturado.
+- ✅ Cronologia principal estabelecida.
+- ✅ Ambientação corporativa integrada ao desenvolvimento emocional da história.
 
 ---
 
-<div align="center">🌙 "Eles não se perderam.
+<div align="center">
 
-Foram interrompidos.
+## 🌙 *"Eles não se perderam.*
 
-E agora precisam descobrir se ainda conseguem encontrar o caminho de volta."
+*Foram interrompidos.*
+
+*E agora precisam descobrir se ainda conseguem encontrar o caminho de volta."*
 
 </div>
