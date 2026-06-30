@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Vasconcelos Group — holding multissetorial com sede em Vancouver. Conheça nosso ecossistema, equipe e descubra seu perfil institucional." />
+    <meta name="theme-color" content="#0F0E17" />
     <title>Vasconcelos Group — Holding Multissetorial</title>
     
     <!-- ═══ FAVICON COM LOGO.PNG ═══ -->
@@ -32,7 +34,7 @@
         </ul>
         <div class="nav-right">
             <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema"></button>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navMobile">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -306,7 +308,7 @@
                 <div class="quiz-head fade-in">
                     <div class="eyebrow" style="justify-content:center">Perfil Institucional</div>
                     <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem)">Descubra sua posição<br />no <em class="gold" style="font-style:italic">ecossistema</em></h2>
-                    <p style="margin-top:16px;color:var(--fg2)">Cinco perguntas. Sem respostas certas. Apenas clareza sobre onde você pertenceria dentro de uma estrutura de alto desempenho.</p>
+                    <p style="margin-top:16px;color:var(--fg2)">Oito perguntas. Sem respostas certas. Apenas clareza sobre onde você pertenceria dentro de uma estrutura de alto desempenho.</p>
                 </div>
 
                 <div id="quiz-start" class="fade-in" style="text-align:center">
@@ -317,9 +319,9 @@
                     <div class="q-progress">
                         <div class="q-prog-meta">
                             <span class="q-prog-label">Avaliação em andamento</span>
-                            <span class="q-prog-n" id="q-count">1 / 5</span>
+                            <span class="q-prog-n" id="q-count">1 / 8</span>
                         </div>
-                        <div class="q-track"><div class="q-fill" id="q-fill" style="width:20%"></div></div>
+                        <div class="q-track"><div class="q-fill" id="q-fill" style="width:12.5%"></div></div>
                     </div>
 
                     <!-- Q1 -->
@@ -384,7 +386,46 @@
                             <div class="q-opt" data-s="branding"><div class="q-opt-dot"></div><span class="q-opt-text">Prefiro conexão — trabalho para audiências e preciso sentir o pulso do ambiente.</span></div>
                             <div class="q-opt" data-s="analise"><div class="q-opt-dot"></div><span class="q-opt-text">Sozinho na análise, integrado na aplicação — minha contribuição é mais precisa quando tenho espaço para pensar.</span></div>
                         </div>
-                        <div class="q-nav"><button class="q-btn" id="q-last-btn" data-q="4">Ver meu perfil</button></div>
+                        <div class="q-nav"><button class="q-btn" data-q="4">Continuar</button></div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="q-block" data-q="5">
+                        <p class="q-text">O que mais te <em>motiva</em> em um feedback recebido?</p>
+                        <div class="q-opts">
+                            <div class="q-opt" data-s="estrategia"><div class="q-opt-dot"></div><span class="q-opt-text">Saber se minhas decisões geraram o impacto de longo prazo esperado.</span></div>
+                            <div class="q-opt" data-s="inovacao"><div class="q-opt-dot"></div><span class="q-opt-text">Ouvir que algo que criei surpreendeu ou trouxe uma perspectiva nova.</span></div>
+                            <div class="q-opt" data-s="operacoes"><div class="q-opt-dot"></div><span class="q-opt-text">Confirmação de que a entrega foi precisa, completa e dentro do combinado.</span></div>
+                            <div class="q-opt" data-s="branding"><div class="q-opt-dot"></div><span class="q-opt-text">Perceber que a mensagem foi compreendida exatamente como eu pretendia.</span></div>
+                            <div class="q-opt" data-s="analise"><div class="q-opt-dot"></div><span class="q-opt-text">Validação de que minha análise estava correta e sustentou boas decisões.</span></div>
+                        </div>
+                        <div class="q-nav"><button class="q-btn" data-q="5">Continuar</button></div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="q-block" data-q="6">
+                        <p class="q-text">Diante de um <em>projeto que falhou</em>, qual é sua primeira reação?</p>
+                        <div class="q-opts">
+                            <div class="q-opt" data-s="estrategia"><div class="q-opt-dot"></div><span class="q-opt-text">Reavaliar a direção geral e entender onde a visão de longo prazo se perdeu.</span></div>
+                            <div class="q-opt" data-s="inovacao"><div class="q-opt-dot"></div><span class="q-opt-text">Tratar a falha como dado — testar uma abordagem completamente diferente.</span></div>
+                            <div class="q-opt" data-s="operacoes"><div class="q-opt-dot"></div><span class="q-opt-text">Mapear exatamente onde o processo quebrou e corrigir o fluxo na prática.</span></div>
+                            <div class="q-opt" data-s="branding"><div class="q-opt-dot"></div><span class="q-opt-text">Cuidar de como a falha será comunicada antes que vire narrativa de terceiros.</span></div>
+                            <div class="q-opt" data-s="analise"><div class="q-opt-dot"></div><span class="q-opt-text">Revisar os dados que embasaram a decisão para identificar a falha real.</span></div>
+                        </div>
+                        <div class="q-nav"><button class="q-btn" data-q="6">Continuar</button></div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="q-block" data-q="7">
+                        <p class="q-text">No fim de um ciclo, o que mais te <em>orgulha</em>?</p>
+                        <div class="q-opts">
+                            <div class="q-opt" data-s="estrategia"><div class="q-opt-dot"></div><span class="q-opt-text">Ter conduzido pessoas e decisões rumo a um objetivo claro e sustentável.</span></div>
+                            <div class="q-opt" data-s="inovacao"><div class="q-opt-dot"></div><span class="q-opt-text">Ter criado algo que não existia antes de eu colocar a mão.</span></div>
+                            <div class="q-opt" data-s="operacoes"><div class="q-opt-dot"></div><span class="q-opt-text">Ter feito tudo funcionar, no prazo, sem que ninguém precisasse se preocupar.</span></div>
+                            <div class="q-opt" data-s="branding"><div class="q-opt-dot"></div><span class="q-opt-text">Ter mudado a forma como as pessoas enxergam algo ou alguém.</span></div>
+                            <div class="q-opt" data-s="analise"><div class="q-opt-dot"></div><span class="q-opt-text">Ter encontrado o padrão ou risco que ninguém mais havia percebido.</span></div>
+                        </div>
+                        <div class="q-nav"><button class="q-btn" id="q-last-btn" data-q="7">Ver meu perfil</button></div>
                     </div>
 
                     <!-- RESULTADO -->
@@ -631,4 +672,4 @@
     <!-- Seu script principal -->
     <script src="vg.js"></script>
 </body>
-    </html>
+                                </html>
