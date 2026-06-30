@@ -116,7 +116,7 @@
         numObs.observe(numSection);
     }
 
-    // ─── CARROSSEL COM IMAGENS CENTRALIZADAS ──
+    // ─── CARROSSEL COM IMAGENS (SEM PASTA) ──
     const carrosselData = [
         {
             name: 'Henrique Vasconcelos',
@@ -226,7 +226,7 @@
         });
     }
 
-    // ─── FUNCIONÁRIOS COM IMAGENS CENTRALIZADAS ──
+    // ─── FUNCIONÁRIOS (SEM PASTA) ──────────
     const funcionarios = [
         {
             name: 'Henrique Vasconcelos',
@@ -567,16 +567,49 @@
         }
     });
 
-    document.getElementById('btn-dl-badge')?.addEventListener('click', () => {
+    // ─── DOWNLOAD PDF ─────────────────────────
+    document.getElementById('btn-dl-badge')?.addEventListener('click', function() {
         const badge = document.getElementById('the-badge');
         if (!badge) return;
-        html2canvas(badge, { scale: 3, useCORS: true, backgroundColor: null, logging: false })
-            .then(canvas => {
-                const a = document.createElement('a');
-                a.download = 'cracha_VG_' + (document.getElementById('b-name-el')?.textContent || 'colaborador').replace(/\s+/g, '_') + '.png';
-                a.href = canvas.toDataURL('image/png');
-                a.click();
+        
+        const originalText = this.textContent;
+        this.textContent = '⏳ Gerando PDF...';
+        this.disabled = true;
+        
+        html2canvas(badge, { 
+            scale: 3, 
+            useCORS: true, 
+            backgroundColor: null, 
+            logging: false,
+            width: 320,
+            height: 600
+        })
+        .then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
             });
+            
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save('cracha_VG_' + (document.getElementById('b-name-el')?.textContent || 'colaborador').replace(/\s+/g, '_') + '.pdf');
+            
+            this.textContent = '✅ PDF salvo!';
+            this.disabled = false;
+            setTimeout(() => {
+                this.textContent = '⬇ Salvar como PDF';
+            }, 3000);
+        })
+        .catch(err => {
+            console.error('Erro ao gerar PDF:', err);
+            this.textContent = '❌ Erro! Tente novamente';
+            this.disabled = false;
+            setTimeout(() => {
+                this.textContent = '⬇ Salvar como PDF';
+            }, 3000);
+        });
     });
 
     document.getElementById('btn-share-badge')?.addEventListener('click', function() {
