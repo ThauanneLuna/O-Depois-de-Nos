@@ -29,7 +29,6 @@
         pages.forEach(p => p.classList.remove('active'));
         const target = document.getElementById('page-' + pageId);
         if (target) target.classList.add('active');
-        // Fecha mobile
         closeMobile();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -67,7 +66,6 @@
 
     navOverlay.addEventListener('click', closeMobile);
 
-    // Fecha mobile ao clicar em link
     document.querySelectorAll('.nav-mobile a').forEach(a => {
         a.addEventListener('click', () => {
             const page = a.dataset.page;
@@ -105,7 +103,6 @@
         });
     }
 
-    // Dispara contadores quando a seção ficar visível
     const numSection = document.querySelector('.numbers-section');
     if (numSection) {
         const numObs = new IntersectionObserver((entries) => {
@@ -119,16 +116,64 @@
         numObs.observe(numSection);
     }
 
-    // ─── CARROSSEL ───────────────────────────
+    // ─── CARROSSEL COM IMAGENS CENTRALIZADAS ──
     const carrosselData = [
-        { name: 'Henrique Vasconcelos', role: 'Presidente do Conselho', dept: 'Diretoria', initials: 'HV' },
-        { name: 'Noah Vasconcelos', role: 'CEO', dept: 'Diretoria', initials: 'NV' },
-        { name: 'Sofia Mendes', role: 'Coordenadora de Projetos', dept: 'Projetos', initials: 'SM' },
-        { name: 'Marcus Oliveira', role: 'Gerente de Logística', dept: 'Logística', initials: 'MO' },
-        { name: 'Priya Sharma', role: 'Analista de Marketing', dept: 'Marketing', initials: 'PS' },
-        { name: 'Felix Moreira', role: 'Designer UI/UX', dept: 'Design', initials: 'FM' },
-        { name: 'Sara Costa', role: 'Analista de Branding', dept: 'Branding', initials: 'SC' },
-        { name: 'Luna Carvalho', role: 'Fotógrafa Corporativa', dept: 'Parceiros', initials: 'LC' },
+        {
+            name: 'Henrique Vasconcelos',
+            role: 'Presidente do Conselho',
+            dept: 'Diretoria',
+            initials: 'HV',
+            img: 'henrique.png'
+        },
+        {
+            name: 'Noah Vasconcelos',
+            role: 'CEO',
+            dept: 'Diretoria',
+            initials: 'NV',
+            img: 'noah.png'
+        },
+        {
+            name: 'Sofia Mendes',
+            role: 'Coordenadora de Projetos',
+            dept: 'Projetos',
+            initials: 'SM',
+            img: 'sofia.png'
+        },
+        {
+            name: 'Marcus Oliveira',
+            role: 'Gerente de Logística',
+            dept: 'Logística',
+            initials: 'MO',
+            img: 'marcus.png'
+        },
+        {
+            name: 'Priya Sharma',
+            role: 'Analista de Marketing',
+            dept: 'Marketing',
+            initials: 'PS',
+            img: 'priya.png'
+        },
+        {
+            name: 'Felix Moreira',
+            role: 'Designer UI/UX',
+            dept: 'Design',
+            initials: 'FM',
+            img: 'felix.png'
+        },
+        {
+            name: 'Sara Costa',
+            role: 'Analista de Branding',
+            dept: 'Branding',
+            initials: 'SC',
+            img: 'sara.png'
+        },
+        {
+            name: 'Luna Carvalho',
+            role: 'Fotógrafa Corporativa',
+            dept: 'Parceiros',
+            initials: 'LC',
+            img: 'luna.png'
+        },
     ];
 
     const track = document.getElementById('carrosselTrack');
@@ -142,7 +187,10 @@
         const visible = carrosselData.slice(start, end);
         track.innerHTML = visible.map(p => `
             <div class="carrossel-card">
-                <div class="avatar">${p.initials}</div>
+                <div class="avatar" style="background: none; padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <img src="${p.img}" alt="${p.name}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--gold);" 
+                         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold-d),var(--gold))';this.parentElement.textContent='${p.initials}';this.parentElement.style.color='var(--ink)';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='36px';this.parentElement.style.fontFamily='Cormorant Garamond, serif';this.parentElement.style.fontWeight='600';">
+                </div>
                 <h4>${p.name}</h4>
                 <div class="role">${p.role}</div>
                 <div class="dept">${p.dept}</div>
@@ -154,7 +202,6 @@
         if (window.innerWidth < 600) cardsPerView = 1;
         else if (window.innerWidth < 900) cardsPerView = 2;
         else cardsPerView = 3;
-        // Ajusta índice para não ultrapassar
         if (carrosselIndex + cardsPerView > carrosselData.length) {
             carrosselIndex = Math.max(0, carrosselData.length - cardsPerView);
         }
@@ -179,16 +226,72 @@
         });
     }
 
-    // ─── FUNCIONÁRIOS (Página) ──────────────
+    // ─── FUNCIONÁRIOS COM IMAGENS CENTRALIZADAS ──
     const funcionarios = [
-        { name: 'Henrique Vasconcelos', role: 'Presidente do Conselho', dept: 'Diretoria', bio: 'Fundador da Vasconcelos Group. Pai de Noah. Possui poder de veto e representa a tradição e o legado da holding.', tag: 'Fundador' },
-        { name: 'Noah Vasconcelos', role: 'CEO', dept: 'Diretoria', bio: 'Assumiu a gestão executiva em 2024. Responsável pela estratégia e operações do grupo.', tag: 'Liderança' },
-        { name: 'Sofia Mendes', role: 'Coordenadora de Projetos', dept: 'Projetos', bio: 'Gerencia projetos de alto impacto, garantindo alinhamento entre equipes e entregas.', tag: 'Gestão' },
-        { name: 'Marcus Oliveira', role: 'Gerente de Logística', dept: 'Logística', bio: '35 anos. Especialista em otimização de cadeias de suprimento e operações complexas.', tag: 'Operações' },
-        { name: 'Priya Sharma', role: 'Analista de Marketing', dept: 'Marketing', bio: '25 anos. Estrategista de marketing digital e posicionamento de marca.', tag: 'Estratégia' },
-        { name: 'Felix Moreira', role: 'Designer UI/UX', dept: 'Design', bio: '24 anos. Cria experiências digitais que combinam estética e funcionalidade.', tag: 'Criatividade' },
-        { name: 'Sara Costa', role: 'Analista de Branding', dept: 'Branding', bio: '28 anos. Constrói narrativas de marca e identidade visual para o grupo.', tag: 'Branding' },
-        { name: 'Luna Carvalho', role: 'Fotógrafa Corporativa', dept: 'Parceiros', bio: '24 anos. Profissional parceira, contratada para campanhas e eventos institucionais.', tag: 'Parceira' },
+        {
+            name: 'Henrique Vasconcelos',
+            role: 'Presidente do Conselho',
+            dept: 'Diretoria',
+            bio: 'Fundador da Vasconcelos Group. Pai de Noah. Possui poder de veto e representa a tradição e o legado da holding.',
+            tag: 'Fundador',
+            img: 'henrique.png'
+        },
+        {
+            name: 'Noah Vasconcelos',
+            role: 'CEO',
+            dept: 'Diretoria',
+            bio: 'Assumiu a gestão executiva em 2024. Responsável pela estratégia e operações do grupo.',
+            tag: 'Liderança',
+            img: 'noah.png'
+        },
+        {
+            name: 'Sofia Mendes',
+            role: 'Coordenadora de Projetos',
+            dept: 'Projetos',
+            bio: 'Gerencia projetos de alto impacto, garantindo alinhamento entre equipes e entregas.',
+            tag: 'Gestão',
+            img: 'sofia.png'
+        },
+        {
+            name: 'Marcus Oliveira',
+            role: 'Gerente de Logística',
+            dept: 'Logística',
+            bio: '35 anos. Especialista em otimização de cadeias de suprimento e operações complexas.',
+            tag: 'Operações',
+            img: 'marcus.png'
+        },
+        {
+            name: 'Priya Sharma',
+            role: 'Analista de Marketing',
+            dept: 'Marketing',
+            bio: '25 anos. Estrategista de marketing digital e posicionamento de marca.',
+            tag: 'Estratégia',
+            img: 'priya.png'
+        },
+        {
+            name: 'Felix Moreira',
+            role: 'Designer UI/UX',
+            dept: 'Design',
+            bio: '24 anos. Cria experiências digitais que combinam estética e funcionalidade.',
+            tag: 'Criatividade',
+            img: 'felix.png'
+        },
+        {
+            name: 'Sara Costa',
+            role: 'Analista de Branding',
+            dept: 'Branding',
+            bio: '28 anos. Constrói narrativas de marca e identidade visual para o grupo.',
+            tag: 'Branding',
+            img: 'sara.png'
+        },
+        {
+            name: 'Luna Carvalho',
+            role: 'Fotógrafa Corporativa',
+            dept: 'Parceiros',
+            bio: '24 anos. Profissional parceira, contratada para campanhas e eventos institucionais.',
+            tag: 'Parceira',
+            img: 'luna.png'
+        },
     ];
 
     const grid = document.getElementById('funcionariosGrid');
@@ -206,7 +309,10 @@
         });
         grid.innerHTML = filtered.map(f => `
             <div class="func-card">
-                <div class="avatar">${f.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</div>
+                <div class="avatar" style="background: none; padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <img src="${f.img}" alt="${f.name}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--gold);" 
+                         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold-d),var(--gold))';this.parentElement.textContent='${f.name.split(' ').map(n => n[0]).join('').slice(0, 2)}';this.parentElement.style.color='var(--ink)';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='28px';this.parentElement.style.fontFamily='Cormorant Garamond, serif';this.parentElement.style.fontWeight='600';">
+                </div>
                 <h4>${f.name}</h4>
                 <div class="role">${f.role}</div>
                 <div class="dept">${f.dept}</div>
@@ -337,7 +443,6 @@
         resDesc.textContent = r.desc;
         resRole.textContent = r.role;
 
-        // Pre-fill badge
         const sel = document.getElementById('b-dept-sel');
         if (sel) {
             for (let o of sel.options) {
@@ -462,7 +567,6 @@
         }
     });
 
-    // Download badge
     document.getElementById('btn-dl-badge')?.addEventListener('click', () => {
         const badge = document.getElementById('the-badge');
         if (!badge) return;
@@ -475,13 +579,11 @@
             });
     });
 
-    // Share badge
     document.getElementById('btn-share-badge')?.addEventListener('click', function() {
         navigator.clipboard.writeText(window.location.href + '#cracha').then(() => {
             this.textContent = '✓ Link copiado!';
             setTimeout(() => { this.textContent = 'Compartilhar crachá'; }, 2500);
         }).catch(() => {
-            // Fallback
             const dummy = document.createElement('input');
             dummy.value = window.location.href + '#cracha';
             document.body.appendChild(dummy);
@@ -493,14 +595,11 @@
         });
     });
 
-    // ─── REDIRECIONA PARA CRACHÁ VIA QUIZ ──
     document.getElementById('res-cta-link')?.addEventListener('click', (e) => {
         e.preventDefault();
         navigate('cracha');
     });
 
-    // ─── INICIALIZA ─────────────────────────
-    // Garante que a home está ativa
     if (!document.querySelector('.page.active')) {
         document.getElementById('page-home')?.classList.add('active');
     }
