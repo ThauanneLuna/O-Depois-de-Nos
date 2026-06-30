@@ -502,6 +502,22 @@
         });
     });
 
+    function cropToSquareDataURL(dataUrl, size, callback) {
+        const img = new Image();
+        img.onload = () => {
+            const side = Math.min(img.width, img.height);
+            const sx = (img.width - side) / 2;
+            const sy = (img.height - side) / 2;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, sx, sy, side, side, 0, 0, size, size);
+            callback(canvas.toDataURL('image/png'));
+        };
+        img.src = dataUrl;
+    }
+
     const fotoFile = document.getElementById('foto-file');
     const fotoImgPrev = document.getElementById('foto-img-prev');
     const fotoIcon = document.getElementById('foto-icon');
@@ -511,10 +527,14 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                photoUrl = ev.target.result;
-                fotoImgPrev.src = photoUrl;
-                fotoImgPrev.style.display = 'block';
-                fotoIcon.style.display = 'none';
+                // Recorta para um quadrado perfeito: evita que o html2canvas
+                // (que não respeita object-fit corretamente) estique a foto.
+                cropToSquareDataURL(ev.target.result, 400, squareUrl => {
+                    photoUrl = squareUrl;
+                    fotoImgPrev.src = photoUrl;
+                    fotoImgPrev.style.display = 'block';
+                    fotoIcon.style.display = 'none';
+                });
             };
             reader.readAsDataURL(file);
         });
@@ -597,13 +617,29 @@
         .then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const { jsPDF } = window.jspdf;
+
+            // Folha A4 em milímetros (retrato)
             const pdf = new jsPDF({
                 orientation: 'portrait',
-                unit: 'px',
-                format: [canvas.width, canvas.height]
+                unit: 'mm',
+                format: 'a4'
             });
-            
-            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            const pageW = pdf.internal.pageSize.getWidth();
+            const pageH = pdf.internal.pageSize.getHeight();
+
+            // Mantém a proporção real do crachá ao encaixar na folha A4
+            const aspect = canvas.width / canvas.height;
+            let imgW = 100; // largura alvo em mm
+            let imgH = imgW / aspect;
+            const maxH = pageH - 40; // margem de segurança
+            if (imgH > maxH) {
+                imgH = maxH;
+                imgW = imgH * aspect;
+            }
+            const x = (pageW - imgW) / 2;
+            const y = (pageH - imgH) / 2;
+
+            pdf.addImage(imgData, 'PNG', x, y, imgW, imgH);
             pdf.save('cracha_VG_' + (document.getElementById('b-name-el')?.textContent || 'colaborador').replace(/\s+/g, '_') + '.pdf');
             
             this.textContent = '✅ PDF salvo!';
