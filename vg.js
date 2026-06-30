@@ -575,10 +575,11 @@
 
         if (photoEl && initialsEl) {
             if (photoUrl) {
-                photoEl.src = photoUrl;
+                photoEl.style.backgroundImage = `url("${photoUrl}")`;
                 photoEl.style.display = 'block';
                 initialsEl.style.display = 'none';
             } else {
+                photoEl.style.backgroundImage = 'none';
                 photoEl.style.display = 'none';
                 initialsEl.style.display = 'block';
             }
