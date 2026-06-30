@@ -18,7 +18,9 @@
 
     // ─── TEMA ───────────────────────────────
     const saved = localStorage.getItem('vg-theme');
-    if (saved === 'light') html.classList.add('light');
+    if (saved === 'light' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        html.classList.add('light');
+    }
     toggle.addEventListener('click', () => {
         html.classList.toggle('light');
         localStorage.setItem('vg-theme', html.classList.contains('light') ? 'light' : 'dark');
@@ -46,6 +48,7 @@
         navMobile.classList.add('open');
         navOverlay.classList.add('open');
         hamburger.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
     }
 
@@ -53,6 +56,7 @@
         navMobile.classList.remove('open');
         navOverlay.classList.remove('open');
         hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
     }
 
@@ -376,8 +380,10 @@
         }
     };
 
+    const qBlocks = document.querySelectorAll('.q-block');
+    const qTotal = qBlocks.length; // total de perguntas, calculado dinamicamente
     const qScores = { estrategia: 0, inovacao: 0, operacoes: 0, branding: 0, analise: 0 };
-    const qAnswers = [null, null, null, null, null];
+    const qAnswers = new Array(qTotal).fill(null);
     let qCurrent = 0;
 
     const startBtn = document.getElementById('quiz-start-btn');
@@ -414,12 +420,12 @@
         btn.addEventListener('click', function() {
             if (!this.classList.contains('on')) return;
             const q = parseInt(this.dataset.q);
-            if (q < 4) {
+            if (q < qTotal - 1) {
                 document.querySelector(`.q-block[data-q="${q}"]`).classList.remove('active');
                 document.querySelector(`.q-block[data-q="${q + 1}"]`).classList.add('active');
                 qCurrent = q + 1;
-                qCount.textContent = (q + 2) + ' / 5';
-                qFill.style.width = ((q + 2) / 5 * 100) + '%';
+                qCount.textContent = (q + 2) + ' / ' + qTotal;
+                qFill.style.width = ((q + 2) / qTotal * 100) + '%';
             } else {
                 showQResult();
             }
@@ -428,14 +434,16 @@
 
     function showQResult() {
         qAnswers.forEach(a => { if (a) qScores[a]++; });
-        let winner = 'estrategia',
-            max = 0;
+        let max = 0;
         for (const k in qScores) {
-            if (qScores[k] > max) { max = qScores[k];
-                winner = k; }
+            if (qScores[k] > max) max = qScores[k];
         }
+        // Em caso de empate, escolhe aleatoriamente entre os perfis empatados
+        // em vez de sempre favorecer o primeiro da lista.
+        const tied = Object.keys(qScores).filter(k => qScores[k] === max);
+        const winner = tied[Math.floor(Math.random() * tied.length)];
         const r = qResults[winner];
-        document.querySelector('.q-block[data-q="4"]').classList.remove('active');
+        document.querySelector(`.q-block[data-q="${qTotal - 1}"]`).classList.remove('active');
         document.querySelector('.q-progress').style.display = 'none';
         qResult.classList.add('show');
         resCategory.innerHTML = r.cat;
@@ -461,8 +469,8 @@
         document.querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected'));
         document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('on'));
         document.querySelectorAll('.q-block').forEach((b, i) => b.classList.toggle('active', i === 0));
-        qCount.textContent = '1 / 5';
-        qFill.style.width = '20%';
+        qCount.textContent = '1 / ' + qTotal;
+        qFill.style.width = (100 / qTotal) + '%';
         qCurrent = 0;
     });
 
