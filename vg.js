@@ -587,10 +587,12 @@
         html2canvas(badge, { 
             scale: 3, 
             useCORS: true, 
-            backgroundColor: null, 
+            backgroundColor: '#ffffff', 
             logging: false,
-            width: 320,
-            height: 600
+            width: badge.scrollWidth,
+            height: badge.scrollHeight,
+            windowWidth: badge.scrollWidth,
+            windowHeight: badge.scrollHeight
         })
         .then(canvas => {
             const imgData = canvas.toDataURL('image/png');
