@@ -243,6 +243,15 @@ nav {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* ── LOGO NO HEADER ── */
+.nav-logo-img {
+    height: 32px;
+    width: auto;
+    border-radius: 4px;
+    display: block;
+}
+
 .nav-mark {
     width: 32px;
     height: 32px;
@@ -1730,6 +1739,14 @@ footer {
     gap: 10px;
     margin-bottom: 18px;
 }
+
+/* ── LOGO NO FOOTER ── */
+.footer-brand .f-logo img {
+    height: 32px;
+    width: auto;
+    border-radius: 4px;
+}
+
 .footer-brand p {
     font-size: 13px;
     color: rgba(255, 255, 255, .28);
@@ -1845,6 +1862,7 @@ footer {
         flex: 0 0 calc(50% - 12px);
     }
 }
+
 @media (max-width: 768px) {
     nav {
         padding: 0 24px;
@@ -1855,6 +1873,12 @@ footer {
     .hamburger {
         display: flex;
     }
+
+    /* ── LOGO RESPONSIVA ── */
+    .nav-logo-img {
+        height: 28px;
+    }
+
     .hero,
     .sobre,
     .eco-preview,
@@ -1919,5 +1943,24 @@ footer {
     }
     .hero-h1 {
         font-size: clamp(2.8rem, 12vw, 4rem);
+    }
+}
+
+@media (max-width: 480px) {
+    /* ── LOGO RESPONSIVA MOBILE ── */
+    .nav-logo-img {
+        height: 24px;
+    }
+
+    .footer-brand .f-logo img {
+        height: 28px;
+    }
+
+    .nav-name {
+        font-size: 14px;
+    }
+
+    .nav-logo {
+        gap: 8px;
     }
 }
