@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🥀 Depois de Nós
+# 🥀 O Depois de Nós
 
 ### *Algumas histórias nunca terminam — só esperam o momento certo para recomeçar.*
 
@@ -12,7 +12,7 @@
 
 # 🌫️ Sobre o Projeto
 
-**Depois de Nós** é um romance contemporâneo psicológico que acompanha a reconstrução de uma amizade interrompida, de uma confiança quebrada e de um amor que nunca teve a oportunidade de existir.
+**O Depois de Nós** é um romance contemporâneo psicológico que acompanha a reconstrução de uma amizade interrompida, de uma confiança quebrada e de um amor que nunca teve a oportunidade de existir.
 
 A história acompanha **Luna Carvalho**, fotógrafa profissional, e **Noah Vasconcelos**, CEO do **Vasconcelos Group**, que voltam a se encontrar quase dez anos depois de um acidente que mudou completamente suas vidas.
 
