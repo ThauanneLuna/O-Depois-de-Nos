@@ -757,3 +757,69 @@
   background: var(--lantern);
   color: var(--night);
 }
+
+/* ── ENCERRAMENTO DA SÉRIE 1 ── */
+.series-end-section {
+  text-align: center;
+  padding: 80px 24px 60px;
+  border-top: 1px solid var(--dusk);
+  margin-top: 80px;
+}
+
+.series-end-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.series-end-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lantern);
+  margin-bottom: 24px;
+  opacity: 0.85;
+}
+
+.series-end-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--paper);
+  margin-bottom: 48px;
+  opacity: 0.9;
+}
+
+.series-end-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid var(--lantern);
+  border-radius: 20px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--lantern);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: background 0.3s, color 0.3s;
+}
+
+.series-end-btn:hover {
+  background: var(--lantern);
+  color: var(--night);
+}
+
+/* tema claro */
+.theme-light .series-end-text {
+  color: var(--ink);
+}
+
+.theme-light .series-end-btn {
+  color: var(--lantern);
+}
+
+.theme-light .series-end-btn:hover {
+  background: var(--lantern);
+  color: var(--night);
+}

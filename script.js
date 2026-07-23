@@ -416,49 +416,71 @@ chapters.forEach((h2, index) => {
   const chapters = document.querySelectorAll('.chapter-title');
   if (!chapters.length) return;
 
-  // Detectar volume atual usando o atributo content
-  const meta = document.querySelector('meta[name="volume"]');
-  const currentVolume = meta ? parseInt(meta.content) || 1 : 1;
+  const metaVolume = document.querySelector('meta[name="volume"]');
+  const currentVolume = metaVolume ? parseInt(metaVolume.content) || 1 : 1;
 
   function getVolumePath(volumeNum) {
-    if (volumeNum === 1) return 'index.html';
+
+    // Página inicial da Série 1
+    if (volumeNum === 1) {
+      return 'index.html';
+    }
+
+    // Após o Arco 5 começa a Série 2
+    if (volumeNum === 6) {
+      return 'ASN.html';
+    }
+
     return `arco${volumeNum}.html`;
   }
 
-  // Função para ir a um capítulo
   function goTo(index) {
     if (index < 0 || index >= chapters.length) return;
-    const target = chapters[index];
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    chapters[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 
-  // Injetar navegação em cada capítulo
   chapters.forEach((h2, index) => {
+
     const nav = document.createElement('div');
     nav.className = 'chapter-nav';
     nav.dataset.index = index;
 
     const prevBtn = document.createElement('button');
+
     prevBtn.textContent = '← Capítulo anterior';
+
     prevBtn.disabled = index === 0;
+
     prevBtn.addEventListener('click', () => {
+
       if (index === 0 && currentVolume > 1) {
+
         window.location.href = getVolumePath(currentVolume - 1);
+
       } else if (index > 0) {
         goTo(index - 1);
       }
+
     });
 
     const nextBtn = document.createElement('button');
+
     nextBtn.textContent = 'Próximo capítulo →';
+
     nextBtn.disabled = index === chapters.length - 1;
     nextBtn.addEventListener('click', () => {
+
       if (index === chapters.length - 1) {
-        // Último capítulo → próximo volume
-        // Usa setTimeout para garantir que o clique seja processado antes da navegação
+
         setTimeout(() => {
           window.location.href = getVolumePath(currentVolume + 1);
-        }, 100);
+        },100);
+
+
       } else {
         goTo(index + 1);
       }
@@ -467,28 +489,36 @@ chapters.forEach((h2, index) => {
     nav.appendChild(prevBtn);
     nav.appendChild(nextBtn);
 
-    // Inserir após o conteúdo do capítulo
+    const main = document.querySelector('main');
+
     let nextSibling = h2.nextElementSibling;
-    while (nextSibling && !nextSibling.matches('.chapter-title')) {
+
+    while(nextSibling && !nextSibling.matches('.chapter-title')) {
+
       nextSibling = nextSibling.nextElementSibling;
     }
-    const main = document.querySelector('main');
-    if (nextSibling && nextSibling.matches('.chapter-title')) {
-      main.insertBefore(nav, nextSibling);
+    
+    if(nextSibling) {
+
+      main.insertBefore(nav,nextSibling);
+
     } else {
-      const footer = document.querySelector('footer');
-      if (footer) main.insertBefore(nav, footer);
-      else main.appendChild(nav);
+
+      main.appendChild(nav);
+
     }
+    setTimeout(() => {
 
-    // Adicionar a classe visible após um pequeno delay para animação
-    setTimeout(() => nav.classList.add('visible'), 100);
+      nav.classList.add('visible');
+
+    },100);
+
   });
-
 })();
 
 /* ══ CONTROLE DO MODAL "ACABOU?" ══ */
 (function() {
+
   const modal = document.getElementById('arc-end-modal');
   const btn = document.getElementById('arc-end-btn');
   const yesBtn = document.getElementById('arc-yes');
@@ -496,41 +526,81 @@ chapters.forEach((h2, index) => {
 
   if (!modal || !btn) return;
 
-  // Abre o modal
   btn.addEventListener('click', () => {
+
     modal.classList.add('open');
+
   });
 
-  // Fecha o modal com "Não"
-  if (noBtn) {
-    noBtn.addEventListener('click', () => {
+  if(noBtn){
+
+    noBtn.addEventListener('click',()=>{
+
       modal.classList.remove('open');
+
     });
+
   }
 
-  // "Sim" → vai para o próximo arco
-  if (yesBtn) {
-    yesBtn.addEventListener('click', () => {
+  if(yesBtn){
+
+    yesBtn.addEventListener('click',()=>{
+
       const meta = document.querySelector('meta[name="volume"]');
+
       const currentVolume = meta ? parseInt(meta.content) || 1 : 1;
-      window.location.href = currentVolume === 1 ? 'arco2.html' : `arco${currentVolume + 1}.html`;
+
+      // Final da Série 1
+      if(currentVolume === 5){
+
+        window.location.href = 'ASN.html';
+
+        return;
+
+      }
+      
+      if(currentVolume === 1){
+
+        window.location.href='arco2.html';
+
+      }else{
+
+        window.location.href=`arco${currentVolume+1}.html`;
+
+      }
+
     });
+
   }
 
-  // Fecha com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') modal.classList.remove('open');
+  document.addEventListener('keydown',(e)=>{
+
+    if(e.key==='Escape'){
+
+      modal.classList.remove('open');
+
+    }
+
   });
 
-  // Fecha clicando fora do modal
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('open');
+  modal.addEventListener('click',(e)=>{
+
+    if(e.target===modal){
+
+      modal.classList.remove('open');
+
+    }
+
   });
 })();
 
 /* ══ SALVAR PROGRESSO DE LEITURA ══ */
 (function() {
-  const STORAGE_KEY = 'reading-progress';
+const metaSeries = document.querySelector('meta[name="series"]');
+
+const seriesName = metaSeries ? metaSeries.content : 'DON';
+
+const STORAGE_KEY = `reading-progress-${seriesName}`;
   const modal = document.getElementById('continue-modal');
   const continueYes = document.getElementById('continue-yes');
   const continueNo = document.getElementById('continue-no');
